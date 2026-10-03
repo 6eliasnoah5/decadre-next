@@ -167,12 +167,12 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
                 <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
               </div>
               <div className="col">
-                <span className="lbl">{t("contact.studio")}</span>
-                <span>{t("contact.studioValue")}</span>
+                <span className="lbl">{t("contact.available")}</span>
+                <span>{t("contact.availableValue")}</span>
               </div>
               <div className="col">
-                <span className="lbl">{t("contact.intake")}</span>
-                <span>{t("contact.intakeValue")}</span>
+                <span className="lbl">{t("contact.area")}</span>
+                <span>{t("contact.areaValue")}</span>
               </div>
               <div className="col">
                 <span className="lbl">{t("contact.social")}</span>

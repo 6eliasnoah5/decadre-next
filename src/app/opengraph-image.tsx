@@ -10,7 +10,7 @@ import { ImageResponse } from "next/og";
 // Einbindung wuerde sonst auf localhost zeigen.
 // Die Schriften liegen als TTF in assets/fonts (Satori liest kein woff2).
 
-export const alt = "Décadre Studio — Stuttgart";
+export const alt = "Décadre — Produktion und Bild";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -48,7 +48,7 @@ export default async function OpengraphImage() {
             letterSpacing: TITLE_SIZE * -0.05,
           }}
         >
-          Décadre Studio
+          Décadre
         </div>
         <div
           style={{
@@ -59,7 +59,7 @@ export default async function OpengraphImage() {
             letterSpacing: 26 * 0.04,
           }}
         >
-          [ stuttgart — twentytwentysix ]
+          [ bild, recherche, produktion — twentytwentysix ]
         </div>
       </div>
     ),

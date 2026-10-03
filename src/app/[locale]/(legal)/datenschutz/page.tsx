@@ -14,8 +14,8 @@ export default function Datenschutz() {
     <>
       {/* ============ HEADER ============ */}
       <SiteHeader>
-        <Link className="hdr__brand" href="/" aria-label="Décadre Studio — home">Décadre Studio</Link>
-        <Link className="hdr__back" href="/">[ ← back ]</Link>
+        <Link className="hdr__brand" href="/" aria-label="Décadre — Startseite">Décadre</Link>
+        <Link className="hdr__back" href="/">[ ← zurück ]</Link>
       </SiteHeader>
 
       <main>
@@ -81,8 +81,8 @@ export default function Datenschutz() {
       {/* ============ FOOTER ============ */}
       <footer>
         <div className="ftr">
-          <div><b>Décadre Studio</b> — Stuttgart</div>
-          <div className="center"><LocalClock place="Stuttgart" clockId="clock" separator=" " /></div>
+          <div><b>Décadre</b> — Einzelunternehmen</div>
+          <div className="center"><LocalClock place="Deutschland" clockId="clock" separator=" " /></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
             <Link href="/impressum">[ impressum ]</Link>
@@ -90,7 +90,7 @@ export default function Datenschutz() {
           </div>
         </div>
         <div className="ftr__base container">
-          © twentytwentysix · décadre studio. all rights reserved.
+          © twentytwentysix · décadre. alle rechte vorbehalten.
         </div>
       </footer>
 
