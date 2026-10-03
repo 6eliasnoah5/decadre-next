@@ -603,7 +603,8 @@ html:not(.js) .gallery__controls { visibility: hidden; }
 .contact__meta {
   margin-top: 56px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* sechs Eintraege: zwei Reihen zu drei, mobil zwei Spalten */
+  grid-template-columns: repeat(3, 1fr);
   gap: 32px 24px;
   margin-bottom: 0;
   font-family: var(--font-mono);

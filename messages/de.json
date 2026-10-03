@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Décadre — Elias Noah Nies, Producer",
-    "description": "Décadre ist das Studio von Elias Noah Nies. Produktion für Projekte, die es wert sind, Zeit zu bekommen. Film, Fotografie, Raum. Weltweit."
+    "title": "Décadre Studio — Elias Noah Nies, Producer",
+    "description": "Décadre Studio ist das Studio von Elias Noah Nies. Produktion für Projekte, die es wert sind, Zeit zu bekommen. Film, Fotografie, Raum. Weltweit."
   },
   "lang": {
     "label": "sprache",
@@ -41,7 +41,7 @@
       "id": "projekte",
       "num": "[ 02 ]",
       "label": "projekte",
-      "hint": "",
+      "hint": "[ auswahl ]",
       "inHeader": true
     },
     "kontakt": {
@@ -54,25 +54,24 @@
   },
   "decadre": {
     "title": [
-      "Etwas,",
-      "das",
-      "antwortet."
+      "Aus dem",
+      "Rahmen",
+      "genommen."
     ],
     "body": [
-      "Ich bin Elias Noah Nies. Producer. Décadre ist das Studio, über das ich arbeite, im Moment allein. Wer hier anfragt, spricht mit dem, der dann auch am Set steht.",
-      "Der Name kommt aus dem Französischen. Cadre ist der Rahmen, décadrer heißt, ihn absichtlich zu verlassen. In der Kameraarbeit bezeichnet das eine Einstellung, die bewusst nicht mittig sitzt, weil das Wesentliche sonst nicht ins Bild passt.",
-      "Mich interessiert, wann etwas wirklich bei jemandem ankommt.",
-      "Das meiste kommt nicht an. Nicht weil es schlecht gemacht wäre, sondern weil es zu viel ist und zu schnell. Produktion ist darauf eingerichtet, Menge zu liefern: mehr Material, mehr Kanäle, kürzere Zyklen. Je reibungsloser das läuft, desto weniger bleibt hängen.",
-      "Was hängen bleibt, hat eine Eigenschaft gemeinsam: Man kann es nicht bestellen. Der Moment, in dem jemand sich öffnet, steht in keinem Drehplan. Er lässt sich nur wahrscheinlicher machen. Durch Zeit. Durch Zugang, der gewachsen ist. Durch die Bereitschaft, einen Drehtag zu verlieren.",
-      "Genau darin sehe ich meine Aufgabe. Bedingungen herstellen, unter denen etwas passieren darf, das niemand geplant hat. Das ist unspektakuläre Arbeit: Kalkulation, Disposition, Rechte, Vertrauen. Und sie entscheidet darüber, ob am Ende ein Bild steht, das jemanden erreicht, oder eines, das bloß korrekt ist.",
-      "Welches Thema, ist mir gleich. Ein Kurzfilm über eine einzige Person, eine Reportage aus einem Kriegsgebiet, eine Recherche über Abholzung. Die Frage ist, ob die Sache es wert ist, Zeit zu bekommen.",
-      "Ich komme dabei von der Bildseite. Ich fotografiere, ich stehe selbst hinter der Kamera, und ich halte Form nicht für Dekoration. Wie nah jemand rankommt, ist eine gestalterische Entscheidung, bevor sie eine moralische wird.",
-      "Ich sorge dafür, dass ein Projekt stattfindet.",
-      "Das heißt: Kalkulation und Zeitplan. Crew zusammenstellen und disponieren. Drehgenehmigungen, Verträge, Persönlichkeitsrechte, Musiklizenzen. Am Drehtag vor Ort sein, als Ansprechpartner für alle Beteiligten, vor allem für die Menschen, die gefilmt werden. Danach durch Schnitt, Rechteprüfung und Freigabe bis zur fertigen Fassung.",
-      "Die Arbeit bleibt dieselbe, egal was am Ende dabei herauskommt. Ein Film, eine Fotostrecke, ein Text, eine Ausstellung, ein Abend mit Publikum. Das Medium ergibt sich aus der Sache, nicht umgekehrt, und ich lege es lieber spät fest als früh.",
-      "Je nach Projekt übernehme ich die ganze Produktion oder einen Teil davon. Wo es die Sache besser macht, drehe und fotografiere ich selbst. Kleine Teams, langer Zugang, wenig Apparat."
+      "Décadre kommt von décadrer: den Bildausschnitt verschieben, etwas bewusst aus dem Rahmen nehmen. Eine Einstellung, die nicht mittig sitzt, weil das Wesentliche sonst nicht hineinpasst.",
+      "Ich bin Elias Noah Nies. Producer.",
+      "Mich interessiert, was unter der Oberfläche liegt und wer darin nicht vorkommt. Menschen, die niemand fragt. Tiere und Orte, die keine Lobby haben. Zustände, die alle kennen und niemand aufschreibt.",
+      "Sport gehört für mich dazu. Kaum etwas wird so genau beobachtet und so wenig durchschaut. Auf dem Platz sieht jeder alles, daneben wechseln Geld, Macht und Gefälligkeiten den Besitzer, wo keine Kamera hinzeigt. Mich interessiert beides: das Spiel und das, was um es herum verhandelt wird.",
+      "Ich will solchen Sachen auf den Grund gehen, sie festhalten und sie so zugänglich machen, dass sie jemanden erreichen. Nicht weil Aufmerksamkeit etwas repariert, sondern weil nichts sich ändert, was niemand gesehen hat.",
+      "Dabei rede ich für niemanden. Ich baue die Bedingungen, unter denen Leute selbst reden können, und sorge dafür, dass sie die Kontrolle behalten.",
+      "Das Entscheidende lässt sich nicht bestellen. Der Moment, in dem jemand sich öffnet, steht in keinem Drehplan. Man kann ihn nur wahrscheinlicher machen: durch Zeit, durch Zugang, der gewachsen ist, durch die Bereitschaft, einen Drehtag zu verlieren. Genau das ist meine Arbeit.",
+      "Praktisch heißt das: Kalkulation, Zeitplan, Crew, Disposition. Drehgenehmigungen, Verträge, Persönlichkeitsrechte, Lizenzen. Am Set vor Ort, ansprechbar für alle, vor allem für die, die gefilmt werden. Danach durch Schnitt, Rechteprüfung und Freigabe.",
+      "Und weil kleine Teams anders funktionieren, bleibt es selten dabei. Ich entwickle Konzepte, schreibe mit, denke Bildsprache und Styling mit, stehe hinter der Kamera, fotografiere. Wo es die Sache besser macht, mache ich es selbst.",
+      "Das Medium ergibt sich aus der Sache. Film, Fotostrecke, Text, Ausstellung, ein Abend mit Publikum. Ich lege es lieber spät fest als früh.",
+      "Das Thema ist mir gleich, die Frage nicht: Ist die Sache es wert, Zeit zu bekommen. Das schließt Marken und Institutionen ausdrücklich ein, wenn sie etwas zu sagen haben. Es schließt alles aus, wo es nur um Menge geht."
     ],
-    "keywords": "produktionsleitung · kalkulation · crewing · disposition · drehgenehmigungen · persönlichkeitsrechte · lizenzen · set · kamera · fotografie · schnittbegleitung · ausspielung",
+    "keywords": "produktionsleitung · kalkulation · crewing · disposition · drehgenehmigungen · persönlichkeitsrechte · lizenzen · set · konzept · bildsprache · styling · kamera · fotografie · schnittbegleitung · ausspielung",
     "portraitAlt": "Elias Noah Nies"
   },
   "projekte": {
@@ -104,10 +103,6 @@
         "link": "email"
       },
       {
-        "label": "antwort",
-        "value": "innerhalb von 24 stunden"
-      },
-      {
         "label": "verfügbar",
         "value": "auf anfrage"
       },
@@ -118,10 +113,6 @@
       {
         "label": "sprachen",
         "value": "deutsch, englisch"
-      },
-      {
-        "label": "führerschein",
-        "value": "klasse b"
       },
       {
         "label": "rechtsform",
