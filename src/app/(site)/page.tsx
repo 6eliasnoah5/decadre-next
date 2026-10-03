@@ -5,6 +5,7 @@ import Cursor from "@/components/Cursor";
 import WorkGrid from "@/components/WorkGrid";
 import EmailLink from "@/components/EmailLink";
 import LocalClock from "@/components/LocalClock";
+import StudioVideo from "@/components/media/StudioVideo";
 
 export default function Home() {
   return (
@@ -29,11 +30,14 @@ export default function Home() {
 
           {/* HERO VIDEO: src="videos/hero.mp4", poster="videos/hero.jpg" */}
           {/* HERO VIDEO AKTIVIEREN: dieses video display:none entfernen (hero__media--hidden weg), src + poster setzen */}
-          <video className="hero__media hero__media--hidden" autoPlay muted loop playsInline
-                 poster="videos/hero.jpg"
-                 aria-label="[ platzhalter ]">
-            <source src="videos/hero.mp4" type="video/mp4" />
-          </video>
+          <StudioVideo
+            className="hero__media hero__media--hidden"
+            src="videos/hero.mp4"
+            poster="videos/hero.jpg"
+            priority
+            autoPlay
+            aria-label="[ platzhalter ]"
+          />
 
           <div className="hero__overlay">
             {/* TEXT HIER: hero headline, three lines */}

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useAppStore } from "@/store/useAppStore";
 import { work, type WorkEntry } from "@/lib/content";
+import StudioVideo from "@/components/media/StudioVideo";
 
 // Asymmetrisches Work-Grid mit Hover-Play wie im Legacy-Script:
 // mouseenter/focus -> play, mouseleave/blur -> pause + zurueck auf 0.
@@ -41,19 +42,14 @@ function WorkSlot({ entry }: { entry: WorkEntry }) {
       onPointerEnter={() => { if (cursorAllowed()) setCursorMode("play"); }}
       onPointerLeave={() => { if (cursorAllowed()) setCursorMode("default"); }}
     >
-      <video
+      <StudioVideo
         ref={videoRef}
         className="slot__media"
-        muted
-        loop
-        playsInline
-        preload="metadata"
+        src={entry.video}
         poster={entry.poster}
         data-hover-play=""
         aria-label={entry.title}
-      >
-        <source src={entry.video} type="video/mp4" />
-      </video>
+      />
       <div className="slot__placeholder" aria-hidden="true">{`[ ${entry.index} ]  ${entry.placeholder}`}</div>
       <div className="slot__overlay">
         <span className="slot__title">{entry.title}</span>
