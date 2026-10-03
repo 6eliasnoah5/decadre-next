@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
-// Content-Security-Policy, vorerst NUR Report-Only: Verstoesse werden in der
-// Browser-Konsole gemeldet, aber nichts blockiert.
+// Content-Security-Policy, erzwungen. Vorher im Report-Only-Modus geprueft:
+// lokal und in der Vercel-Preview keine Verstoesse (ausser vercel.live, das
+// nur in Previews eingeblendet wird).
 // 'unsafe-inline' bei script-src ist noetig fuer das FadeInScript im <head>
 // und die Inline-Scripts, mit denen Next.js die RSC-Daten ausliefert.
 // Im Dev-Modus braucht React zusaetzlich 'unsafe-eval' (Fehler-Stacks).
@@ -24,7 +25,7 @@ const csp = [
 
 // Sicherheits-Header fuer alle Routen.
 const securityHeaders = [
-  { key: "Content-Security-Policy-Report-Only", value: csp },
+  { key: "Content-Security-Policy", value: csp },
   // Nur HTTPS, 2 Jahre, inkl. Subdomains; Voraussetzung fuer die HSTS-Preload-Liste.
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
   // Kein MIME-Sniffing: Dateien nur mit ihrem deklarierten Content-Type ausfuehren.
