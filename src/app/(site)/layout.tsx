@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Décadre Studio — Stuttgart",
     description: SITE_DESCRIPTION,
-    ...(OG_IMAGE ? { images: OG_IMAGE } : {}),
+    images: OG_IMAGE,
   },
   robots: { index: true, follow: true },
   icons: { icon: FAVICON },
