@@ -12,16 +12,25 @@ import { leaveWithFlip, pendingFlipId } from "@/lib/flipTransition";
 
 gsap.registerPlugin(Draggable, InertiaPlugin, ScrollTrigger);
 
-// Galerie fuer [ 03 ] projekte: horizontale Spur ueber die volle Breite,
-// beginnt an der linken Rasterkante und laeuft rechts aus.
+// Galerie fuer [ 02 ] projekte: horizontale Spur ueber die volle Breite,
+// beginnt an der linken Rasterkante.
 //
 // Grundzustand (ohne JS und bei reduced motion): natives horizontales
-// Scrollen mit Scrollbar, keine Animation. Mit JS und Bewegung: die Spur
-// wird per GSAP Draggable gezogen (Maus und Touch), mit Traegheit und Snap
-// auf den Kachelanfang. Dazu Pfeil-Buttons im Abschnittskopf und die
-// Pfeiltasten, wenn die Spur den Fokus hat. Beim ersten Erscheinen steigen
-// die Kacheln nacheinander auf; ein Klick laesst das Bild per Flip in den
-// Videoplatz der Projektseite wachsen (src/lib/flipTransition.ts).
+// Scrollen mit Scrollbar ueber den echten Satz Kacheln, keine Animation.
+//
+// Mit JS und Bewegung: Endlosschleife nach dem horizontalLoop-Muster aus der
+// GSAP-Doku. Eine pausierte Timeline schiebt alle Kacheln um eine Satzbreite
+// nach links; ein modifiers-Callback mit gsap.utils.wrap setzt jede Kachel
+// zyklisch um, sobald sie links aus dem Bild laeuft. Die Position (X) kommt
+// aus einem Draggable-Proxy mit Traegheit und Snap auf den Kachelanfang,
+// aus den Pfeil-Buttons, den Pfeiltasten oder horizontalem Wischen; X wird
+// in den Fortschritt der Timeline uebersetzt. Kein Anschlag, kein
+// Selbstlauf. Reicht ein Satz nicht ueber Viewport plus eine Kachel, werden
+// weitere Saetze als Klone angehaengt (Anzahl aus Viewport- / Kachelbreite).
+//
+// Beim ersten Erscheinen steigen die Kacheln nacheinander auf; ein Klick
+// laesst das Bild per Flip in den Videoplatz der Projektseite wachsen
+// (src/lib/flipTransition.ts).
 
 export type GalleryItem = {
   slug: string;
@@ -46,6 +55,7 @@ export type GalleryTexts = {
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
+const mod = (n: number, m: number) => ((n % m) + m) % m;
 const noopSubscribe = () => () => {};
 
 export default function Gallery({ items, texts }: { items: GalleryItem[]; texts: GalleryTexts }) {
@@ -56,29 +66,37 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLUListElement>(null);
-  const goToRef = useRef<(i: number) => void>(() => {});
+  // Schritt um dir Kacheln (Buttons, Pfeiltasten); je nach Modus belegt
+  const stepRef = useRef<(dir: number) => void>(() => {});
   const [index, setIndex] = useState(0);
+  // Anzahl der gerenderten Saetze in der Schleife (1 = keine Klone)
+  const [copies, setCopies] = useState(1);
+  // Aktuelle Kachelposition der Schleife, ueberdauert Neuaufbauten (Resize)
+  const slotRef = useRef<number | null>(null);
+  // Kachel-Einblendung schon gelaufen (nicht nach Resize wiederholen)
+  const enteredRef = useRef(false);
   const router = useRouter();
   const routerRef = useRef(router);
   useLayoutEffect(() => {
     routerRef.current = router;
   }, [router]);
 
-  // Layout-Effekt: laeuft vor dem Template-Effekt (Eltern nach Kindern),
+  // Layout-Effekte: laufen vor dem Template-Effekt (Eltern nach Kindern),
   // die Spur steht also schon an der richtigen Kachel, wenn ein Flip zurueck
   // aus der Projektseite ansteht.
+
+  // ---------- nativ: Scrollbar, Spruenge ohne Animation ----------
   useLayoutEffect(() => {
     const viewport = viewportRef.current;
     const track = trackRef.current;
-    if (!viewport || !track) return;
+    if (mode !== "native" || !viewport || !track) return;
     const tiles = Array.from(track.children) as HTMLElement[];
     if (!tiles.length) return;
 
     // Kachelanfaenge relativ zur ersten Kachel, begrenzt auf den Scrollweg.
     let positions: number[] = [];
-    let maxScroll = 0;
     const measure = () => {
-      maxScroll = Math.max(0, track.scrollWidth - viewport.clientWidth);
+      const maxScroll = Math.max(0, track.scrollWidth - viewport.clientWidth);
       const first = tiles[0].offsetLeft;
       positions = tiles.map((t) => Math.min(maxScroll, t.offsetLeft - first));
     };
@@ -89,75 +107,151 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
       });
       return best;
     };
-    const clampIndex = (i: number) => Math.max(0, Math.min(tiles.length - 1, i));
     measure();
-    // Rueckweg von einer Projektseite: an dessen Kachel starten
     const flipId = pendingFlipId();
     const startIndex = Math.max(0, tiles.findIndex((t) => t.querySelector(`[data-flip-id="${flipId}"]`)));
 
-    // ---------- nativ: Scrollbar, Spruenge ohne Animation ----------
-    if (mode === "native") {
-      const onScroll = () => setIndex(closest(viewport.scrollLeft));
-      goToRef.current = (i) => {
-        viewport.scrollTo({ left: positions[clampIndex(i)], behavior: "instant" });
-      };
-      const ro = new ResizeObserver(() => {
-        measure();
-        onScroll();
-      });
-      ro.observe(viewport);
-      viewport.addEventListener("scroll", onScroll, { passive: true });
-      viewport.scrollLeft = positions[startIndex];
-      onScroll();
-      return () => {
-        ro.disconnect();
-        viewport.removeEventListener("scroll", onScroll);
-        goToRef.current = () => {};
-      };
-    }
-
-    // ---------- Drag mit Traegheit und Snap ----------
     let current = startIndex;
-    gsap.set(track, { x: -positions[startIndex] });
-    setIndex(startIndex);
-    const update = (x: number) => {
-      current = closest(-x);
+    const onScroll = () => {
+      current = closest(viewport.scrollLeft);
       setIndex(current);
     };
+    stepRef.current = (dir) => {
+      const i = Math.max(0, Math.min(tiles.length - 1, current + dir));
+      viewport.scrollTo({ left: positions[i], behavior: "instant" });
+    };
+    const ro = new ResizeObserver(() => {
+      measure();
+      onScroll();
+    });
+    ro.observe(viewport);
+    viewport.addEventListener("scroll", onScroll, { passive: true });
+    viewport.scrollLeft = positions[startIndex];
+    onScroll();
+    return () => {
+      ro.disconnect();
+      viewport.removeEventListener("scroll", onScroll);
+      stepRef.current = () => {};
+    };
+  }, [mode]);
+
+  // ---------- Endlosschleife ----------
+  useLayoutEffect(() => {
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (mode !== "drag" || !viewport || !track) return;
+    const tiles = Array.from(track.children) as HTMLElement[];
+    const realCount = items.length;
+    if (!tiles.length || !realCount) return;
+
+    // Masse: Abstand von Kachel zu Kachel (span), Satzbreite (total),
+    // linker Einzug bis zur Rasterkante (startPad), Grundlage je Kachel.
+    let span = 0;
+    let total = 0;
+    let startPad = 0;
+    let tileW = 0;
+    let offsets: number[] = [];
+    const measure = () => {
+      const first = tiles[0].offsetLeft;
+      startPad = first;
+      offsets = tiles.map((t) => t.offsetLeft - first);
+      tileW = tiles[0].offsetWidth;
+      span = tiles.length > 1 ? tiles[1].offsetLeft - first : tileW;
+      total = span * tiles.length;
+    };
+    // Saetze, damit die Spur Viewport plus eine Kachel plus Reserve deckt:
+    // umgesetzt wird nur ausserhalb des Bildes, mit mindestens einer halben
+    // Kachel Abstand je Seite, auch bei schnellem Wurf.
+    const neededCopies = () =>
+      Math.max(1, Math.ceil((viewport.clientWidth + tileW + span) / (span * realCount)));
+
+    // Stimmt die Zahl der Saetze nicht, setzt der ResizeObserver unten sie
+    // gleich beim ersten Aufruf; der Effekt laeuft dann erneut.
+    measure();
+
+    // Timeline: alle Kacheln um eine Satzbreite nach links; wrap haelt jede
+    // Kachel im Fenster [left, left + total) in Viewport-Koordinaten. left
+    // liegt eine Kachel plus die halbe Reserve links ausserhalb, das rechte
+    // Ende ebenso weit rechts. Faellt eine Kachel links heraus, steht sie
+    // rechts wieder an (und umgekehrt).
+    let wraps: ((x: number) => number)[] = [];
+    const loop = gsap.timeline({ paused: true });
+    const build = () => {
+      const reserve = (total - viewport.clientWidth - tileW) / 2;
+      const left = -tileW - reserve - startPad;
+      wraps = offsets.map((o) => gsap.utils.wrap(left - o, left + total - o));
+      loop.clear();
+      gsap.set(tiles, { x: 0 });
+      loop.to(tiles, {
+        x: -total,
+        duration: 1,
+        ease: "none",
+        modifiers: {
+          x: (x: string, target: HTMLElement) => `${wraps[tiles.indexOf(target)](parseFloat(x))}px`,
+        },
+      });
+    };
+
+    // X: Verschiebung der ganzen Spur in px (0 = Kachel 1 an der Rasterkante)
+    const state = { x: 0 };
+    let shown = -1;
+    const render = () => {
+      // Eine pausierte Timeline rendert bei unveraendertem Fortschritt nicht
+      // (etwa direkt nach dem Aufbau bei 0); dann waeren die Kacheln noch
+      // nicht umgesetzt. Darum bei gleichem Wert einmal anstossen.
+      const progress = mod(-state.x / total, 1);
+      if (progress === loop.progress()) loop.progress(progress === 0 ? 0.5 : 0);
+      loop.progress(progress);
+      const i = mod(Math.round(-state.x / span), realCount);
+      if (i !== shown) {
+        shown = i;
+        setIndex(i);
+      }
+    };
+    const slotOf = (x: number) => Math.round(-x / span);
+    const proxy = document.createElement("div");
+
+    build();
+    // Start: gemerkte Position (Resize), sonst die Kachel eines anstehenden
+    // Flips zurueck, sonst Kachel 1
+    const flipId = pendingFlipId();
+    const flipIndex = tiles.findIndex((t) => t.querySelector(`[data-flip-id="${flipId}"]`));
+    const startSlot = slotRef.current ?? Math.max(0, flipIndex);
+    state.x = -startSlot * span;
+    render();
+
+    const tweenTo = (slot: number) => {
+      gsap.killTweensOf(state);
+      slotRef.current = slot;
+      gsap.to(state, { x: -slot * span, duration: 0.8, ease: "expo.out", onUpdate: render });
+    };
+    stepRef.current = (dir) => tweenTo(slotOf(state.x) + dir);
 
     let moved = false;
-    const [draggable] = Draggable.create(track, {
+    const [draggable] = Draggable.create(proxy, {
       type: "x",
-      bounds: { minX: -maxScroll, maxX: 0 },
+      trigger: viewport,
       inertia: true,
       dragClickables: true,
-      edgeResistance: 0.85,
-      snap: { x: (x: number) => -positions[closest(-x)] },
-      onPress() {
+      snap: { x: (x: number) => Math.round(x / span) * span },
+      onPressInit() {
+        gsap.killTweensOf(state);
+        gsap.set(proxy, { x: state.x });
         moved = false;
-        gsap.killTweensOf(track);
       },
       onDrag() {
         if (Math.abs(this.x - this.startX) > 4) moved = true;
-        update(this.x);
+        state.x = this.x;
+        render();
       },
       onThrowUpdate() {
-        update(this.x);
+        state.x = this.x;
+        render();
+      },
+      onThrowComplete() {
+        slotRef.current = slotOf(state.x);
       },
     });
-
-    const goTo = (i: number, instant = false) => {
-      const target = clampIndex(i);
-      gsap.killTweensOf(track);
-      update(-positions[target]);
-      gsap.to(track, {
-        x: -positions[target],
-        duration: instant ? 0 : 0.8,
-        ease: "expo.out",
-        onUpdate: () => draggable.update(),
-      });
-    };
-    goToRef.current = (i) => goTo(i);
 
     // Gezogen statt geklickt: den Link-Klick danach verschlucken.
     // Echter Klick: Flip-Uebergang zur Projektseite.
@@ -178,11 +272,14 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
     };
 
     // Erstes Erscheinen: Kacheln steigen nacheinander auf (nicht beim
-    // Rueckweg per Flip, da soll die Zielkachel sofort stehen).
-    const entrance = flipId
+    // Rueckweg per Flip, da soll die Zielkachel sofort stehen). Animiert
+    // wird der Link in der Kachel: das transform der <li> gehoert allein der
+    // Schleife, ein zweiter Tween darauf wuerde ihr x ueberschreiben.
+    const links = tiles.map((t) => t.querySelector<HTMLElement>(".tile")).filter((l): l is HTMLElement => !!l);
+    const entrance = flipId || enteredRef.current
       ? null
       : gsap.fromTo(
-          tiles,
+          links,
           { y: 24, autoAlpha: 0 },
           {
             y: 0,
@@ -191,15 +288,26 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
             stagger: 0.06,
             ease: "expo.out",
             clearProps: "transform,opacity,visibility",
+            onStart: () => {
+              enteredRef.current = true;
+            },
             scrollTrigger: { trigger: viewport, start: "top 85%", once: true },
           },
         );
-    // Fokus per Tab: Browser scrollen auch overflow:hidden-Container zum
-    // fokussierten Element. Das zuruecksetzen und stattdessen die Spur fahren.
+
+    // Fokus per Tab (nur der echte Satz ist fokussierbar): Browser scrollen
+    // auch overflow:hidden-Container zum fokussierten Element. Das
+    // zuruecksetzen und die Kachel auf der naechstgelegenen Position zeigen.
     const onFocusIn = (e: FocusEvent) => {
       const i = tiles.findIndex((t) => t.contains(e.target as Node));
       viewport.scrollLeft = 0;
-      if (i >= 0 && i !== current) goTo(i);
+      // Nur Tastaturfokus: ein Mausdruck fokussiert den Link ebenfalls und
+      // wuerde sonst gegen das gerade beginnende Ziehen anfahren.
+      if (i < 0 || !(e.target as Element).matches(":focus-visible")) return;
+      const cur = slotOf(state.x);
+      const target = cur + mod(i - cur + tiles.length / 2, tiles.length) - tiles.length / 2;
+      const slot = Math.round(target);
+      if (slot !== cur) tweenTo(slot);
     };
     const onViewportScroll = () => {
       if (viewport.scrollLeft !== 0) viewport.scrollLeft = 0;
@@ -209,18 +317,26 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
     const onWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault();
-      gsap.killTweensOf(track);
-      const x = Math.max(-maxScroll, Math.min(0, (gsap.getProperty(track, "x") as number) - e.deltaX));
-      gsap.set(track, { x });
-      draggable.update();
-      update(x);
+      gsap.killTweensOf(state);
+      state.x -= e.deltaX;
+      render();
       clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(() => goTo(closest(-x)), 140);
+      wheelTimer = setTimeout(() => tweenTo(slotOf(state.x)), 140);
     };
+    // Resize: neu messen; reicht die Zahl der Saetze nicht mehr, neu rendern
+    // (der Effekt laeuft dann mit der neuen Zahl erneut).
     const ro = new ResizeObserver(() => {
+      const slot = slotOf(state.x);
       measure();
-      draggable.applyBounds({ minX: -maxScroll, maxX: 0 });
-      goTo(current, true);
+      const need = neededCopies();
+      if (need !== copies) {
+        slotRef.current = slot;
+        setCopies(need);
+        return;
+      }
+      build();
+      state.x = -slot * span;
+      render();
     });
 
     track.addEventListener("click", onClick, true);
@@ -239,14 +355,15 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
       draggable.kill();
       entrance?.scrollTrigger?.kill();
       entrance?.kill();
-      gsap.set(tiles, { clearProps: "transform,opacity,visibility" });
-      gsap.killTweensOf(track);
-      gsap.set(track, { clearProps: "transform,touchAction,cursor,userSelect" });
-      goToRef.current = () => {};
+      gsap.killTweensOf(state);
+      loop.kill();
+      gsap.set(tiles, { clearProps: "transform" });
+      gsap.set(links, { clearProps: "transform,opacity,visibility" });
+      stepRef.current = () => {};
     };
-  }, [mode]);
+  }, [mode, copies, items.length]);
 
-  const step = useCallback((dir: number) => goToRef.current(index + dir), [index]);
+  const step = useCallback((dir: number) => stepRef.current(dir), []);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowRight") step(1);
@@ -254,6 +371,10 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
     else return;
     e.preventDefault();
   };
+
+  // Schleife: echter Satz plus Klone; nativ nur der echte Satz.
+  const loop = mode === "drag";
+  const sets = loop ? copies : 1;
 
   return (
     <>
@@ -266,10 +387,10 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
         <div className="gallery__bar">
           <p className="work__note">{texts.intro}</p>
           <span className="gallery__controls">
-            <button type="button" aria-label={texts.prevLabel} aria-controls="gallery-track" disabled={index === 0} onClick={() => step(-1)}>
+            <button type="button" aria-label={texts.prevLabel} aria-controls="gallery-track" disabled={!loop && index === 0} onClick={() => step(-1)}>
               {texts.prev}
             </button>
-            <button type="button" aria-label={texts.nextLabel} aria-controls="gallery-track" disabled={index === items.length - 1} onClick={() => step(1)}>
+            <button type="button" aria-label={texts.nextLabel} aria-controls="gallery-track" disabled={!loop && index === items.length - 1} onClick={() => step(1)}>
               {texts.next}
             </button>
           </span>
@@ -286,22 +407,34 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
           onKeyDown={onKeyDown}
         >
           <ul ref={trackRef} className="gallery__track" id="gallery-track">
-            {items.map((item) => (
-              <li key={item.slug} className="gallery__item">
-                <Link className="tile" href={item.href} data-cursor="fill" draggable={false}>
-                  <span className="tile__media" data-flip-id={`project-${item.slug}`}>
-                    {item.poster ? (
-                      // eslint-disable-next-line @next/next/no-img-element -- Poster aus /public, bewusst ohne next/image
-                      <img src={item.poster} alt="" draggable={false} loading="lazy" />
-                    ) : (
-                      <span className="tile__ph" aria-hidden="true">{texts.imageFollows}</span>
-                    )}
-                  </span>
-                  <h3 className="tile__title">{item.title}</h3>
-                  <span className="tile__meta">{item.meta}</span>
-                </Link>
-              </li>
-            ))}
+            {Array.from({ length: sets }, (_, set) =>
+              items.map((item) => {
+                // Klone: fuer Screenreader und Tab unsichtbar, aber klickbar
+                const clone = set > 0;
+                return (
+                  <li key={`${set}-${item.slug}`} className="gallery__item" aria-hidden={clone || undefined}>
+                    <Link
+                      className="tile"
+                      href={item.href}
+                      data-cursor="fill"
+                      draggable={false}
+                      tabIndex={clone ? -1 : undefined}
+                    >
+                      <span className="tile__media" data-flip-id={`project-${item.slug}`}>
+                        {item.poster ? (
+                          // eslint-disable-next-line @next/next/no-img-element -- Poster aus /public, bewusst ohne next/image
+                          <img src={item.poster} alt="" draggable={false} loading="lazy" />
+                        ) : (
+                          <span className="tile__ph" aria-hidden="true">{texts.imageFollows}</span>
+                        )}
+                      </span>
+                      <h3 className="tile__title">{item.title}</h3>
+                      <span className="tile__meta">{item.meta}</span>
+                    </Link>
+                  </li>
+                );
+              }),
+            )}
           </ul>
         </div>
       </div>
