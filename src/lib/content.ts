@@ -1,7 +1,8 @@
 // Einzige Datenquelle fuer die Work-Eintraege. Komponenten lesen nur von hier,
 // Inhalte stehen nicht im JSX.
 //
-// Die vier Eintraege sind die bestehenden Platzhalter der Legacy-Site.
+// Die vier Eintraege sind die bestehenden Platzhalter der Legacy-Site; ohne
+// echten Titel ist title null statt "[ platzhalter ]".
 // Unbekannte Werte sind null bzw. leere Listen, nicht erfunden.
 
 export type WorkStatus = "in-production" | "concept" | "placeholder";
@@ -10,7 +11,8 @@ export type WorkEntry = {
   slug: string;
   /** Zweistellig, steuert Reihenfolge, Grid-Position (slot--NN) und Label */
   index: string;
-  title: string;
+  /** null, solange es keinen echten Titel gibt: dann kein Hover-Overlay */
+  title: string | null;
   client: string | null;
   year: number | null;
   role: string | null;
@@ -29,7 +31,7 @@ export const work: WorkEntry[] = [
   {
     slug: "project-01",
     index: "01",
-    title: "[ platzhalter ]",
+    title: null,
     client: null,
     year: null,
     role: null,
@@ -44,7 +46,7 @@ export const work: WorkEntry[] = [
   {
     slug: "project-02",
     index: "02",
-    title: "[ platzhalter ]",
+    title: null,
     client: null,
     year: null,
     role: null,
@@ -59,7 +61,7 @@ export const work: WorkEntry[] = [
   {
     slug: "project-03",
     index: "03",
-    title: "[ platzhalter ]",
+    title: null,
     client: null,
     year: null,
     role: null,
@@ -74,7 +76,7 @@ export const work: WorkEntry[] = [
   {
     slug: "project-04",
     index: "04",
-    title: "[ platzhalter ]",
+    title: null,
     client: null,
     year: null,
     role: null,
