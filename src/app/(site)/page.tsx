@@ -272,8 +272,8 @@ export default function Home() {
           <div className="center"><b id="clock-city">Stuttgart</b> <span id="clock" aria-live="off">--:--</span></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
-            <a href="impressum.html">[ impressum ]</a>
-            <a href="datenschutz.html">[ datenschutz ]</a>
+            <a href="/impressum">[ impressum ]</a>
+            <a href="/datenschutz">[ datenschutz ]</a>
           </div>
         </div>
         <div className="ftr__base container">

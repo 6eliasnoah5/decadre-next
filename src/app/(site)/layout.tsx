@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
+import "../globals.css";
 
 // Werte 1:1 aus dem <head> von legacy/index.html, inklusive Platzhaltern.
 export const metadata: Metadata = {
