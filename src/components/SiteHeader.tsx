@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { useScrollListener } from "@/providers/SmoothScroll";
+import ScrollProgress from "@/components/ScrollProgress";
 
 // <header class="hdr"> mit Hairline ab 8px Scroll (data-scrolled), wie im
 // Legacy-Script. Die Position kommt aus der Scroll-Abstraktion (Lenis).
@@ -14,6 +15,7 @@ export default function SiteHeader({ children }: { children: ReactNode }) {
   return (
     <header className="hdr" id="header" data-scrolled={scrolled}>
       {children}
+      <ScrollProgress />
     </header>
   );
 }

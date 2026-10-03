@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/routing";
+import { getPathname } from "@/i18n/navigation";
 
 // Pfade einer Seite je Sprache. Fehlt eine Sprache (z. B. eine Notiz, die es
 // nur auf Deutsch gibt), wird sie nicht als Alternative gemeldet.
@@ -16,3 +17,10 @@ export function localeAlternates(locale: Locale, paths: LocalePaths): Metadata["
 
 /** Startseite je Sprache */
 export const HOME_PATHS: Required<LocalePaths> = { de: "/", en: "/en" };
+
+/** Projektseite je Sprache (/projekte/[slug], /en/projects/[slug]) */
+export function projectPaths(slug: string): Required<LocalePaths> {
+  const path = (locale: Locale) =>
+    getPathname({ locale, href: { pathname: "/projekte/[slug]", params: { slug } } });
+  return { de: path("de"), en: path("en") };
+}

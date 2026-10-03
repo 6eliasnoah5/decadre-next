@@ -27,14 +27,28 @@ Design und Inhalt werden NACH der Architektur ueberarbeitet.
 - Impressum und Datenschutz nur auf Deutsch; /en/... leitet um.
 - Farben: nur Papier (`--color-bg`) und Tinte (`--color-fg`) samt deren
   Alpha-Stufen. Kein Farbsystem, keine Farbfelder, alle Schrift schwarz.
-- Startseite: genau drei Abschnitte ([ 01 ] décadre, [ 02 ] arbeit,
-  [ 03 ] kontakt). Keine Listen, keine Laufschrift.
+- Startseite: genau vier Abschnitte ([ 01 ] décadre, [ 02 ] arbeit,
+  [ 03 ] projekte, [ 04 ] kontakt). Keine Laufschrift.
+- Projekte: Daten nur in `src/lib/content.ts` (Typ `Project`). Galerie in
+  `src/components/Gallery.tsx`, Detailseiten unter
+  `src/app/[locale]/(site)/projekte/[slug]` (en: /en/projects/[slug]).
+  `placeholder: true` = noindex und nicht in der Sitemap. Videos erst
+  nach Klick (`VideoEmbed`), Hosts in der CSP unter frame-src; vor dem
+  ersten echten Video die Datenschutzerklaerung ergaenzen.
 - Keine ausgeschriebenen Jahreszahlen ("twentytwentysix" o. ae.),
   Jahreszahlen in Ziffern.
 - Scroll: Lenis in `src/providers/SmoothScroll.tsx`. Kein Code liest
   `window.scrollY` direkt, sondern `useScrollListener` / `subscribeScroll`.
 - Bewegung und WebGL nur hinter `useMotionCapability`
-  (reducedMotion, isTouch, canWebGL, tier).
+  (reducedMotion, isTouch, canWebGL, tier). Bei reduced motion steht
+  sofort der Endzustand. Startzustaende von Reveals nur per JS setzen,
+  nie im CSS. Bewegungskomponenten in `src/components/motion/`.
+- Zeilen-Reveal: `data-split` nur auf Elemente mit reinem Text
+  (SplitText.revert ersetzt den Inhalt). TextReveal setzt nur
+  `visibility`, der Seitenuebergang (`src/lib/flipTransition.ts`,
+  `(site)/template.tsx`) nur `opacity`.
+- `overflow-x` auf html/body ist `clip`, nicht `hidden` (sonst kein
+  position: sticky am Viewport).
 - Globaler UI-Zustand in `src/store/useAppStore.ts`; nichts, was sich pro
   Frame aendert. Cursor-Zustand per `data-cursor="fill"` (Links und
   Buttons gelten automatisch als "fill").

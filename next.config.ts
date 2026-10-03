@@ -19,6 +19,8 @@ const csp = [
   "font-src 'self'",
   "connect-src 'self'",
   "worker-src 'self' blob:",
+  // Projektvideos, erst nach Klick geladen (src/components/VideoEmbed.tsx)
+  "frame-src https://player.vimeo.com https://www.youtube-nocookie.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

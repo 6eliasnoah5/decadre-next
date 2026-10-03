@@ -35,7 +35,9 @@ body {
   letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* clip statt hidden: macht body nicht zum Scroll-Container, sonst
+     klebt position: sticky (Abschnittsnummern) nicht am Viewport */
+  overflow-x: clip;
   transition: opacity 400ms var(--ease);
 }
 /* page-load fade: Startwert nur, wenn JS laeuft (html.js setzt FadeInScript
@@ -69,6 +71,30 @@ img, video { display: block; max-width: 100%; }
 
 /* section opener: [ NN ] + label, with display title beneath */
 .section { padding: var(--section-spacing) 0; }
+/* engerer Uebergang zwischen [ 01 ] und [ 02 ] */
+.section--close-bottom { padding-bottom: 56px; }
+.section--close-top    { padding-top: 56px; }
+/* klebende Abschnittsnummer (StickyNumbers): nur mit html[data-pins],
+   dann ersetzt sie die Nummer im Abschnittskopf, die genau darunter liegt */
+.section-pin { display: none; }
+html[data-pins] .section-pin {
+  display: block;
+  position: sticky;
+  top: calc(var(--header-height) + 8px);
+  z-index: 5;
+  height: 0;
+  pointer-events: none;
+}
+html[data-pins] .section-head__num { visibility: hidden; }
+.section-pin__num {
+  display: inline-block;
+  padding-right: 8px;
+  background: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
 /* small mono note under the work heading */
 .work__note {
   font-family: var(--font-mono);
@@ -144,6 +170,18 @@ body::after {
   transition: border-color var(--dur) var(--ease);
 }
 .hdr[data-scrolled="true"] { border-bottom-color: var(--color-fg-15); }
+/* Scrollfortschritt: 2px-Linie direkt unter dem Header */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 2px;
+  background: var(--color-fg);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
 
 .hdr__brand {
   font-family: var(--font-display);
@@ -205,6 +243,11 @@ body::after {
   transition: opacity var(--dur) var(--ease);
 }
 .hdr__menu:hover, .hdr__menu:focus-visible { opacity: 1; }
+
+/* vier Links plus Umschalter: zwischen 701 und 900px enger setzen */
+@media (min-width: 701px) and (max-width: 900px) {
+  .hdr__nav { gap: 16px; }
+}
 
 @media (max-width: 700px) {
   .hdr__nav { display: none; }
@@ -273,6 +316,7 @@ body::after {
 
   /* hide the small mono section hints on mobile (kept on desktop) */
   .section-head { grid-template-columns: auto 1fr; }
+  .section-head--controls { grid-template-columns: auto 1fr auto; }
   .section-head__hint { display: none; }
 
   /* stack the hero bar so [ scroll ↓ ] never gets pushed off-screen
@@ -323,6 +367,207 @@ body::after {
 }
 
 /* ============================================================
+   [ 03 ] PROJEKTE — Galerie
+   Grundzustand ohne JS / bei reduced motion: natives horizontales
+   Scrollen. data-mode="drag": die Spur wird per GSAP gezogen.
+   ============================================================ */
+.section-head--controls { grid-template-columns: auto 1fr auto; }
+.gallery__controls { display: flex; gap: 16px; white-space: nowrap; }
+.gallery__controls button {
+  font: inherit;
+  padding: 4px 2px;
+  opacity: 0.6;
+  transition: opacity var(--dur) var(--ease);
+}
+.gallery__controls button:hover:not(:disabled),
+.gallery__controls button:focus-visible { opacity: 1; }
+.gallery__controls button:disabled { opacity: 0.4; cursor: default; }
+/* ohne JS tun die Buttons nichts, also nicht zeigen */
+html:not(.js) .gallery__controls { visibility: hidden; }
+
+.gallery { margin-top: 64px; }
+.gallery__viewport {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+.gallery__viewport:focus-visible { outline-offset: -2px; }
+.gallery[data-mode="drag"] .gallery__viewport { overflow: hidden; }
+
+.gallery__track {
+  /* linke Rasterkante wie .container; % bezieht sich auf die Viewport-Breite */
+  --start: max(var(--pad-x), calc((100% - var(--max-width)) / 2 + var(--pad-x)));
+  --tile-w: 36vw;
+  position: relative;
+  display: flex;
+  gap: var(--gutter);
+  width: max-content;
+  margin: 0;
+  list-style: none;
+  /* rechts so viel Platz, dass auch die letzte Kachel am Anfang einrastet */
+  padding: 8px calc(100% - var(--tile-w) - var(--start)) 24px var(--start);
+}
+.gallery[data-mode="drag"] .gallery__track { cursor: grab; }
+.gallery__item { flex: 0 0 var(--tile-w); width: var(--tile-w); }
+
+.tile { display: block; transition: opacity var(--dur-slow) var(--ease); }
+.tile:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 4px; }
+.tile__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-fg);
+}
+.tile__media > img,
+.tile__ph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+.tile__ph {
+  display: grid;
+  place-items: center;
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.tile__title {
+  margin: 16px 0 6px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.tile__meta {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg-60);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .gallery__track:has(.tile:hover) .tile:not(:hover) { opacity: 0.4; }
+  .tile:hover .tile__media > * { transform: scale(1.03); }
+}
+
+.gallery__pos {
+  margin: 16px 0 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 700px) {
+  .gallery { margin-top: 48px; }
+  .gallery__track { --tile-w: 72vw; }
+}
+
+/* ============================================================
+   PROJEKTSEITE — /projekte/[slug]
+   ============================================================ */
+.project { padding: calc(var(--header-height) + 64px) 0 var(--section-spacing); }
+.project__back,
+.project__meta,
+.project__label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.project__back { display: inline-block; padding: 4px 0; opacity: 0.6; transition: opacity var(--dur) var(--ease); }
+.project__back:hover, .project__back:focus-visible { opacity: 1; }
+.project__title { margin-top: 48px; }
+.project__meta { margin: 24px 0 0; color: var(--color-fg-60); }
+
+.project__video {
+  position: relative;
+  margin-top: 56px;
+  aspect-ratio: 16 / 9;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  overflow: hidden;
+}
+.project__iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.project__load {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-align: center;
+}
+.project__load-note { font-size: 11px; opacity: 0.6; }
+.project__load:focus-visible { outline-color: var(--color-bg); outline-offset: -8px; }
+
+.project__body {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 32px 64px;
+  margin-top: 80px;
+  align-items: start;
+}
+.project__body .about__copy { grid-column: 1; }
+.project__role {
+  grid-column: 1;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.project__role .project__label { color: var(--color-fg-60); }
+.project__credits { grid-column: 2; grid-row: 1 / span 2; }
+.project__credits .project__label { margin: 0 0 16px; color: var(--color-fg-60); }
+.credits {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.credits__row { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.credits dt { color: var(--color-fg-60); }
+.credits dd { margin: 0; color: var(--color-fg); }
+
+.project__next {
+  margin-top: var(--section-spacing);
+  padding-top: 32px;
+  border-top: 1px solid var(--color-fg-15);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.project__next .project__label { color: var(--color-fg-60); }
+.project__next-link {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 96px);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+.project__next-link::after { content: " →"; }
+
+@media (max-width: 900px) {
+  .project__body { grid-template-columns: 1fr; gap: 48px; }
+  .project__credits { grid-column: 1; grid-row: auto; }
+  .credits { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    [ 04 ] CONTACT
    ============================================================ */
 .contact__big {
@@ -334,6 +579,7 @@ body::after {
   margin: 0;
 }
 .contact__big a {
+  display: inline-block; /* fuer den magnetischen Versatz (transform) */
   border-bottom: 4px solid transparent;
   transition: border-color var(--dur) var(--ease);
   padding-bottom: 4px;
@@ -345,11 +591,15 @@ body::after {
   margin-top: 56px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 32px 24px;
+  margin-bottom: 0;
   font-family: var(--font-mono);
   font-size: 13px;
 }
 .contact__meta .col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+/* leere Eintraege behalten ihre Hoehe, das Raster bleibt stehen */
+.contact__meta dt,
+.contact__meta dd { margin: 0; min-height: 1.45em; }
 .contact__meta .lbl { color: var(--color-fg-60); font-size: 11px; letter-spacing: 0.02em; white-space: nowrap; }
 .contact__meta a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 
@@ -523,7 +773,7 @@ body::after {
    ============================================================ */
 
 /* overflow guard — nothing may exceed the viewport width */
-html { overflow-x: hidden; width: 100%; max-width: 100%; }
+html { overflow-x: clip; width: 100%; max-width: 100%; }
 body { max-width: 100%; }
 canvas, img, video, svg { max-width: 100%; }
 

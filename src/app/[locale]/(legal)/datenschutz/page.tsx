@@ -14,7 +14,7 @@ export default function Datenschutz() {
     <>
       {/* ============ HEADER ============ */}
       <SiteHeader>
-        <Link className="hdr__brand" href="/" aria-label="Décadre — Startseite">Décadre</Link>
+        <Link className="hdr__brand" href="/" aria-label="Décadre Studio — Startseite">Décadre Studio</Link>
         <Link className="hdr__back" href="/">[ ← zurück ]</Link>
       </SiteHeader>
 

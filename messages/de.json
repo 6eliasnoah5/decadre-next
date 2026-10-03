@@ -9,8 +9,8 @@
     "en": "EN"
   },
   "nav": {
-    "brand": "Décadre",
-    "home": "Décadre — Startseite",
+    "brand": "Décadre Studio",
+    "home": "Décadre Studio — Startseite",
     "primary": "hauptnavigation",
     "primaryMobile": "hauptnavigation mobil",
     "menu": "[ menü ]",
@@ -28,6 +28,7 @@
     "order": [
       "decadre",
       "arbeit",
+      "projekte",
       "kontakt"
     ],
     "decadre": {
@@ -44,9 +45,16 @@
       "hint": "[ was ich mache ]",
       "inHeader": true
     },
+    "projekte": {
+      "id": "projekte",
+      "num": "[ 03 ]",
+      "label": "projekte",
+      "hint": "",
+      "inHeader": true
+    },
     "kontakt": {
       "id": "kontakt",
-      "num": "[ 03 ]",
+      "num": "[ 04 ]",
       "label": "kontakt",
       "hint": "",
       "inHeader": true
@@ -60,6 +68,7 @@
     ],
     "body": [
       "Ich bin Elias Noah Nies. Producer. Décadre ist das Studio, über das ich arbeite, im Moment allein. Wer hier anfragt, spricht mit dem, der dann auch am Set steht.",
+      "Der Name kommt aus dem Französischen. Cadre ist der Rahmen, décadrer heißt, ihn absichtlich zu verlassen. In der Kameraarbeit bezeichnet das eine Einstellung, die bewusst nicht mittig sitzt, weil das Wesentliche sonst nicht ins Bild passt.",
       "Mich interessiert, wann etwas wirklich bei jemandem ankommt.",
       "Das meiste kommt nicht an. Nicht weil es schlecht gemacht wäre, sondern weil es zu viel ist und zu schnell. Produktion ist darauf eingerichtet, Menge zu liefern: mehr Material, mehr Kanäle, kürzere Zyklen. Je reibungsloser das läuft, desto weniger bleibt hängen.",
       "Was hängen bleibt, hat eine Eigenschaft gemeinsam: Man kann es nicht bestellen. Der Moment, in dem jemand sich öffnet, steht in keinem Drehplan. Er lässt sich nur wahrscheinlicher machen. Durch Zeit. Durch Zugang, der gewachsen ist. Durch die Bereitschaft, einen Drehtag zu verlieren.",
@@ -79,15 +88,63 @@
     ],
     "keywords": "produktionsleitung · kalkulation · crewing · disposition · drehgenehmigungen · persönlichkeitsrechte · lizenzen · set · kamera · fotografie · schnittbegleitung · ausspielung"
   },
+  "projekte": {
+    "title": "Projekte.",
+    "intro": "eine auswahl. weitere auf anfrage.",
+    "prev": "[ ← ]",
+    "next": "[ → ]",
+    "prevLabel": "Vorheriges Projekt",
+    "nextLabel": "Nächstes Projekt",
+    "regionLabel": "Projekte, mit Pfeiltasten blättern",
+    "imageFollows": "[ bild folgt ]"
+  },
+  "project": {
+    "back": "[ ← alle projekte ]",
+    "videoFollows": "[ video folgt ]",
+    "videoLoad": "[ ▶ video laden ]",
+    "videoNote": "beim laden werden daten an {host} übertragen.",
+    "roleLabel": "meine rolle",
+    "credits": "Credits",
+    "next": "nächstes projekt"
+  },
   "contact": {
     "big": "[ → schreib mir ]",
-    "email": "email",
-    "available": "verfügbar",
-    "availableValue": "auf anfrage",
-    "area": "einsatzort",
-    "areaValue": "weltweit",
-    "social": "social",
-    "instagram": "[ ↗ instagram ]"
+    "meta": [
+      {
+        "label": "email",
+        "value": "hello@decadre.studio",
+        "link": "email"
+      },
+      {
+        "label": "antwort",
+        "value": "innerhalb von 24 stunden"
+      },
+      {
+        "label": "verfügbar",
+        "value": "auf anfrage"
+      },
+      {
+        "label": "einsatzort",
+        "value": "weltweit, reisebereit"
+      },
+      {
+        "label": "sprachen",
+        "value": "deutsch, englisch"
+      },
+      {
+        "label": "führerschein",
+        "value": "klasse b"
+      },
+      {
+        "label": "rechtsform",
+        "value": "einzelunternehmen, umsatzsteuerpflichtig"
+      },
+      {
+        "label": "social",
+        "value": "[ ↗ instagram ]",
+        "link": "instagram"
+      }
+    ]
   },
   "footer": {
     "brand": "Décadre",

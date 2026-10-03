@@ -2,12 +2,29 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { CONTACT_EMAIL, INSTAGRAM_URL } from "@/lib/site";
-import { HOME_PATHS, localeAlternates } from "@/lib/i18n-meta";
+import { HOME_PATHS, localeAlternates, projectPaths } from "@/lib/i18n-meta";
+import { PROJECTS, projectMeta } from "@/lib/content";
+import Gallery from "@/components/Gallery";
+import MagneticLink from "@/components/motion/MagneticLink";
+import HeroReveal from "@/components/motion/HeroReveal";
+import TextReveal from "@/components/motion/TextReveal";
+import StickyNumbers from "@/components/motion/StickyNumbers";
 import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
 
 // Startseite. Alle Texte aus messages/<locale>.json, Sektions-IDs je Sprache.
 // Reihenfolge: Hero, [ 01 ] décadre (Text + Portrait), [ 02 ] arbeit
-// (Fliesstext + Stichwortzeile), [ 03 ] kontakt.
+// (Fliesstext + Stichwortzeile), [ 03 ] projekte (Galerie), [ 04 ] kontakt.
+
+type ContactMeta = { label: string; value: string; link?: "email" | "instagram" };
+
+function metaValue({ value, link }: ContactMeta) {
+  if (!value) return null;
+  if (link === "email") return <a href={`mailto:${CONTACT_EMAIL}`}>{value}</a>;
+  if (link === "instagram") {
+    return <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">{value}</a>;
+  }
+  return value;
+}
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = (await params) as { locale: Locale };
@@ -33,8 +50,18 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     </div>
   );
 
+  // Klebende Abschnittsnummer, direktes Kind der <section> (siehe
+  // StickyNumbers); ohne JS / bei reduced motion ausgeblendet.
+  const sectionPin = (k: string) => (
+    <div className="section-pin" aria-hidden="true">
+      <div className="container">
+        <span className="section-pin__num">{s(k).num}</span>
+      </div>
+    </div>
+  );
+
   const paragraphs = (items: string[]) =>
-    items.map((p) => <p key={p.slice(0, 40)}>{p}</p>);
+    items.map((p) => <p key={p.slice(0, 40)} data-split="">{p}</p>);
 
   return (
     <>
@@ -58,12 +85,13 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </section>
 
         {/* ============ [ 01 ] DÉCADRE — Text und Portrait ============ */}
-        <section className="section section--tight-bottom" id={s("decadre").id} aria-label={s("decadre").label}>
+        <section className="section section--close-bottom" id={s("decadre").id} aria-label={s("decadre").label}>
+          {sectionPin("decadre")}
           <div className="container">
             {sectionHead("decadre")}
             <h2 className="section-title section-title--stack">
               {(t.raw("decadre.title") as string[]).map((line) => (
-                <span key={line}>{line}</span>
+                <span key={line} data-split="">{line}</span>
               ))}
             </h2>
             <div className="about__body">
@@ -80,10 +108,11 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </section>
 
         {/* ============ [ 02 ] ARBEIT — Fliesstext ============ */}
-        <section className="section section--tight-top section--tight-bottom" id={s("arbeit").id} aria-label={s("arbeit").label}>
+        <section className="section section--close-top" id={s("arbeit").id} aria-label={s("arbeit").label}>
+          {sectionPin("arbeit")}
           <div className="container">
             {sectionHead("arbeit")}
-            <h2 className="section-title">{t("arbeit.title")}</h2>
+            <h2 className="section-title" data-split="">{t("arbeit.title")}</h2>
             <div className="about__body">
               <div className="about__copy">
                 {paragraphs(t.raw("arbeit.body") as string[])}
@@ -93,38 +122,61 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           </div>
         </section>
 
-        {/* ============ [ 03 ] KONTAKT ============ */}
-        <section className="section section--tight-top section--mb-120" id={s("kontakt").id} aria-label={s("kontakt").label}>
+        {/* ============ [ 03 ] PROJEKTE — Galerie ============ */}
+        <section className="section" id={s("projekte").id} aria-label={s("projekte").label}>
+          {sectionPin("projekte")}
+          {/* Galerie bringt eigene Container mit, die Spur laeuft ueber die volle Breite */}
+          <Gallery
+            items={PROJECTS.map((p) => ({
+              slug: p.slug,
+              href: projectPaths(p.slug)[locale],
+              title: p.title[locale],
+              meta: projectMeta(p, locale, false),
+              poster: p.poster,
+            }))}
+            texts={{
+              num: s("projekte").num,
+              label: s("projekte").label,
+              title: t("projekte.title"),
+              intro: t("projekte.intro"),
+              prev: t("projekte.prev"),
+              next: t("projekte.next"),
+              prevLabel: t("projekte.prevLabel"),
+              nextLabel: t("projekte.nextLabel"),
+              regionLabel: t("projekte.regionLabel"),
+              imageFollows: t("projekte.imageFollows"),
+            }}
+          />
+        </section>
+
+        {/* ============ [ 04 ] KONTAKT ============ */}
+        <section className="section" id={s("kontakt").id} aria-label={s("kontakt").label}>
+          {sectionPin("kontakt")}
           <div className="container">
             {sectionHead("kontakt")}
 
             <h2 className="contact__big">
-              <a href={`mailto:${CONTACT_EMAIL}`}>{t("contact.big")}</a>
+              <MagneticLink href={`mailto:${CONTACT_EMAIL}`} split>{t("contact.big")}</MagneticLink>
             </h2>
 
-            <div className="contact__meta">
-              <div className="col">
-                <span className="lbl">{t("contact.email")}</span>
-                <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-              </div>
-              <div className="col">
-                <span className="lbl">{t("contact.available")}</span>
-                <span>{t("contact.availableValue")}</span>
-              </div>
-              <div className="col">
-                <span className="lbl">{t("contact.area")}</span>
-                <span>{t("contact.areaValue")}</span>
-              </div>
-              <div className="col">
-                <span className="lbl">{t("contact.social")}</span>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">{t("contact.instagram")}</a>
-              </div>
-            </div>
+            {/* acht Eintraege in zwei Reihen (mobil zwei Spalten). Ein leerer
+                Wert laesst die Zelle stehen, damit das Raster nicht umbricht. */}
+            <dl className="contact__meta">
+              {(t.raw("contact.meta") as ContactMeta[]).map((item, i) => (
+                <div className="col" key={i}>
+                  <dt className="lbl">{item.label}</dt>
+                  <dd>{metaValue(item)}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
       </main>
 
+      <HeroReveal />
+      <TextReveal />
+      <StickyNumbers />
       <SiteFooter locale={locale} />
     </>
   );
