@@ -591,11 +591,15 @@ html:not(.js) .gallery__controls { visibility: hidden; }
   margin-top: 56px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 32px 24px;
+  margin-bottom: 0;
   font-family: var(--font-mono);
   font-size: 13px;
 }
 .contact__meta .col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+/* leere Eintraege behalten ihre Hoehe, das Raster bleibt stehen */
+.contact__meta dt,
+.contact__meta dd { margin: 0; min-height: 1.45em; }
 .contact__meta .lbl { color: var(--color-fg-60); font-size: 11px; letter-spacing: 0.02em; white-space: nowrap; }
 .contact__meta a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 

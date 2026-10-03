@@ -15,6 +15,17 @@ import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
 // Reihenfolge: Hero, [ 01 ] décadre (Text + Portrait), [ 02 ] arbeit
 // (Fliesstext + Stichwortzeile), [ 03 ] projekte (Galerie), [ 04 ] kontakt.
 
+type ContactMeta = { label: string; value: string; link?: "email" | "instagram" };
+
+function metaValue({ value, link }: ContactMeta) {
+  if (!value) return null;
+  if (link === "email") return <a href={`mailto:${CONTACT_EMAIL}`}>{value}</a>;
+  if (link === "instagram") {
+    return <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">{value}</a>;
+  }
+  return value;
+}
+
 export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = (await params) as { locale: Locale };
   return { alternates: localeAlternates(locale, HOME_PATHS) };
@@ -148,24 +159,16 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
               <MagneticLink href={`mailto:${CONTACT_EMAIL}`} split>{t("contact.big")}</MagneticLink>
             </h2>
 
-            <div className="contact__meta">
-              <div className="col">
-                <span className="lbl">{t("contact.email")}</span>
-                <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-              </div>
-              <div className="col">
-                <span className="lbl">{t("contact.available")}</span>
-                <span>{t("contact.availableValue")}</span>
-              </div>
-              <div className="col">
-                <span className="lbl">{t("contact.area")}</span>
-                <span>{t("contact.areaValue")}</span>
-              </div>
-              <div className="col">
-                <span className="lbl">{t("contact.social")}</span>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">{t("contact.instagram")}</a>
-              </div>
-            </div>
+            {/* acht Eintraege in zwei Reihen (mobil zwei Spalten). Ein leerer
+                Wert laesst die Zelle stehen, damit das Raster nicht umbricht. */}
+            <dl className="contact__meta">
+              {(t.raw("contact.meta") as ContactMeta[]).map((item, i) => (
+                <div className="col" key={i}>
+                  <dt className="lbl">{item.label}</dt>
+                  <dd>{metaValue(item)}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
