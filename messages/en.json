@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "title": "Décadre Studio — Stuttgart",
+    "description": "Multidisciplinary creative studio in Stuttgart. Brand consulting, video production and visual identity as one continuous narrative."
+  },
+  "lang": {
+    "label": "sprache",
+    "de": "DE",
+    "en": "EN"
+  },
+  "nav": {
+    "home": "Décadre Studio — home",
+    "primary": "primary",
+    "primaryMobile": "primary mobile",
+    "menu": "[ menu ]",
+    "close": "[ close ]",
+    "closeLabel": "close menu",
+    "menuLabel": "primary navigation",
+    "brand": "Décadre Studio",
+    "menuBottom": "currently booking — autumn twentytwentysix"
+  },
+  "hero": {
+    "label": "intro",
+    "caption": "[ décadre studio — stuttgart — twentytwentysix ]",
+    "scroll": "[ scroll ↓ ]"
+  },
+  "marquee": "creative consultancy — video production — branding — brand strategy — campaign development — direction —",
+  "contact": {
+    "label": "contact",
+    "big": "[ → write us ]",
+    "email": "email",
+    "studio": "studio",
+    "studioValue": "stuttgart, germany",
+    "intake": "next intake",
+    "intakeValue": "autumn twentytwentysix",
+    "social": "social",
+    "instagram": "[ ↗ instagram ]"
+  },
+  "footer": {
+    "left": "— Stuttgart",
+    "brand": "Décadre Studio",
+    "instagram": "[ instagram ]",
+    "imprint": "[ impressum ]",
+    "privacy": "[ datenschutz ]",
+    "base": "© twentytwentysix · décadre studio. all rights reserved."
+  },
+  "clock": {
+    "place": "Stuttgart"
+  },
+  "sections": {
+    "order": [
+      "work",
+      "services",
+      "about",
+      "contact"
+    ],
+    "work": {
+      "id": "work",
+      "num": "[ 01 ]",
+      "label": "work",
+      "inHeader": true
+    },
+    "services": {
+      "id": "services",
+      "num": "[ 02 ]",
+      "label": "services",
+      "inHeader": true
+    },
+    "about": {
+      "id": "about",
+      "num": "[ 03 ]",
+      "label": "about",
+      "inHeader": true
+    },
+    "contact": {
+      "id": "contact",
+      "num": "[ 04 ]",
+      "label": "contact",
+      "inHeader": true
+    }
+  }
+}

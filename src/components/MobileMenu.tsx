@@ -11,7 +11,7 @@ import LocalClock from "@/components/LocalClock";
 // schliessen.
 
 /** [ menu ]-Button im Header */
-export function MenuButton() {
+export function MenuButton({ label }: { label: string }) {
   const menuOpen = useAppStore((s) => s.menuOpen);
   const setMenuOpen = useAppStore((s) => s.setMenuOpen);
 
@@ -24,20 +24,37 @@ export function MenuButton() {
       id="menu-open"
       onClick={() => setMenuOpen(true)}
     >
-      [ menu ]
+      {label}
     </button>
   );
 }
 
-const ITEMS = [
-  { href: "#work", num: "[ 01 ]", label: "work" },
-  { href: "#services", num: "[ 02 ]", label: "services" },
-  { href: "#about", num: "[ 03 ]", label: "about" },
-  { href: "#contact", num: "[ 04 ]", label: "contact" },
-];
+export type MenuItem = { id: string; num: string; label: string };
+
+export type MenuTexts = {
+  brand: string;
+  close: string;
+  closeLabel: string;
+  dialogLabel: string;
+  navLabel: string;
+  place: string;
+  bottom: string;
+};
 
 /** Vollflaechiges Overlay */
-export default function MobileMenu() {
+export default function MobileMenu({
+  items,
+  texts,
+  base = "",
+  langSwitch,
+}: {
+  items: MenuItem[];
+  texts: MenuTexts;
+  /** "" auf der Startseite, sonst deren Pfad (fuer #anker-Links) */
+  base?: string;
+  /** Sprachumschalter, serverseitig gerendert */
+  langSwitch?: React.ReactNode;
+}) {
   const menuOpen = useAppStore((s) => s.menuOpen);
   const setMenuOpen = useAppStore((s) => s.setMenuOpen);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -70,28 +87,29 @@ export default function MobileMenu() {
       id="menu"
       role="dialog"
       aria-modal="true"
-      aria-label="primary navigation"
+      aria-label={texts.dialogLabel}
       data-open={menuOpen ? "true" : "false"}
     >
       <div className="menu__top">
-        <span className="menu__brand">Décadre Studio</span>
+        <span className="menu__brand">{texts.brand}</span>
+        {langSwitch}
         <button
           ref={closeRef}
           className="menu__close"
           type="button"
           id="menu-close"
-          aria-label="close menu"
+          aria-label={texts.closeLabel}
           onClick={() => setMenuOpen(false)}
         >
-          [ close ]
+          {texts.close}
         </button>
       </div>
-      <nav className="menu__items" aria-label="primary mobile">
-        {ITEMS.map((item) => (
+      <nav className="menu__items" aria-label={texts.navLabel}>
+        {items.map((item) => (
           <a
-            key={item.href}
+            key={item.id}
             className="menu__item"
-            href={item.href}
+            href={`${base}#${item.id}`}
             data-menu-link=""
             onClick={() => setMenuOpen(false)}
           >
@@ -101,8 +119,8 @@ export default function MobileMenu() {
         ))}
       </nav>
       <div className="menu__bottom">
-        <div><LocalClock cityId="clock-city-menu" clockId="clock-menu" separator=" · " /></div>
-        <div className="right">currently booking — autumn twentytwentysix</div>
+        <div><LocalClock place={texts.place} cityId="clock-city-menu" clockId="clock-menu" separator=" · " /></div>
+        <div className="right">{texts.bottom}</div>
       </div>
     </div>
   );

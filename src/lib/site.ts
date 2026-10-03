@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 export const SITE_URL = "https://www.decadre.studio";
 export const SITE_NAME = "Décadre Studio";
 export const CONTACT_EMAIL = "hello@decadre.studio";
+export const INSTAGRAM_URL = "https://www.instagram.com/decadrestudio/";
 
 /** Englisch, passend zu lang="en" und og:locale en_GB der Startseite. */
 export const SITE_DESCRIPTION =

@@ -1,30 +1,28 @@
 import type { Metadata } from "next";
-import { baseOpenGraph, CONTACT_EMAIL } from "@/lib/site";
-import SiteHeader from "@/components/SiteHeader";
-import ScrollSpy from "@/components/ScrollSpy";
-import MobileMenu, { MenuButton } from "@/components/MobileMenu";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
+import { CONTACT_EMAIL, INSTAGRAM_URL } from "@/lib/site";
+import { HOME_PATHS, localeAlternates } from "@/lib/i18n-meta";
+import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
 import Cursor from "@/components/Cursor";
 import WorkGrid from "@/components/WorkGrid";
-import LocalClock from "@/components/LocalClock";
 import StudioVideo from "@/components/media/StudioVideo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-  openGraph: { ...baseOpenGraph, url: "/" },
-};
+export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
+  const { locale } = (await params) as { locale: Locale };
+  return {
+    alternates: localeAlternates(locale, HOME_PATHS),
+  };
+}
 
-export default function Home() {
+export default async function Home({ params }: PageProps<"/[locale]">) {
+  const { locale } = (await params) as { locale: Locale };
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale });
+
   return (
     <>
-      {/* ============ HEADER ============ */}
-      <SiteHeader>
-        <a className="hdr__brand" href="#top" aria-label="Décadre Studio — home">Décadre Studio</a>
-        <ScrollSpy />
-        <MenuButton />
-      </SiteHeader>
-
-      {/* ============ MOBILE MENU OVERLAY ============ */}
-      <MobileMenu />
+      <SiteHeaderBar locale={locale} paths={HOME_PATHS} onHome />
 
       {/* custom cursor (desktop only) */}
       <Cursor />
@@ -32,7 +30,7 @@ export default function Home() {
       <main id="top">
 
         {/* ============ HERO ============ */}
-        <section className="hero" aria-label="intro">
+        <section className="hero" aria-label={t("hero.label")}>
 
           {/* HERO VIDEO: src="videos/hero.mp4", poster="videos/hero.jpg" */}
           {/* HERO VIDEO AKTIVIEREN: dieses video display:none entfernen (hero__media--hidden weg), src + poster setzen */}
@@ -53,8 +51,8 @@ export default function Home() {
               <span>Friction</span>
             </h1>
             <div className="hero__bar">
-              <div className="hero__caption">[ décadre studio — stuttgart — twentytwentysix ]</div>
-              <a className="hero__scroll" href="#work">[ scroll ↓ ]</a>
+              <div className="hero__caption">{t("hero.caption")}</div>
+              <a className="hero__scroll" href="#work">{t("hero.scroll")}</a>
             </div>
           </div>
         </section>
@@ -63,8 +61,8 @@ export default function Home() {
         <div className="marquee-pin" id="marquee-pin" aria-hidden="true">
           <div className="marquee">
             <div className="marquee__track" id="marquee-track">
-              <span>creative consultancy — video production — branding — brand strategy — campaign development — direction —</span>
-              <span>creative consultancy — video production — branding — brand strategy — campaign development — direction —</span>
+              <span>{t("marquee")}</span>
+              <span>{t("marquee")}</span>
             </div>
           </div>
         </div>
@@ -173,25 +171,25 @@ export default function Home() {
             </div>
 
             <h2 className="contact__big">
-              <a href={`mailto:${CONTACT_EMAIL}`}>[ → write us ]</a>
+              <a href={`mailto:${CONTACT_EMAIL}`}>{t("contact.big")}</a>
             </h2>
 
             <div className="contact__meta">
               <div className="col">
-                <span className="lbl">email</span>
+                <span className="lbl">{t("contact.email")}</span>
                 <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
               </div>
               <div className="col">
-                <span className="lbl">studio</span>
-                <span>stuttgart, germany</span>
+                <span className="lbl">{t("contact.studio")}</span>
+                <span>{t("contact.studioValue")}</span>
               </div>
               <div className="col">
-                <span className="lbl">next intake</span>
-                <span>autumn twentytwentysix</span>
+                <span className="lbl">{t("contact.intake")}</span>
+                <span>{t("contact.intakeValue")}</span>
               </div>
               <div className="col">
-                <span className="lbl">social</span>
-                <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ ↗ instagram ]</a>
+                <span className="lbl">{t("contact.social")}</span>
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">{t("contact.instagram")}</a>
               </div>
             </div>
           </div>
@@ -199,21 +197,7 @@ export default function Home() {
 
       </main>
 
-      {/* ============ FOOTER ============ */}
-      <footer>
-        <div className="ftr">
-          <div><b>Décadre Studio</b> — Stuttgart</div>
-          <div className="center"><LocalClock cityId="clock-city" clockId="clock" separator=" " /></div>
-          <div className="right">
-            <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
-            <a href="/impressum">[ impressum ]</a>
-            <a href="/datenschutz">[ datenschutz ]</a>
-          </div>
-        </div>
-        <div className="ftr__base container">
-          © twentytwentysix · décadre studio. all rights reserved.
-        </div>
-      </footer>
+      <SiteFooter locale={locale} />
 
     </>
   );
