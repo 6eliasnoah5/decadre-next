@@ -1,11 +1,17 @@
+import type { Metadata } from "next";
+import { baseOpenGraph, CONTACT_EMAIL } from "@/lib/site";
 import SiteHeader from "@/components/SiteHeader";
 import ScrollSpy from "@/components/ScrollSpy";
 import MobileMenu, { MenuButton } from "@/components/MobileMenu";
 import Cursor from "@/components/Cursor";
 import WorkGrid from "@/components/WorkGrid";
-import EmailLink from "@/components/EmailLink";
 import LocalClock from "@/components/LocalClock";
 import StudioVideo from "@/components/media/StudioVideo";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: { ...baseOpenGraph, url: "/" },
+};
 
 export default function Home() {
   return (
@@ -167,13 +173,13 @@ export default function Home() {
             </div>
 
             <h2 className="contact__big">
-              <EmailLink user="hello" domain="decadre.studio" keepLabel>[ → write us ]</EmailLink>
+              <a href={`mailto:${CONTACT_EMAIL}`}>[ → write us ]</a>
             </h2>
 
             <div className="contact__meta">
               <div className="col">
                 <span className="lbl">email</span>
-                <EmailLink user="hello" domain="decadre.studio">hello [at] decadre.studio</EmailLink>
+                <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
               </div>
               <div className="col">
                 <span className="lbl">studio</span>

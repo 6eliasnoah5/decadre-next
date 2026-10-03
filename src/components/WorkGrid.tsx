@@ -5,8 +5,11 @@ import { useAppStore } from "@/store/useAppStore";
 import { work, type WorkEntry } from "@/lib/content";
 import StudioVideo from "@/components/media/StudioVideo";
 
-// Asymmetrisches Work-Grid mit Hover-Play wie im Legacy-Script:
-// mouseenter/focus -> play, mouseleave/blur -> pause + zurueck auf 0.
+// Asymmetrisches Work-Grid mit Hover-Play:
+// mouseenter -> play, mouseleave -> pause + zurueck auf 0.
+// Kacheln sind <div>, solange es keine Case-Study-Seiten gibt (vorher
+// <a href="#"> ohne Ziel). Damit sind sie nicht mehr per Tab fokussierbar;
+// das Fokus-Play entfaellt, weil es nichts auszuloesen gibt.
 // pointerenter/leave steuern den Custom-Cursor ueber den Store (nur bei
 // feinem Zeiger mit Hover und ohne reduced motion, wie im Original).
 // Inhalte kommen ausschliesslich aus src/lib/content.ts.
@@ -31,14 +34,12 @@ function WorkSlot({ entry }: { entry: WorkEntry }) {
   };
 
   return (
-    <a
+    <div
       className={`slot slot--${entry.index}`}
-      href="#"
+      role="group"
       aria-label={`project ${entry.index}`}
       onMouseEnter={play}
       onMouseLeave={pause}
-      onFocus={play}
-      onBlur={pause}
       onPointerEnter={() => { if (cursorAllowed()) setCursorMode("play"); }}
       onPointerLeave={() => { if (cursorAllowed()) setCursorMode("default"); }}
     >
@@ -55,7 +56,7 @@ function WorkSlot({ entry }: { entry: WorkEntry }) {
         <span className="slot__title">{entry.title}</span>
         <span className="slot__meta">{entry.category}</span>
       </div>
-    </a>
+    </div>
   );
 }
 
