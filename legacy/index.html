@@ -1,0 +1,1308 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Décadre site — index.html" subtitle="Deploy-ready vanilla build (Vercel)" viewport="1440x900" -->
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Décadre Studio — Stuttgart</title>
+  <meta name="description" content="[ platzhalter ]">
+  <meta name="theme-color" content="#F4F2EE">
+
+  <!-- open graph ----------------------------------------------- -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Décadre Studio — Stuttgart">
+  <meta property="og:description" content="[ platzhalter ]">
+  <meta property="og:url" content="https://decadre.studio">
+  <meta property="og:site_name" content="Décadre Studio">
+  <meta property="og:locale" content="de_DE">
+  <!-- OG IMAGE HIER: 1200x630, images/og-image.jpg -->
+  <meta property="og:image" content="images/og-image.jpg">
+
+  <!-- twitter card --------------------------------------------- -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Décadre Studio — Stuttgart">
+  <meta name="twitter:description" content="[ platzhalter ]">
+  <meta name="twitter:image" content="images/og-image.jpg">
+
+  <!-- favicons ------------------------------------------------- -->
+  <!-- FAVICON HIER: images/favicon.svg, images/apple-touch-icon.png -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4F2EE'/%3E%3Ctext x='4' y='24' font-family='monospace' font-size='20' font-weight='700' fill='%23111111'%3ED.%3C/text%3E%3C/svg%3E">
+  <!-- <link rel="icon" type="image/svg+xml" href="images/favicon.svg"> -->
+  <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png"> -->
+
+  <!-- fonts — self-hosted, DSGVO-konform (no Google request) -->
+  <!-- FONTS HIER: lege die .woff2-Dateien in /fonts/ (siehe README) -->
+
+<style>
+/* ============================================================
+   FONTS — self-hosted, loaded locally from /fonts/.
+   No request to Google. See README for which .woff2 to drop in.
+   ============================================================ */
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/InterTight-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/InterTight-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/InterTight-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* ============================================================
+   TOKENS — change these to retune the system
+   ============================================================ */
+:root {
+  /* colors -------------------------------------------------- */
+  --color-bg:    #F4F2EE;   /* warm offwhite — every surface  */
+  --color-fg:    #111111;   /* deep black — text + marks      */
+
+  /* alpha derivatives of --color-fg (NOT separate colors) -- */
+  --color-fg-60: rgba(17, 17, 17, 0.60);   /* meta / captions */
+  --color-fg-40: rgba(17, 17, 17, 0.40);   /* inactive        */
+  --color-fg-15: rgba(17, 17, 17, 0.15);   /* hairline        */
+
+  /* fonts -------------------------------------------------- */
+  --font-display: "Inter Tight", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* layout ------------------------------------------------- */
+  --max-width:             1440px;
+  --gutter:                24px;
+  --side-padding-desktop:  32px;
+  --side-padding-mobile:   20px;
+  --section-spacing:       160px;
+  --header-height:         64px;   /* sticky-header height — marquee pins below it */
+
+  /* derived (do not change) */
+  --pad-x: var(--side-padding-desktop);
+
+  /* motion ------------------------------------------------- */
+  --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur:       200ms;
+  --dur-slow:  400ms;
+}
+@media (max-width: 768px) {
+  :root {
+    --pad-x: var(--side-padding-mobile);
+    --section-spacing: 96px;
+  }
+}
+
+/* ============================================================
+   GLOBAL COLOR RESET
+   the entire site uses ONLY --color-bg + --color-fg.
+   browsers default <a> to blue, :visited to purple, focus
+   outlines to OS blue — every one of those is overridden here.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--color-bg); color: var(--color-fg); }
+
+a, a:link, a:visited, a:hover, a:active, a:focus,
+button, input, select, textarea {
+  color: var(--color-fg);
+}
+a { text-decoration: none; }
+button { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+
+::selection            { background: var(--color-fg); color: var(--color-bg); }
+::-moz-selection       { background: var(--color-fg); color: var(--color-bg); }
+
+:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 4px; }
+
+/* ============================================================
+   base
+   ============================================================ */
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.45;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  /* page-load fade — promoted to 1 by JS once loaded */
+  opacity: 0;
+  transition: opacity 400ms var(--ease);
+}
+body.is-loaded { opacity: 1; }
+body.menu-open { overflow: hidden; }
+
+img, video { display: block; max-width: 100%; }
+
+/* ============================================================
+   reduced motion — respect the user
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body { opacity: 1 !important; transition: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ============================================================
+   primitives
+   ============================================================ */
+.container { max-width: var(--max-width); margin-inline: auto; padding-inline: var(--pad-x); }
+
+/* one-line guarantee — applied to labels + nav + items below */
+.nowrap { white-space: nowrap; }
+
+/* section opener: [ NN ] + label, with display title beneath */
+.section { padding: var(--section-spacing) 0; }
+.section--first {
+  position: relative;
+  z-index: 1;
+  padding-top: 96px;
+}
+/* small mono note under the work heading */
+.work__note {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg);
+  opacity: 0.6;
+  margin: 16px 0 0;
+}
+.section-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  margin-bottom: 48px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-fg);
+}
+.section-head__num,
+.section-head__lbl { white-space: nowrap; letter-spacing: 0.02em; }
+.section-head__hint { color: var(--color-fg-60); font-size: 11px; letter-spacing: 0.02em; text-align: right; white-space: nowrap; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 140px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+  margin: 0;
+  text-wrap: balance;
+}
+/* stacked variant — three display lines, one word per line, no wrap */
+.section-title--stack {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: clamp(48px, 7vw, 120px);
+  line-height: 0.95;
+  text-wrap: nowrap;
+}
+.section-title--stack span { display: block; white-space: nowrap; }
+
+/* ============================================================
+   HEADER — sticky, hairline border on scroll
+   ============================================================ */
+.hdr {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding: 20px var(--pad-x);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 24px;
+  background: var(--color-bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur) var(--ease);
+}
+.hdr[data-scrolled="true"] { border-bottom-color: var(--color-fg-15); }
+
+.hdr__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.hdr__nav { display: flex; gap: 28px; align-items: center; }
+
+/* nav links — brackets are part of the text, always visible.
+   no underline. ever. hover = opacity lift only. */
+.hdr__link {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0;
+  padding: 4px 2px;
+  white-space: nowrap;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity var(--dur) var(--ease);
+}
+.hdr__link:link,
+.hdr__link:visited,
+.hdr__link:hover,
+.hdr__link:focus,
+.hdr__link:active { text-decoration: none; }
+.hdr__link:hover,
+.hdr__link:focus-visible { opacity: 1; }
+/* active section — brackets bold (font-weight: 700), no underline */
+.hdr__link[aria-current="true"] {
+  opacity: 1;
+  font-weight: 700;
+}
+
+/* menu button matches — same bracket-in-text + opacity-lift pattern */
+.hdr__menu {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 4px 0;
+  white-space: nowrap;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity var(--dur) var(--ease);
+}
+.hdr__menu:hover, .hdr__menu:focus-visible { opacity: 1; }
+
+@media (max-width: 700px) {
+  .hdr__nav { display: none; }
+  .hdr__menu { display: inline-block; }
+  .hdr__brand { font-size: 15px; }
+}
+
+/* ============================================================
+   HERO — fullscreen video + brutal display
+   ============================================================ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  /* offwhite while no hero video is set. when activating the video,
+     this can stay — the video covers it. */
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+.hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* hides the hero video until footage exists — remove this class on the
+   <video> tag to activate (see HERO VIDEO AKTIVIEREN comment in markup) */
+.hero__media--hidden { display: none; }
+.hero__placeholder {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(244, 242, 238, 0.35);
+}
+.hero__overlay {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: 0 var(--pad-x);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+.hero__title {
+  align-self: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(64px, 12vw, 200px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  color: var(--color-fg);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.hero__title span { display: block; white-space: nowrap; }
+.hero__title span:nth-child(2) { padding-left: clamp(40px, 8vw, 160px); }
+.hero__title span:nth-child(3) { padding-left: clamp(80px, 16vw, 320px); }
+
+.hero__bar {
+  padding-bottom: 28px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 24px;
+}
+.hero__caption,
+.hero__scroll {
+  color: var(--color-fg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.hero__scroll:link, .hero__scroll:visited { color: var(--color-fg); }
+
+@media (max-width: 640px) {
+  .hero { min-height: 540px; }
+  .hero__title span:nth-child(2) { padding-left: 24px; }
+  .hero__title span:nth-child(3) { padding-left: 48px; }
+
+  /* hide the small mono section hints on mobile (kept on desktop) */
+  .section-head { grid-template-columns: auto 1fr; }
+  .section-head__hint { display: none; }
+
+  /* stack the hero bar so [ scroll ↓ ] never gets pushed off-screen
+     by the long caption (both were nowrap in a 1fr/auto grid) */
+  .hero__bar {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 12px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+  .hero__caption { white-space: normal; display: none; }
+  .hero__scroll { justify-self: start; }
+}
+
+/* ============================================================
+   MARQUEE — continuous auto-loop (seamless, no scroll dependency)
+   ============================================================ */
+.marquee-pin {
+  position: relative;
+}
+.marquee {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-block: 40px;
+  border-top: 1px solid var(--color-fg-15);
+  border-bottom: 1px solid var(--color-fg-15);
+  background: var(--color-bg);
+}
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  will-change: transform;
+  animation: marquee-loop 32s linear infinite;
+}
+/* each copy ends with "— " and gets equal right padding so the
+   seam between the two copies matches the internal separators. */
+.marquee__track > span { padding-right: 32px; flex-shrink: 0; }
+
+@keyframes marquee-loop {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .marquee { padding-block: 32px; }
+  .marquee__track { font-size: clamp(28px, 9vw, 48px); }
+  .marquee__track > span { padding-right: 24px; }
+}
+
+/* reduced motion — hold the marquee static */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+/* ============================================================
+   [ 01 ] WORK — asymmetric video grid
+   ============================================================ */
+.work__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--gutter);
+  margin-top: 64px;
+}
+.slot {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  aspect-ratio: 16 / 10;
+  cursor: none;
+  transition: opacity var(--dur) var(--ease);
+}
+@media (hover: none) { .slot { cursor: pointer; } }
+
+.slot__media {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.slot__placeholder {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(244, 242, 238, 0.5);
+  pointer-events: none;
+}
+.slot__overlay {
+  position: absolute; inset: auto 0 0 0;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.slot:hover .slot__overlay,
+.slot:focus-visible .slot__overlay { opacity: 1; transform: none; }
+.slot__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(20px, 2vw, 28px);
+  letter-spacing: -0.03em;
+  color: var(--color-bg);
+  white-space: nowrap;
+}
+.slot__meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(244, 242, 238, 0.7);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* asymmetric placement */
+.slot--01 { grid-column: 1 / span 8;  grid-row: 1; aspect-ratio: 16 / 9; }
+.slot--02 { grid-column: 9 / span 4;  grid-row: 1; align-self: end; aspect-ratio: 4 / 5; }
+.slot--03 { grid-column: 1 / span 5;  grid-row: 2; aspect-ratio: 4 / 5; }
+.slot--04 { grid-column: 6 / span 7;  grid-row: 2; aspect-ratio: 16 / 10; align-self: end; }
+
+@media (max-width: 900px) {
+  .slot--01, .slot--02, .slot--03, .slot--04 {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 10;
+    align-self: auto;
+  }
+}
+
+/* ============================================================
+   [ 02 ] SERVICES — typo blocks + slide-in description
+   ============================================================ */
+.svc__list { border-top: 1px solid var(--color-fg-15); }
+/* compact section transitions — used to tighten specific gaps */
+.section--tight-bottom { padding-bottom: 48px; }
+.section--tight-top    { padding-top: 56px; }
+.section--mb-120       { padding-bottom: 120px; }
+.svc {
+  display: grid;
+  grid-template-columns: 56px 1fr 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding: 36px 0 32px;
+  border-bottom: 1px solid var(--color-fg-15);
+  transition: padding-left var(--dur) var(--ease);
+}
+.svc:hover { padding-left: 8px; }
+.svc--muted { opacity: 0.4; pointer-events: none; }
+
+.svc__num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+/* title MUST stay on one line — clamp shrinks the type as the
+   row narrows so "creative consultancy" never wraps. */
+.svc__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(24px, 5vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+.svc__desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  max-width: 36ch;
+  align-self: center;
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+}
+.svc:hover .svc__desc,
+.svc:focus-within .svc__desc { opacity: 1; transform: none; }
+
+/* the muted "events — twentytwentyseven" row keeps its
+   hint visible inline next to the title */
+.svc--muted .svc__desc { opacity: 1; transform: none; white-space: nowrap; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.02em; }
+
+@media (hover: none), (max-width: 900px) {
+  .svc__desc { opacity: 1; transform: none; }
+  .svc { grid-template-columns: 48px 1fr; }
+  .svc__desc { grid-column: 2 / -1; max-width: none; padding-top: 16px; }
+  .svc__title { font-size: clamp(26px, 6vw, 44px); }
+}
+
+/* ============================================================
+   [ 03 ] ABOUT
+   ============================================================ */
+.about__body {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 80px;
+}
+.about__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 56ch;
+  font-size: 17px;
+  line-height: 1.55;
+}
+.about__copy p { margin: 0; text-wrap: pretty; }
+/* outro note — mono, dimmed, set apart from the body paragraphs.
+   margin-top + the 16px flex gap reads as ~32px from the body. */
+.about-outro {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  opacity: 0.5;
+  max-width: 60ch;
+  margin-top: 16px;
+  text-transform: lowercase;
+  color: var(--color-fg);
+}
+.about-outro p { margin: 0 0 12px; }
+.about-outro p:last-child { margin-bottom: 0; }
+.about__slot {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  overflow: hidden;
+}
+.about__slot-media {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;
+}
+.about__slot-placeholder {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(244, 242, 238, 0.35);
+}
+@media (max-width: 900px) {
+  .about__body { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* ============================================================
+   [ 04 ] CONTACT
+   ============================================================ */
+.contact__big {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(72px, 14vw, 232px);
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  margin: 0;
+}
+.contact__big a {
+  border-bottom: 4px solid transparent;
+  transition: border-color var(--dur) var(--ease);
+  padding-bottom: 4px;
+  white-space: nowrap;
+}
+.contact__big a:hover { border-bottom-color: var(--color-fg); }
+
+.contact__meta {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.contact__meta .col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.contact__meta .lbl { color: var(--color-fg-60); font-size: 11px; letter-spacing: 0.02em; white-space: nowrap; }
+.contact__meta a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+@media (max-width: 900px) {
+  .contact__meta { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.ftr {
+  padding: 32px var(--pad-x) 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: end;
+  border-top: 1px solid var(--color-fg-15);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg-60);
+}
+.ftr b { color: var(--color-fg); font-weight: 400; white-space: nowrap; }
+.ftr .center { text-align: center; white-space: nowrap; }
+.ftr .right { text-align: right; display: flex; gap: 16px; justify-content: flex-end; white-space: nowrap; }
+.ftr .right a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.ftr__base {
+  padding: 0 var(--pad-x) 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg-40);
+}
+@media (max-width: 700px) {
+  .ftr { grid-template-columns: 1fr; text-align: left; }
+  .ftr .center, .ftr .right { text-align: left; justify-content: flex-start; }
+}
+
+/* ============================================================
+   MOBILE MENU OVERLAY
+   ============================================================ */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--color-bg);
+  padding: 20px var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease), visibility 0s var(--dur-slow);
+}
+.menu[data-open="true"] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease);
+}
+.menu__top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+.menu__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.menu__close {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 4px 0;
+  white-space: nowrap;
+}
+.menu__close::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: var(--color-fg);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 300ms var(--ease);
+}
+.menu__close:hover::after, .menu__close:focus-visible::after { transform: scaleX(1); }
+
+.menu__items {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.menu__item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(48px, 14vw, 120px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  padding: 4px 0;
+  white-space: nowrap;
+}
+.menu__item .num {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg-60);
+  white-space: nowrap;
+}
+
+.menu__bottom {
+  margin-top: auto;
+  padding-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg-60);
+}
+.menu__bottom .right { text-align: right; white-space: nowrap; }
+.menu__bottom b { color: var(--color-fg); font-weight: 400; white-space: nowrap; }
+
+/* ============================================================
+   CUSTOM CURSOR — `[ play ]` over .slot, fine-pointer only
+   ============================================================ */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 100;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-bg);
+  background: var(--color-fg);
+  padding: 6px 10px;
+  opacity: 0;
+  transition: opacity 200ms var(--ease);
+  white-space: nowrap;
+}
+.cursor[data-visible="true"] { opacity: 1; }
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .cursor { display: none !important; }
+}
+
+/* ============================================================
+   RESPONSIVE HARDENING
+   breakpoints: 1024 (tablet) / 768 (mobile) / 480 (small) / 374 (xs)
+   goal: zero horizontal overflow, no wrapping labels, safe areas
+   ============================================================ */
+
+/* overflow guard — nothing may exceed the viewport width */
+html { overflow-x: hidden; width: 100%; max-width: 100%; }
+body { max-width: 100%; }
+canvas, img, video, svg { max-width: 100%; }
+
+/* hero uses the dynamic viewport unit where supported (mobile URL bar) */
+.hero { height: 100vh; height: 100dvh; }
+
+/* safe-area insets — notch / dynamic island / home indicator */
+.hdr {
+  padding-left: max(var(--pad-x), env(safe-area-inset-left));
+  padding-right: max(var(--pad-x), env(safe-area-inset-right));
+  padding-top: max(20px, env(safe-area-inset-top));
+}
+.menu {
+  padding-left: max(var(--pad-x), env(safe-area-inset-left));
+  padding-right: max(var(--pad-x), env(safe-area-inset-right));
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+}
+.ftr__base { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+
+/* tablet — narrower side padding (min-width guard so it never
+   clobbers the mobile --pad-x set in the earlier 768 query) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root { --pad-x: 24px; }
+}
+
+/* small phones — scale every nowrap display headline so it fits 320px */
+@media (max-width: 480px) {
+  .hero__title { font-size: clamp(56px, 18vw, 104px); }
+  .hero__title span:nth-child(2) { padding-left: 14px; }
+  .hero__title span:nth-child(3) { padding-left: 28px; }
+  .section-title { font-size: clamp(44px, 14vw, 72px); }
+  .section-title--stack { font-size: clamp(48px, 15vw, 120px); }
+  .contact__big { font-size: clamp(30px, 11vw, 72px); }
+  .svc__title { font-size: clamp(20px, 5.5vw, 32px); }
+  .svc { grid-template-columns: 40px 1fr; }
+  .svc__num { font-size: 11px; }
+  .contact__meta { grid-template-columns: 1fr 1fr; gap: 24px 18px; }
+
+  /* footer links may wrap between items (each item stays nowrap) */
+  .ftr .right { white-space: normal; flex-wrap: wrap; gap: 12px 20px; }
+
+  /* touch targets — ≥44px effective height for tap accuracy */
+  .ftr a,
+  .contact__meta a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+/* very small phones — tightest side padding (later than the 768
+   query, so this 16px wins at ≤374px) */
+@media (max-width: 374px) {
+  :root { --pad-x: 16px; }
+  .hero__title { font-size: clamp(48px, 17vw, 80px); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="header">
+  <a class="hdr__brand" href="#top" aria-label="Décadre Studio — home">Décadre Studio</a>
+  <nav class="hdr__nav" aria-label="primary">
+    <a class="hdr__link" href="#work"     data-section="work">[ work ]</a>
+    <a class="hdr__link" href="#services" data-section="services">[ services ]</a>
+    <a class="hdr__link" href="#about"    data-section="about">[ about ]</a>
+    <a class="hdr__link" href="#contact"  data-section="contact">[ contact ]</a>
+  </nav>
+  <button class="hdr__menu" type="button" aria-controls="menu" aria-expanded="false" id="menu-open">[ menu ]</button>
+</header>
+
+<!-- ============ MOBILE MENU OVERLAY ============ -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="primary navigation" data-open="false">
+  <div class="menu__top">
+    <span class="menu__brand">Décadre Studio</span>
+    <button class="menu__close" type="button" id="menu-close" aria-label="close menu">[ close ]</button>
+  </div>
+  <nav class="menu__items" aria-label="primary mobile">
+    <a class="menu__item" href="#work"     data-menu-link><span class="num">[ 01 ]</span>work</a>
+    <a class="menu__item" href="#services" data-menu-link><span class="num">[ 02 ]</span>services</a>
+    <a class="menu__item" href="#about"    data-menu-link><span class="num">[ 03 ]</span>about</a>
+    <a class="menu__item" href="#contact"  data-menu-link><span class="num">[ 04 ]</span>contact</a>
+  </nav>
+  <div class="menu__bottom">
+    <div><b id="clock-city-menu">Stuttgart</b> · <span id="clock-menu" aria-live="off">--:--</span></div>
+    <div class="right">currently booking — autumn twentytwentysix</div>
+  </div>
+</div>
+
+<!-- custom cursor (desktop only) -->
+<div class="cursor" id="cursor" aria-hidden="true">[ play ]</div>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-label="intro">
+
+    <!-- HERO VIDEO: src="videos/hero.mp4", poster="videos/hero.jpg" -->
+    <!-- HERO VIDEO AKTIVIEREN: dieses video display:none entfernen (hero__media--hidden weg), src + poster setzen -->
+    <video class="hero__media hero__media--hidden" autoplay muted loop playsinline
+           poster="videos/hero.jpg"
+           aria-label="[ platzhalter ]">
+      <source src="videos/hero.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero__overlay">
+      <!-- TEXT HIER: hero headline, three lines -->
+      <h1 class="hero__title">
+        <span>Form</span>
+        <span>Frame</span>
+        <span>Friction</span>
+      </h1>
+      <div class="hero__bar">
+        <div class="hero__caption">[ décadre studio — stuttgart — twentytwentysix ]</div>
+        <a class="hero__scroll" href="#work">[ scroll ↓ ]</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE — continuous auto-loop ============ -->
+  <div class="marquee-pin" id="marquee-pin" aria-hidden="true">
+    <div class="marquee">
+      <div class="marquee__track" id="marquee-track">
+        <span>creative consultancy — video production — branding — brand strategy — campaign development — direction —</span>
+        <span>creative consultancy — video production — branding — brand strategy — campaign development — direction —</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ [ 01 ] WORK ============ -->
+  <section class="section section--first section--tight-bottom" id="work" aria-label="work">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-head__num">[ 01 ]</span>
+        <span class="section-head__lbl">work</span>
+        <span class="section-head__hint"></span>
+      </div>
+      <!-- TEXT HIER: work section headline -->
+      <h2 class="section-title" style="white-space: nowrap;">Selected Work.</h2>
+      <p class="work__note">selected concept work available on request.</p>
+
+      <div class="work__grid">
+
+        <!-- VIDEO HIER: src="videos/work-01.mp4", poster="videos/work-01.jpg" -->
+        <a class="slot slot--01" href="#" aria-label="project 01">
+          <video class="slot__media" muted loop playsinline preload="metadata"
+                 poster="videos/work-01.jpg"
+                 data-hover-play
+                 aria-label="[ platzhalter ]">
+            <source src="videos/work-01.mp4" type="video/mp4">
+          </video>
+          <div class="slot__placeholder" aria-hidden="true">[ 01 ]  first case — in production</div>
+          <div class="slot__overlay">
+            <span class="slot__title">[ platzhalter ]</span>
+            <span class="slot__meta">brand film</span>
+          </div>
+        </a>
+
+        <!-- VIDEO HIER: src="videos/work-02.mp4", poster="videos/work-02.jpg" -->
+        <a class="slot slot--02" href="#" aria-label="project 02">
+          <video class="slot__media" muted loop playsinline preload="metadata"
+                 poster="videos/work-02.jpg"
+                 data-hover-play
+                 aria-label="[ platzhalter ]">
+            <source src="videos/work-02.mp4" type="video/mp4">
+          </video>
+          <div class="slot__placeholder" aria-hidden="true">[ 02 ]  concept film — twentytwentysix</div>
+          <div class="slot__overlay">
+            <span class="slot__title">[ platzhalter ]</span>
+            <span class="slot__meta">campaign</span>
+          </div>
+        </a>
+
+        <!-- VIDEO HIER: src="videos/work-03.mp4", poster="videos/work-03.jpg" -->
+        <a class="slot slot--03" href="#" aria-label="project 03">
+          <video class="slot__media" muted loop playsinline preload="metadata"
+                 poster="videos/work-03.jpg"
+                 data-hover-play
+                 aria-label="[ platzhalter ]">
+            <source src="videos/work-03.mp4" type="video/mp4">
+          </video>
+          <div class="slot__placeholder" aria-hidden="true">[ 03 ]  ―</div>
+          <div class="slot__overlay">
+            <span class="slot__title">[ platzhalter ]</span>
+            <span class="slot__meta">identity</span>
+          </div>
+        </a>
+
+        <!-- VIDEO HIER: src="videos/work-04.mp4", poster="videos/work-04.jpg" -->
+        <a class="slot slot--04" href="#" aria-label="project 04">
+          <video class="slot__media" muted loop playsinline preload="metadata"
+                 poster="videos/work-04.jpg"
+                 data-hover-play
+                 aria-label="[ platzhalter ]">
+            <source src="videos/work-04.mp4" type="video/mp4">
+          </video>
+          <div class="slot__placeholder" aria-hidden="true">[ 04 ]  ―</div>
+          <div class="slot__overlay">
+            <span class="slot__title">[ platzhalter ]</span>
+            <span class="slot__meta">editorial motion</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ [ 02 ] SERVICES ============ -->
+  <section class="section section--tight-top section--tight-bottom" id="services" aria-label="services">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-head__num">[ 02 ]</span>
+        <span class="section-head__lbl">services</span>
+        <span class="section-head__hint">three practice areas</span>
+      </div>
+
+      <div class="svc__list" role="list">
+        <div class="svc" role="listitem" tabindex="0">
+          <div class="svc__num">[ one ]</div>
+          <div class="svc__title">creative consultancy</div>
+          <!-- TEXT HIER: one-line description for consultancy -->
+          <div class="svc__desc">Strategic guidance across the full creative spectrum — positioning, naming, brand strategy, communication, and the operational questions behind them. A particular focus on AI-driven content workflows and on enabling founders and smaller teams to build systems they can run themselves, without becoming dependent on an external studio. Always paired with a critical view of where the tools end and authorship has to begin.</div>
+        </div>
+
+        <div class="svc" role="listitem" tabindex="0">
+          <div class="svc__num">[ two ]</div>
+          <div class="svc__title">video production</div>
+          <!-- TEXT HIER: one-line description for video -->
+          <div class="svc__desc">Cinematic campaign films, image essays, documentary fragments, and editorial-grade digital content. We work end-to-end: concept, direction, shoot, edit, colour, sound. Built for brands and founders that need more than a stack of cuts — work that holds up beyond the first scroll and carries weight on the second view.</div>
+        </div>
+
+        <div class="svc" role="listitem" tabindex="0">
+          <div class="svc__num">[ three ]</div>
+          <div class="svc__title">branding</div>
+          <!-- TEXT HIER: one-line description for branding -->
+          <div class="svc__desc">Full visual identity systems: typography, mark, motion language, guidelines, and the rules for breaking them. Built to translate cleanly between physical space, print, and screen, and to outlast campaign cycles rather than chase them. Identity as a frame, not as decoration.</div>
+        </div>
+
+        <div class="svc svc--muted" role="listitem" aria-disabled="true">
+          <div class="svc__num">[ four ]</div>
+          <div class="svc__title">events</div>
+          <div class="svc__desc">— twentytwentyseven</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ [ 03 ] ABOUT ============ -->
+  <section class="section section--tight-top section--tight-bottom" id="about" aria-label="about">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-head__num">[ 03 ]</span>
+        <span class="section-head__lbl">about</span>
+        <span class="section-head__hint">stuttgart, since twentytwentysix</span>
+      </div>
+      <!-- TEXT HIER: about section headline -->
+      <h2 class="section-title section-title--stack">
+        <span>A studio</span>
+        <span>between</span>
+        <span>disciplines.</span>
+      </h2>
+
+      <div class="about__body">
+        <div class="about__copy">
+          <!-- TEXT HIER: about paragraphs -->
+          <p>Décadre is a multidisciplinary creative studio based in Stuttgart, working at the intersection of brand consulting, video production, and visual identity.</p>
+          <p>The studio was founded by Elias Noah Nies. Trained as an industrial engineer, he led AI and software projects in the retail-tech sector and previously built his own startup in EdTech. This background — structural thinking on one side, raw visual instinct on the other — shapes every project: strategy that does not flatten aesthetics, aesthetics that do not hide from substance.</p>
+          <p>Brand consulting, video production, and visual identity are the three practices we deliver today. Each project begins with the same conviction: a brand is more than its surface, and its visual language should know what lies beneath. We treat strategy, image, and motion as one continuous narrative — not a stack of separate deliverables — and build visual systems meant to outlast a campaign cycle.</p>
+          <p>The studio operates on a few non-negotiables. Inclusion is unconditional, and the politics that follow from it are not decoration. Honest supply chains, honest margins, an open record of our own mistakes. Climate, culture, and political responsibility are not subjects we comment on from the outside — they shape which projects we take, how we build them, and what we refuse to make.</p>
+          <p>We work across the full spectrum. Hospitality in transition. Emerging fashion labels and full-creative studios. Founders in tech and innovation who treat their visual language as part of the product, not its packaging. Artists, musicians, and cultural operators building something that does not fit an existing frame. A growing share of the work sits around AI-assisted content and enabling smaller teams to operate creatively on their own — and around sport and movement culture as a whole, from football and team sports to endurance and extreme disciplines, treated as a cultural field rather than lifestyle content.</p>
+          <p>Beyond commissioned work, the studio holds space for its original purpose: making visible what unsettles us. The questions beneath the surface of a culture in transition — loneliness, the slow disappearance of non-commercial public space, the return to analog tools as a quiet act of resistance, the aestheticisation of suffering, the limits of authentic journalism in an age of generated content. Some of it becomes a project. Some of it stays a record.</p>
+          <div class="about-outro">
+            <p>[ on the horizon ] live formats and large-scale visual environments for festivals and concerts — led stage design, content direction, and integrated show concepts conceived as a single body of work rather than a stack of separate deliverables. the studio is positioning itself to move from screen to space, treating the venue itself as a frame.</p>
+            <p>[ open ] open to projects that do not yet have a category.</p>
+          </div>
+        </div>
+        <div class="about__slot">
+          <!-- ABOUT-BILD: /images/about-portrait.jpeg — 4:5, austauschbar -->
+          <img class="about__slot-media" src="/images/about-portrait.jpeg"
+               alt="Elias Noah Nies — Décadre Studio">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ [ 04 ] CONTACT ============ -->
+  <section class="section section--tight-top section--mb-120" id="contact" aria-label="contact">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-head__num">[ 04 ]</span>
+        <span class="section-head__lbl">contact</span>
+        <span class="section-head__hint"></span>
+      </div>
+
+      <h2 class="contact__big">
+        <a href="#" class="email-link" data-user="hello" data-domain="decadre.studio" data-keep-label>[ → write us ]</a>
+      </h2>
+
+      <div class="contact__meta">
+        <div class="col">
+          <span class="lbl">email</span>
+          <a href="#" class="email-link" data-user="hello" data-domain="decadre.studio">hello [at] decadre.studio</a>
+        </div>
+        <div class="col">
+          <span class="lbl">studio</span>
+          <span>stuttgart, germany</span>
+        </div>
+        <div class="col">
+          <span class="lbl">next intake</span>
+          <span>autumn twentytwentysix</span>
+        </div>
+        <div class="col">
+          <span class="lbl">social</span>
+          <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ ↗ instagram ]</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="ftr">
+    <div><b>Décadre Studio</b> — Stuttgart</div>
+    <div class="center"><b id="clock-city">Stuttgart</b> <span id="clock" aria-live="off">--:--</span></div>
+    <div class="right">
+      <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
+      <a href="impressum.html">[ impressum ]</a>
+      <a href="datenschutz.html">[ datenschutz ]</a>
+    </div>
+  </div>
+  <div class="ftr__base container">
+    © twentytwentysix · décadre studio. all rights reserved.
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // page-load fade-in (400ms) ---------------------------------
+  const reveal = () => document.body.classList.add('is-loaded');
+  if (document.readyState === 'complete') reveal();
+  else window.addEventListener('load', reveal);
+
+  // live clock — Europe/Berlin --------------------------------
+  // live clock — adapts to the visitor's own timezone (no permission,
+  // no external request — derived from the browser's IANA timezone).
+  // city label comes from the timezone's last segment; falls back to
+  // Stuttgart if the zone can't be read.
+  const clockEls = [document.getElementById('clock'), document.getElementById('clock-menu')].filter(Boolean);
+  const cityEls = [document.getElementById('clock-city'), document.getElementById('clock-city-menu')].filter(Boolean);
+
+  let tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { tz = ''; }
+  // show the continent (first timezone segment): "Europe/Berlin" -> "Europe",
+  // "America/New_York" -> "America". falls back to Europe.
+  let region = 'Europe';
+  if (tz && tz.indexOf('/') !== -1) {
+    region = tz.split('/')[0].replace(/_/g, ' ');
+  }
+  cityEls.forEach(el => { el.textContent = region; });
+
+  // time in the visitor's local zone (omitting timeZone = local)
+  const fmt = new Intl.DateTimeFormat('de-DE', {
+    hour: '2-digit', minute: '2-digit', hour12: false
+  });
+  const tickClock = () => {
+    const t = fmt.format(new Date());
+    clockEls.forEach(el => { el.textContent = t; });
+  };
+  tickClock();
+  setInterval(tickClock, 1000 * 15);
+
+  // header — hairline border once scrolled --------------------
+  const hdr = document.getElementById('header');
+  const onScroll = () => {
+    hdr.dataset.scrolled = (window.scrollY > 8) ? 'true' : 'false';
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // active section indicator ----------------------------------
+  const links = Array.from(document.querySelectorAll('.hdr__link'));
+  const targets = links
+    .map(a => ({ link: a, el: document.getElementById(a.dataset.section) }))
+    .filter(t => t.el);
+  const setActive = (id) => {
+    links.forEach(a => {
+      const match = a.dataset.section === id;
+      if (match) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  };
+  const io = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible[0]) setActive(visible[0].target.id);
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
+  targets.forEach(t => io.observe(t.el));
+
+  // mobile menu — open / close / esc --------------------------
+  const menu      = document.getElementById('menu');
+  const menuOpen  = document.getElementById('menu-open');
+  const menuClose = document.getElementById('menu-close');
+  const setMenu = (open) => {
+    menu.dataset.open = open ? 'true' : 'false';
+    menuOpen.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('menu-open', open);
+    if (open) requestAnimationFrame(() => menuClose.focus());
+    else menuOpen.focus();
+  };
+  menuOpen .addEventListener('click', () => setMenu(true));
+  menuClose.addEventListener('click', () => setMenu(false));
+  document.querySelectorAll('[data-menu-link]').forEach(a => {
+    a.addEventListener('click', () => setMenu(false));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.dataset.open === 'true') setMenu(false);
+  });
+
+  // marquee — continuous CSS auto-loop, no JS needed -----------
+
+  // email — assembled at runtime so the plaintext address never
+  // appears in the HTML source (avoids Cloudflare obfuscation +
+  // basic bot scraping). data-keep-label keeps the link's text.
+  document.querySelectorAll('.email-link').forEach((el) => {
+    const user = el.getAttribute('data-user');
+    const domain = el.getAttribute('data-domain');
+    if (!user || !domain) return;
+    const addr = user + '@' + domain;
+    el.href = 'mailto:' + addr;
+    if (!el.hasAttribute('data-keep-label')) el.textContent = addr;
+  });
+
+  // hover-play for work videos --------------------------------
+  document.querySelectorAll('.slot').forEach(slot => {
+    const v = slot.querySelector('video[data-hover-play]');
+    if (!v) return;
+    const play  = () => { v.play().catch(() => {}); };
+    const pause = () => { v.pause(); v.currentTime = 0; };
+    slot.addEventListener('mouseenter', play);
+    slot.addEventListener('mouseleave', pause);
+    slot.addEventListener('focusin', play);
+    slot.addEventListener('focusout', pause);
+  });
+
+  // custom cursor — desktop, fine pointer only ----------------
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (finePointer && !reduced) {
+    const cursor = document.getElementById('cursor');
+    let raf = 0, x = 0, y = 0;
+    const onMove = (e) => {
+      x = e.clientX; y = e.clientY;
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        cursor.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+        raf = 0;
+      });
+    };
+    document.querySelectorAll('.slot').forEach(slot => {
+      slot.addEventListener('pointerenter', () => { cursor.dataset.visible = 'true'; window.addEventListener('pointermove', onMove); });
+      slot.addEventListener('pointerleave', () => { cursor.dataset.visible = 'false'; window.removeEventListener('pointermove', onMove); });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
