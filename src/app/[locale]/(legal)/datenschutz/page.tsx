@@ -82,7 +82,7 @@ export default function Datenschutz() {
       <footer>
         <div className="ftr">
           <div><b>Décadre</b> — Einzelunternehmen</div>
-          <div className="center"><LocalClock place="Deutschland" clockId="clock" separator=" " /></div>
+          <div className="center"><LocalClock clockId="clock" /></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
             <Link href="/impressum">[ impressum ]</Link>

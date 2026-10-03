@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Décadre — Produktion und Bild",
-    "description": "Décadre ist das Studio von Elias Noah Nies. Produktionsleitung, Kamera und visuelle Systeme für Projekte, die es wert sind, Zeit zu bekommen. Deutschlandweit."
+    "title": "Décadre — Elias Noah Nies, Producer",
+    "description": "Décadre ist das Studio von Elias Noah Nies. Produktion für Projekte, die es wert sind, Zeit zu bekommen. Film, Fotografie, Raum. Weltweit."
   },
   "lang": {
     "label": "sprache",
@@ -17,7 +17,7 @@
     "close": "[ schließen ]",
     "closeLabel": "menü schließen",
     "menuLabel": "navigation",
-    "menuBottom": "projektweise, auch kurzfristig"
+    "menuBottom": "auf anfrage"
   },
   "hero": {
     "label": "einstieg",
@@ -58,21 +58,34 @@
       "das",
       "antwortet."
     ],
-    "body": [],
+    "body": [
+      "Ich bin Elias Noah Nies. Producer. Décadre ist das Studio, über das ich arbeite, im Moment allein. Wer hier anfragt, spricht mit dem, der dann auch am Set steht.",
+      "Mich interessiert, wann etwas wirklich bei jemandem ankommt.",
+      "Das meiste kommt nicht an. Nicht weil es schlecht gemacht wäre, sondern weil es zu viel ist und zu schnell. Produktion ist darauf eingerichtet, Menge zu liefern: mehr Material, mehr Kanäle, kürzere Zyklen. Je reibungsloser das läuft, desto weniger bleibt hängen.",
+      "Was hängen bleibt, hat eine Eigenschaft gemeinsam: Man kann es nicht bestellen. Der Moment, in dem jemand sich öffnet, steht in keinem Drehplan. Er lässt sich nur wahrscheinlicher machen. Durch Zeit. Durch Zugang, der gewachsen ist. Durch die Bereitschaft, einen Drehtag zu verlieren.",
+      "Genau darin sehe ich meine Aufgabe. Bedingungen herstellen, unter denen etwas passieren darf, das niemand geplant hat. Das ist unspektakuläre Arbeit: Kalkulation, Disposition, Rechte, Vertrauen. Und sie entscheidet darüber, ob am Ende ein Bild steht, das jemanden erreicht, oder eines, das bloß korrekt ist.",
+      "Welches Thema, ist mir gleich. Ein Kurzfilm über eine einzige Person, eine Reportage aus einem Kriegsgebiet, eine Recherche über Abholzung. Die Frage ist, ob die Sache es wert ist, Zeit zu bekommen.",
+      "Ich komme dabei von der Bildseite. Ich fotografiere, ich stehe selbst hinter der Kamera, und ich halte Form nicht für Dekoration. Wie nah jemand rankommt, ist eine gestalterische Entscheidung, bevor sie eine moralische wird."
+    ],
     "portraitAlt": "Elias Noah Nies"
   },
   "arbeit": {
     "title": "Producer.",
-    "body": [],
-    "keywords": ""
+    "body": [
+      "Ich sorge dafür, dass ein Projekt stattfindet.",
+      "Das heißt: Kalkulation und Zeitplan. Crew zusammenstellen und disponieren. Drehgenehmigungen, Verträge, Persönlichkeitsrechte, Musiklizenzen. Am Drehtag vor Ort sein, als Ansprechpartner für alle Beteiligten, vor allem für die Menschen, die gefilmt werden. Danach durch Schnitt, Rechteprüfung und Freigabe bis zur fertigen Fassung.",
+      "Die Arbeit bleibt dieselbe, egal was am Ende dabei herauskommt. Ein Film, eine Fotostrecke, ein Text, eine Ausstellung, ein Abend mit Publikum. Das Medium ergibt sich aus der Sache, nicht umgekehrt, und ich lege es lieber spät fest als früh.",
+      "Je nach Projekt übernehme ich die ganze Produktion oder einen Teil davon. Wo es die Sache besser macht, drehe und fotografiere ich selbst. Kleine Teams, langer Zugang, wenig Apparat."
+    ],
+    "keywords": "produktionsleitung · kalkulation · crewing · disposition · drehgenehmigungen · persönlichkeitsrechte · lizenzen · set · kamera · fotografie · schnittbegleitung · ausspielung"
   },
   "contact": {
     "big": "[ → schreib mir ]",
     "email": "email",
     "available": "verfügbar",
-    "availableValue": "projektweise, auch kurzfristig",
-    "area": "arbeitsraum",
-    "areaValue": "deutschland — bundesweit, reisebereit",
+    "availableValue": "auf anfrage",
+    "area": "einsatzort",
+    "areaValue": "weltweit",
     "social": "social",
     "instagram": "[ ↗ instagram ]"
   },
@@ -83,8 +96,5 @@
     "imprint": "[ impressum ]",
     "privacy": "[ datenschutz ]",
     "base": "© 2026 décadre. alle rechte vorbehalten."
-  },
-  "clock": {
-    "place": "Deutschland"
   }
 }

@@ -39,7 +39,6 @@ export async function SiteHeaderBar({
 }) {
   const t = await getTranslations({ locale, namespace: "nav" });
   const tl = await getTranslations({ locale, namespace: "lang" });
-  const tc = await getTranslations({ locale, namespace: "clock" });
   const sections = await getSections(locale);
   const base = onHome ? "" : HOME_PATHS[locale];
   const langSwitch = (className: string) => (
@@ -69,7 +68,6 @@ export async function SiteHeaderBar({
           closeLabel: t("closeLabel"),
           dialogLabel: t("menuLabel"),
           navLabel: t("primaryMobile"),
-          place: tc("place"),
           bottom: t("menuBottom"),
         }}
       />
@@ -79,12 +77,11 @@ export async function SiteHeaderBar({
 
 export async function SiteFooter({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: "footer" });
-  const tc = await getTranslations({ locale, namespace: "clock" });
   return (
     <footer>
       <div className="ftr">
         <div><b>{t("brand")}</b> {t("left")}</div>
-        <div className="center"><LocalClock place={tc("place")} cityId="clock-city" clockId="clock" separator=" " /></div>
+        <div className="center"><LocalClock clockId="clock" /></div>
         <div className="right">
           <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">{t("instagram")}</a>
           {/* Rechtsseiten gibt es nur auf Deutsch */}

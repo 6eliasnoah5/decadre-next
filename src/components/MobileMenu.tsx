@@ -37,7 +37,6 @@ export type MenuTexts = {
   closeLabel: string;
   dialogLabel: string;
   navLabel: string;
-  place: string;
   bottom: string;
 };
 
@@ -119,7 +118,7 @@ export default function MobileMenu({
         ))}
       </nav>
       <div className="menu__bottom">
-        <div><LocalClock place={texts.place} cityId="clock-city-menu" clockId="clock-menu" separator=" · " /></div>
+        <div><LocalClock clockId="clock-menu" /></div>
         <div className="right">{texts.bottom}</div>
       </div>
     </div>
