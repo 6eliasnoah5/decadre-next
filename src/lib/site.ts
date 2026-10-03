@@ -6,7 +6,12 @@ export const SITE_URL = "https://www.decadre.studio";
 export const SITE_NAME = "Décadre Studio";
 export const CONTACT_EMAIL = "hello@decadre.studio";
 
+/** Englisch, passend zu lang="en" und og:locale en_GB der Startseite. */
 export const SITE_DESCRIPTION =
+  "Multidisciplinary creative studio in Stuttgart. Brand consulting, video production and visual identity as one continuous narrative.";
+
+/** Deutsch, fuer Impressum und Datenschutz (lang="de", og:locale de_DE). */
+export const LEGAL_DESCRIPTION =
   "Multidisziplinäres Kreativstudio in Stuttgart. Brand Consulting, Videoproduktion und Visual Identity als eine durchgehende Erzählung.";
 
 export const FAVICON =

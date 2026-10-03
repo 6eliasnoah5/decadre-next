@@ -3,7 +3,7 @@ import "../legal.css";
 import { fontVariables } from "../fonts";
 import Providers from "../Providers";
 import FadeInScript from "@/components/FadeInScript";
-import { SITE_URL, SITE_DESCRIPTION, FAVICON, OG_IMAGE, baseOpenGraph } from "@/lib/site";
+import { SITE_URL, LEGAL_DESCRIPTION, FAVICON, OG_IMAGE, baseOpenGraph } from "@/lib/site";
 
 // Eigenes Root-Layout fuer die Rechtsseiten: Sie hatten in der Legacy-Site
 // ein eigenes <style> mit abweichenden Regeln fuer dieselben Klassen.
@@ -14,11 +14,11 @@ import { SITE_URL, SITE_DESCRIPTION, FAVICON, OG_IMAGE, baseOpenGraph } from "@/
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: "Décadre Studio", template: "%s — Décadre Studio" },
-  description: SITE_DESCRIPTION,
+  description: LEGAL_DESCRIPTION,
   robots: { index: true, follow: true },
   icons: { icon: FAVICON },
   // Dasselbe generierte Bild wie die Startseite (src/app/opengraph-image.tsx).
-  openGraph: { ...baseOpenGraph, locale: "de_DE" },
+  openGraph: { ...baseOpenGraph, description: LEGAL_DESCRIPTION, locale: "de_DE" },
   twitter: { card: "summary_large_image", images: OG_IMAGE },
 };
 
