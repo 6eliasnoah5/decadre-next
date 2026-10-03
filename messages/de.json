@@ -49,34 +49,90 @@
   },
   "sections": {
     "order": [
-      "work",
-      "services",
-      "about",
-      "contact"
+      "haltung",
+      "arbeit",
+      "formate",
+      "hintergrund",
+      "notizen",
+      "kontakt"
     ],
-    "work": {
-      "id": "work",
+    "haltung": {
+      "id": "haltung",
       "num": "[ 01 ]",
-      "label": "work",
+      "label": "haltung",
+      "hint": "[ warum ]",
       "inHeader": true
     },
-    "services": {
-      "id": "services",
+    "arbeit": {
+      "id": "arbeit",
       "num": "[ 02 ]",
-      "label": "services",
+      "label": "arbeit",
+      "hint": "[ was ich übernehme ]",
       "inHeader": true
     },
-    "about": {
-      "id": "about",
+    "formate": {
+      "id": "formate",
       "num": "[ 03 ]",
-      "label": "about",
+      "label": "formate",
+      "hint": "[ was daraus wird ]",
       "inHeader": true
     },
-    "contact": {
-      "id": "contact",
+    "hintergrund": {
+      "id": "hintergrund",
       "num": "[ 04 ]",
-      "label": "contact",
+      "label": "hintergrund",
+      "hint": "[ wer ]",
+      "inHeader": false
+    },
+    "notizen": {
+      "id": "notizen",
+      "num": "[ 05 ]",
+      "label": "notizen",
+      "hint": "[ laufende gedanken ]",
+      "inHeader": false
+    },
+    "kontakt": {
+      "id": "kontakt",
+      "num": "[ 06 ]",
+      "label": "kontakt",
+      "hint": "",
       "inHeader": true
     }
-  }
+  },
+  "haltung": {
+    "title": [
+      "Zeit ist",
+      "die ganze",
+      "Entscheidung."
+    ],
+    "body": []
+  },
+  "arbeit": {
+    "title": "Rollen.",
+    "intro": "",
+    "items": []
+  },
+  "formate": {
+    "title": "Kein Medium ist gesetzt.",
+    "intro": "",
+    "items": []
+  },
+  "hintergrund": {
+    "title": "Décadre.",
+    "body": [],
+    "portraitAlt": "Elias Noah Nies — Décadre"
+  },
+  "notizen": {
+    "title": "Notizen.",
+    "intro": "",
+    "empty": "[ in arbeit ]"
+  },
+  "itemNums": [
+    "[ eins ]",
+    "[ zwei ]",
+    "[ drei ]",
+    "[ vier ]",
+    "[ fünf ]",
+    "[ sechs ]"
+  ]
 }

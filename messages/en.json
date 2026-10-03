@@ -49,34 +49,90 @@
   },
   "sections": {
     "order": [
-      "work",
-      "services",
-      "about",
-      "contact"
+      "haltung",
+      "arbeit",
+      "formate",
+      "hintergrund",
+      "notizen",
+      "kontakt"
     ],
-    "work": {
-      "id": "work",
+    "haltung": {
+      "id": "position",
       "num": "[ 01 ]",
-      "label": "work",
+      "label": "position",
+      "hint": "[ why ]",
       "inHeader": true
     },
-    "services": {
-      "id": "services",
+    "arbeit": {
+      "id": "roles",
       "num": "[ 02 ]",
-      "label": "services",
+      "label": "roles",
+      "hint": "[ what i take on ]",
       "inHeader": true
     },
-    "about": {
-      "id": "about",
+    "formate": {
+      "id": "formats",
       "num": "[ 03 ]",
-      "label": "about",
+      "label": "formats",
+      "hint": "[ what it becomes ]",
       "inHeader": true
     },
-    "contact": {
-      "id": "contact",
+    "hintergrund": {
+      "id": "background",
       "num": "[ 04 ]",
+      "label": "background",
+      "hint": "[ who ]",
+      "inHeader": false
+    },
+    "notizen": {
+      "id": "notes",
+      "num": "[ 05 ]",
+      "label": "notes",
+      "hint": "[ ongoing thoughts ]",
+      "inHeader": false
+    },
+    "kontakt": {
+      "id": "contact",
+      "num": "[ 06 ]",
       "label": "contact",
+      "hint": "",
       "inHeader": true
     }
-  }
+  },
+  "haltung": {
+    "title": [
+      "Time is",
+      "the whole",
+      "decision."
+    ],
+    "body": []
+  },
+  "arbeit": {
+    "title": "Roles.",
+    "intro": "",
+    "items": []
+  },
+  "formate": {
+    "title": "",
+    "intro": "",
+    "items": []
+  },
+  "hintergrund": {
+    "title": "Décadre.",
+    "body": [],
+    "portraitAlt": "Elias Noah Nies — Décadre"
+  },
+  "notizen": {
+    "title": "Notes.",
+    "intro": "",
+    "empty": "[ in progress ]"
+  },
+  "itemNums": [
+    "[ one ]",
+    "[ two ]",
+    "[ three ]",
+    "[ four ]",
+    "[ five ]",
+    "[ six ]"
+  ]
 }
