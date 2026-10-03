@@ -74,7 +74,7 @@ export default function Impressum() {
       <footer>
         <div className="ftr">
           <div><b>Décadre Studio</b> — Stuttgart</div>
-          <div className="center"><LocalClock variant="berlin" clockId="clock" separator=" " /></div>
+          <div className="center"><LocalClock clockId="clock" separator=" " /></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
             <a href="impressum.html">[ impressum ]</a>
