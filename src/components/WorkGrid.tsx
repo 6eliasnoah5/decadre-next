@@ -2,28 +2,13 @@
 
 import { useRef } from "react";
 import { useAppStore } from "@/store/useAppStore";
+import { work, type WorkEntry } from "@/lib/content";
 
 // Asymmetrisches Work-Grid mit Hover-Play wie im Legacy-Script:
 // mouseenter/focus -> play, mouseleave/blur -> pause + zurueck auf 0.
 // pointerenter/leave steuern den Custom-Cursor ueber den Store (nur bei
 // feinem Zeiger mit Hover und ohne reduced motion, wie im Original).
-
-type Slot = {
-  index: string;
-  video: string;
-  poster: string;
-  placeholder: string;
-  title: string;
-  meta: string;
-};
-
-// Vorlaeufig hier; wandert im naechsten Schritt nach src/lib/content.ts.
-const SLOTS: Slot[] = [
-  { index: "01", video: "videos/work-01.mp4", poster: "videos/work-01.jpg", placeholder: "[ 01 ]  first case — in production", title: "[ platzhalter ]", meta: "brand film" },
-  { index: "02", video: "videos/work-02.mp4", poster: "videos/work-02.jpg", placeholder: "[ 02 ]  concept film — twentytwentysix", title: "[ platzhalter ]", meta: "campaign" },
-  { index: "03", video: "videos/work-03.mp4", poster: "videos/work-03.jpg", placeholder: "[ 03 ]  ―", title: "[ platzhalter ]", meta: "identity" },
-  { index: "04", video: "videos/work-04.mp4", poster: "videos/work-04.jpg", placeholder: "[ 04 ]  ―", title: "[ platzhalter ]", meta: "editorial motion" },
-];
+// Inhalte kommen ausschliesslich aus src/lib/content.ts.
 
 function cursorAllowed() {
   return (
@@ -32,7 +17,7 @@ function cursorAllowed() {
   );
 }
 
-function WorkSlot({ slot }: { slot: Slot }) {
+function WorkSlot({ entry }: { entry: WorkEntry }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const setCursorMode = useAppStore((s) => s.setCursorMode);
 
@@ -46,9 +31,9 @@ function WorkSlot({ slot }: { slot: Slot }) {
 
   return (
     <a
-      className={`slot slot--${slot.index}`}
+      className={`slot slot--${entry.index}`}
       href="#"
-      aria-label={`project ${slot.index}`}
+      aria-label={`project ${entry.index}`}
       onMouseEnter={play}
       onMouseLeave={pause}
       onFocus={play}
@@ -63,16 +48,16 @@ function WorkSlot({ slot }: { slot: Slot }) {
         loop
         playsInline
         preload="metadata"
-        poster={slot.poster}
+        poster={entry.poster}
         data-hover-play=""
-        aria-label={slot.title}
+        aria-label={entry.title}
       >
-        <source src={slot.video} type="video/mp4" />
+        <source src={entry.video} type="video/mp4" />
       </video>
-      <div className="slot__placeholder" aria-hidden="true">{slot.placeholder}</div>
+      <div className="slot__placeholder" aria-hidden="true">{`[ ${entry.index} ]  ${entry.placeholder}`}</div>
       <div className="slot__overlay">
-        <span className="slot__title">{slot.title}</span>
-        <span className="slot__meta">{slot.meta}</span>
+        <span className="slot__title">{entry.title}</span>
+        <span className="slot__meta">{entry.category}</span>
       </div>
     </a>
   );
@@ -81,8 +66,8 @@ function WorkSlot({ slot }: { slot: Slot }) {
 export default function WorkGrid() {
   return (
     <div className="work__grid">
-      {SLOTS.map((slot) => (
-        <WorkSlot key={slot.index} slot={slot} />
+      {work.map((entry) => (
+        <WorkSlot key={entry.slug} entry={entry} />
       ))}
     </div>
   );
