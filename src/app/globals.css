@@ -27,7 +27,7 @@ button { background: none; border: 0; padding: 0; font: inherit; cursor: pointer
 /* ============================================================
    base
    ============================================================ */
-html { scroll-behavior: smooth; }
+/* scroll-behavior: smooth entfernt: kollidiert mit Lenis, Anker-Links scrollt Lenis */
 body {
   font-family: var(--font-body);
   font-size: 17px;

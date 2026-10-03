@@ -38,14 +38,7 @@ export default function LegalScripts() {
     cleanups.push(() => clearInterval(clockInterval)); // Cleanup
   }
 
-  // header hairline on scroll ---------------------------------
-  const hdr = document.getElementById('header');
-  const onScroll = () => {
-    hdr.dataset.scrolled = (window.scrollY > 8) ? 'true' : 'false';
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  cleanups.push(() => window.removeEventListener('scroll', onScroll)); // Cleanup
+  // header hairline on scroll: jetzt in SiteHeader (Lenis)
 
   return () => { cleanups.forEach(fn => fn()); }; // Cleanup: an useEffect zurueckgeben
 })();

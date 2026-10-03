@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SiteHeader from "@/components/SiteHeader";
 import LegalScripts from "@/components/LegalScripts";
 
 export const metadata: Metadata = {
@@ -9,10 +10,10 @@ export default function Datenschutz() {
   return (
     <>
       {/* ============ HEADER ============ */}
-      <header className="hdr" id="header">
+      <SiteHeader>
         <a className="hdr__brand" href="index.html" aria-label="Décadre Studio — home">Décadre Studio</a>
         <a className="hdr__back" href="index.html">[ ← back ]</a>
-      </header>
+      </SiteHeader>
 
       <main>
 

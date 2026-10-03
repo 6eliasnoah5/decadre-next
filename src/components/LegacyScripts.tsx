@@ -59,14 +59,7 @@ export default function LegacyScripts() {
   const clockInterval = setInterval(tickClock, 1000 * 15); // Cleanup: id gemerkt
   cleanups.push(() => clearInterval(clockInterval)); // Cleanup
 
-  // header — hairline border once scrolled --------------------
-  const hdr = document.getElementById('header');
-  const onScroll = () => {
-    hdr.dataset.scrolled = (window.scrollY > 8) ? 'true' : 'false';
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  cleanups.push(() => window.removeEventListener('scroll', onScroll)); // Cleanup
+  // header — hairline border once scrolled: jetzt in SiteHeader (Lenis)
 
   // active section indicator ----------------------------------
   const links = Array.from(document.querySelectorAll('.hdr__link'));

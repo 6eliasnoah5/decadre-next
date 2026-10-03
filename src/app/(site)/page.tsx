@@ -1,10 +1,11 @@
+import SiteHeader from "@/components/SiteHeader";
 import LegacyScripts from "@/components/LegacyScripts";
 
 export default function Home() {
   return (
     <>
       {/* ============ HEADER ============ */}
-      <header className="hdr" id="header">
+      <SiteHeader>
         <a className="hdr__brand" href="#top" aria-label="Décadre Studio — home">Décadre Studio</a>
         <nav className="hdr__nav" aria-label="primary">
           <a className="hdr__link" href="#work"     data-section="work">[ work ]</a>
@@ -13,7 +14,7 @@ export default function Home() {
           <a className="hdr__link" href="#contact"  data-section="contact">[ contact ]</a>
         </nav>
         <button className="hdr__menu" type="button" aria-controls="menu" aria-expanded="false" id="menu-open">[ menu ]</button>
-      </header>
+      </SiteHeader>
 
       {/* ============ MOBILE MENU OVERLAY ============ */}
       <div className="menu" id="menu" role="dialog" aria-modal="true" aria-label="primary navigation" data-open="false">
