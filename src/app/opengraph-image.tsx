@@ -14,7 +14,7 @@ export const alt = "Décadre Studio — Stuttgart";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const BG = "#F4F2EE";
+const BG = "#F2F1ED";
 const FG = "#111111";
 const TITLE_SIZE = 136;
 

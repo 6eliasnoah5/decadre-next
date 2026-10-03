@@ -1,17 +1,27 @@
 /* ============================================================
    TOKENS — change these to retune the system
    Gemeinsame Quelle fuer globals.css (site) und legal.css (legal).
-   Werte unveraendert aus den beiden Legacy-Style-Bloecken.
+   Farbsystem: Papier, Tinte, zwei Feldfarben (Rot, Blau).
    ============================================================ */
 :root {
   /* colors -------------------------------------------------- */
-  --color-bg:    #F4F2EE;   /* warm offwhite — every surface  */
-  --color-fg:    #111111;   /* deep black — text + marks      */
+  --color-bg:       #F2F1ED;   /* Papier, minimal entsaettigt   */
+  --color-fg:       #111111;   /* Tinte                          */
+  /* Signalrot. Vorgabe war #DC2318; Papier-Text darauf erreichte nur
+     4.32:1. Minimal abgedunkelt (gleicher Farbton) auf 4.53:1 = AA. */
+  --color-red:      #D62217;
+  --color-blue:     #1F2BE0;   /* Ultramarin, 7.49:1 mit Papier  */
+  --color-on-field: #F2F1ED;   /* Text auf Farbflaechen          */
 
   /* alpha derivatives of --color-fg (NOT separate colors) -- */
   --color-fg-60: rgba(17, 17, 17, 0.60);   /* meta / captions */
   --color-fg-40: rgba(17, 17, 17, 0.40);   /* inactive        */
   --color-fg-15: rgba(17, 17, 17, 0.15);   /* hairline        */
+
+  /* dieselben Stufen fuer Text auf Farbflaechen ------------- */
+  --color-on-field-60: rgba(242, 241, 237, 0.60);
+  --color-on-field-40: rgba(242, 241, 237, 0.40);
+  --color-on-field-15: rgba(242, 241, 237, 0.15);
 
   /* fonts -------------------------------------------------- */
   /* *-src setzt next/font, siehe src/app/fonts.ts */

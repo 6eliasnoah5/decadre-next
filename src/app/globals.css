@@ -92,6 +92,8 @@ img, video { display: block; max-width: 100%; }
 }
 .section-head__num,
 .section-head__lbl { white-space: nowrap; letter-spacing: 0.02em; }
+/* Signalfarbe: Abschnittsnummern auf Papier rot (dekorativ, 13px Mono) */
+.section-head__num { color: var(--color-red); }
 .section-head__hint { color: var(--color-fg-60); font-size: 11px; letter-spacing: 0.02em; text-align: right; white-space: nowrap; }
 .section-title {
   font-family: var(--font-display);
@@ -112,6 +114,42 @@ img, video { display: block; max-width: 100%; }
   text-wrap: nowrap;
 }
 .section-title--stack span { display: block; white-space: nowrap; }
+
+/* ============================================================
+   FARBFELDER — [ 01 ] rot, [ 03 ] blau, volle Viewportbreite
+   Innerhalb eines Felds werden die Tinten-Tokens auf die Feld-Werte
+   umgestellt; Text, Hairlines und Opacity-Stufen folgen automatisch.
+   ============================================================ */
+.section--field {
+  padding-block: var(--section-spacing);
+  --color-fg:    var(--color-on-field);
+  --color-fg-60: var(--color-on-field-60);
+  --color-fg-40: var(--color-on-field-40);
+  --color-fg-15: var(--color-on-field-15);
+  color: var(--color-fg);
+}
+.section--red  { background: var(--color-red); }
+.section--blue { background: var(--color-blue); }
+.section--field .section-head__num { color: var(--color-on-field); }
+/* Markierung im Feld: Papier-Flaeche mit Feldfarbe als Schrift */
+.section--red ::selection  { background: var(--color-on-field); color: var(--color-red); }
+.section--blue ::selection { background: var(--color-on-field); color: var(--color-blue); }
+
+/* ============================================================
+   KOERNUNG — feines Rauschen ueber der ganzen Seite
+   fixiert, ueber dem Inhalt, unter Header (50) und Menue (60)
+   ============================================================ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+}
 
 /* ============================================================
    HEADER — sticky, hairline border on scroll
@@ -287,9 +325,9 @@ img, video { display: block; max-width: 100%; }
   align-items: center;
   overflow: hidden;
   padding-block: 40px;
-  border-top: 1px solid var(--color-fg-15);
-  border-bottom: 1px solid var(--color-fg-15);
-  background: var(--color-bg);
+  /* schwarzes Band zwischen Hero und dem roten Feld, ohne Hairlines */
+  background: var(--color-fg);
+  color: var(--color-bg);
 }
 .marquee__track {
   display: flex;
