@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
+import { useAppStore } from "@/store/useAppStore";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,6 +100,32 @@ export default function SmoothScroll({ enabled = true }: { enabled?: boolean }) 
       unsubscribe();
       lenis.destroy();
       lenisInstance = null;
+    };
+  }, [enabled]);
+
+  // Scroll-Sperre bei offenem Menue, ueber den Store verdrahtet.
+  // Mit Lenis: stop()/start() (lenis.css setzt dabei overflow: clip auf <html>,
+  // das sperrt auch Touch und Tastatur). Ohne Lenis (reduced motion): overflow
+  // direkt auf <html>, denn dort scrollt die Seite; body { overflow: hidden }
+  // greift nicht, weil <html> selbst overflow-x: hidden hat.
+  // Laeuft nach dem Lenis-Effekt oben, lenisInstance ist also aktuell.
+  useEffect(() => {
+    const root = document.documentElement;
+    const apply = (open: boolean) => {
+      if (lenisInstance) {
+        if (open) lenisInstance.stop();
+        else lenisInstance.start();
+      } else {
+        root.style.overflow = open ? "hidden" : "";
+      }
+    };
+    apply(useAppStore.getState().menuOpen);
+    const unsubscribe = useAppStore.subscribe((state, prev) => {
+      if (state.menuOpen !== prev.menuOpen) apply(state.menuOpen);
+    });
+    return () => {
+      unsubscribe();
+      root.style.overflow = "";
     };
   }, [enabled]);
 
