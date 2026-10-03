@@ -49,13 +49,16 @@ function WorkSlot({ entry }: { entry: WorkEntry }) {
         src={entry.video}
         poster={entry.poster}
         data-hover-play=""
-        aria-label={entry.title}
+        aria-label={entry.title ?? undefined}
       />
       <div className="slot__placeholder" aria-hidden="true">{`[ ${entry.index} ]  ${entry.placeholder}`}</div>
-      <div className="slot__overlay">
-        <span className="slot__title">{entry.title}</span>
-        <span className="slot__meta">{entry.category}</span>
-      </div>
+      {/* Overlay nur mit echtem Titel; ohne Titel weder Titel noch Kategorie */}
+      {entry.title !== null && (
+        <div className="slot__overlay">
+          <span className="slot__title">{entry.title}</span>
+          <span className="slot__meta">{entry.category}</span>
+        </div>
+      )}
     </div>
   );
 }
