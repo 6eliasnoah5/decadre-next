@@ -27,7 +27,6 @@
   "sections": {
     "order": [
       "decadre",
-      "arbeit",
       "projekte",
       "kontakt"
     ],
@@ -38,23 +37,16 @@
       "hint": "[ who and why ]",
       "inHeader": true
     },
-    "arbeit": {
-      "id": "work",
-      "num": "[ 02 ]",
-      "label": "work",
-      "hint": "[ what i do ]",
-      "inHeader": true
-    },
     "projekte": {
       "id": "projects",
-      "num": "[ 03 ]",
+      "num": "[ 02 ]",
       "label": "projects",
       "hint": "",
       "inHeader": true
     },
     "kontakt": {
       "id": "contact",
-      "num": "[ 04 ]",
+      "num": "[ 03 ]",
       "label": "contact",
       "hint": "",
       "inHeader": true
@@ -74,19 +66,14 @@
       "What does stay has one thing in common: you can't order it. The moment someone opens up isn't in any shooting schedule. You can only make it more likely. With time. With access that has grown. With the willingness to lose a shooting day.",
       "That is where I see my job. Creating conditions in which something nobody planned is allowed to happen. It is unspectacular work: budgets, scheduling, rights, trust. And it decides whether the end result is an image that reaches someone, or one that is merely correct.",
       "The subject doesn't matter to me. A short film about a single person, a report from a war zone, an investigation into deforestation. The question is whether it is worth giving time to.",
-      "I come at this from the image side. I take photographs, I work behind the camera myself, and I don't see form as decoration. How close someone gets is a design decision before it becomes a moral one."
-    ],
-    "portraitAlt": "Elias Noah Nies"
-  },
-  "arbeit": {
-    "title": "Producer.",
-    "body": [
+      "I come at this from the image side. I take photographs, I work behind the camera myself, and I don't see form as decoration. How close someone gets is a design decision before it becomes a moral one.",
       "I make sure a project happens.",
       "That means budget and schedule. Putting a crew together and planning its days. Filming permits, contracts, personality rights, music licences. Being on location on the shooting day as the contact for everyone involved, above all for the people being filmed. Then through the edit, rights checks and approvals to the finished cut.",
       "The work stays the same, whatever comes out at the end. A film, a photo series, a text, an exhibition, an evening with an audience. The medium follows from the subject, not the other way round, and I would rather decide it late than early.",
       "Depending on the project, I take on the whole production or part of it. Where it makes the work better, I shoot film and photographs myself. Small teams, long access, little equipment."
     ],
-    "keywords": "production management · budgeting · crewing · scheduling · filming permits · personality rights · licensing · set · camera · photography · edit supervision · delivery"
+    "keywords": "production management · budgeting · crewing · scheduling · filming permits · personality rights · licensing · set · camera · photography · edit supervision · delivery",
+    "portraitAlt": "Elias Noah Nies"
   },
   "projekte": {
     "title": "Projects.",
@@ -108,6 +95,7 @@
     "next": "next project"
   },
   "contact": {
+    "title": "Contact.",
     "big": "[ → write me ]",
     "meta": [
       {

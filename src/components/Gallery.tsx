@@ -34,7 +34,7 @@ export type GalleryItem = {
 
 export type GalleryTexts = {
   num: string;
-  label: string;
+  hint: string;
   title: string;
   intro: string;
   prev: string;
@@ -258,9 +258,13 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
   return (
     <>
       <div className="container">
-        <div className="section-head section-head--controls">
+        <div className="section-head">
           <span className="section-head__num">{texts.num}</span>
-          <span className="section-head__lbl">{texts.label}</span>
+          <h2 className="section-title" data-split="">{texts.title}</h2>
+          <span className="section-head__hint">{texts.hint}</span>
+        </div>
+        <div className="gallery__bar">
+          <p className="work__note">{texts.intro}</p>
           <span className="gallery__controls">
             <button type="button" aria-label={texts.prevLabel} aria-controls="gallery-track" disabled={index === 0} onClick={() => step(-1)}>
               {texts.prev}
@@ -270,8 +274,6 @@ export default function Gallery({ items, texts }: { items: GalleryItem[]; texts:
             </button>
           </span>
         </div>
-        <h2 className="section-title" data-split="">{texts.title}</h2>
-        <p className="work__note">{texts.intro}</p>
       </div>
 
       <div className="gallery" data-mode={mode}>

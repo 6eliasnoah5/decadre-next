@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { CONTACT_EMAIL, INSTAGRAM_URL } from "@/lib/site";
@@ -12,8 +13,8 @@ import StickyNumbers from "@/components/motion/StickyNumbers";
 import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
 
 // Startseite. Alle Texte aus messages/<locale>.json, Sektions-IDs je Sprache.
-// Reihenfolge: Hero, [ 01 ] décadre (Text + Portrait), [ 02 ] arbeit
-// (Fliesstext + Stichwortzeile), [ 03 ] projekte (Galerie), [ 04 ] kontakt.
+// Reihenfolge: Hero, [ 01 ] décadre (Text, Stichwortzeile, Portrait),
+// [ 02 ] projekte (Galerie), [ 03 ] kontakt.
 
 type ContactMeta = { label: string; value: string; link?: "email" | "instagram" };
 
@@ -42,10 +43,13 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     hint: t(`sections.${key}.hint`),
   });
 
-  const sectionHead = (k: string) => (
+  // Abschnittskopf: Nummer, Ueberschrift und hint auf einer Grundlinie
+  // (Raster auto / 1fr / auto, align-items: baseline). Die Ueberschrift
+  // ersetzt das fruehere Label.
+  const sectionHead = (k: string, title: ReactNode) => (
     <div className="section-head">
       <span className="section-head__num">{s(k).num}</span>
-      <span className="section-head__lbl">{s(k).label}</span>
+      {title}
       <span className="section-head__hint">{s(k).hint}</span>
     </div>
   );
@@ -84,19 +88,22 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           </div>
         </section>
 
-        {/* ============ [ 01 ] DÉCADRE — Text und Portrait ============ */}
+        {/* ============ [ 01 ] DÉCADRE — wer, warum, was; Text und Portrait ============ */}
         <section className="section section--close-bottom" id={s("decadre").id} aria-label={s("decadre").label}>
           {sectionPin("decadre")}
           <div className="container">
-            {sectionHead("decadre")}
-            <h2 className="section-title section-title--stack">
-              {(t.raw("decadre.title") as string[]).map((line) => (
-                <span key={line} data-split="">{line}</span>
-              ))}
-            </h2>
+            {sectionHead(
+              "decadre",
+              <h2 className="section-title section-title--stack">
+                {(t.raw("decadre.title") as string[]).map((line) => (
+                  <span key={line} data-split="">{line}</span>
+                ))}
+              </h2>,
+            )}
             <div className="about__body">
               <div className="about__copy">
                 {paragraphs(t.raw("decadre.body") as string[])}
+                <p className="work__note">{t("decadre.keywords")}</p>
               </div>
               <div className="about__slot">
                 {/* Portrait 4:5, austauschbar; auf Mobil vor dem Text (CSS order) */}
@@ -107,23 +114,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           </div>
         </section>
 
-        {/* ============ [ 02 ] ARBEIT — Fliesstext ============ */}
-        <section className="section section--close-top" id={s("arbeit").id} aria-label={s("arbeit").label}>
-          {sectionPin("arbeit")}
-          <div className="container">
-            {sectionHead("arbeit")}
-            <h2 className="section-title" data-split="">{t("arbeit.title")}</h2>
-            <div className="about__body">
-              <div className="about__copy">
-                {paragraphs(t.raw("arbeit.body") as string[])}
-                <p className="work__note">{t("arbeit.keywords")}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ [ 03 ] PROJEKTE — Galerie ============ */}
-        <section className="section" id={s("projekte").id} aria-label={s("projekte").label}>
+        {/* ============ [ 02 ] PROJEKTE — Galerie ============ */}
+        <section className="section section--close-top section--close-bottom" id={s("projekte").id} aria-label={s("projekte").label}>
           {sectionPin("projekte")}
           {/* Galerie bringt eigene Container mit, die Spur laeuft ueber die volle Breite */}
           <Gallery
@@ -136,7 +128,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             }))}
             texts={{
               num: s("projekte").num,
-              label: s("projekte").label,
+              hint: s("projekte").hint,
               title: t("projekte.title"),
               intro: t("projekte.intro"),
               prev: t("projekte.prev"),
@@ -149,17 +141,17 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           />
         </section>
 
-        {/* ============ [ 04 ] KONTAKT ============ */}
-        <section className="section" id={s("kontakt").id} aria-label={s("kontakt").label}>
+        {/* ============ [ 03 ] KONTAKT ============ */}
+        <section className="section section--close-top" id={s("kontakt").id} aria-label={s("kontakt").label}>
           {sectionPin("kontakt")}
           <div className="container">
-            {sectionHead("kontakt")}
+            {sectionHead("kontakt", <h2 className="section-title" data-split="">{t("contact.title")}</h2>)}
 
-            <h2 className="contact__big">
+            <p className="contact__big">
               <MagneticLink href={`mailto:${CONTACT_EMAIL}`} split>{t("contact.big")}</MagneticLink>
-            </h2>
+            </p>
 
-            {/* acht Eintraege in zwei Reihen (mobil zwei Spalten). Ein leerer
+            {/* Eintraege im Raster (mobil zwei Spalten). Ein leerer
                 Wert laesst die Zelle stehen, damit das Raster nicht umbricht. */}
             <dl className="contact__meta">
               {(t.raw("contact.meta") as ContactMeta[]).map((item, i) => (
