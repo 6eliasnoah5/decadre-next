@@ -26,7 +26,7 @@ export default function Impressum() {
             <div className="section-head">
               <span className="section-head__num">[ ↳ ]</span>
               <span className="section-head__lbl">impressum</span>
-              <span className="section-head__hint">stand · twentytwentysix</span>
+              <span className="section-head__hint">stand · 2026</span>
             </div>
             <h1 className="section-title">Impressum.</h1>
 
@@ -62,7 +62,7 @@ export default function Impressum() {
 
               <aside className="legal__meta">
                 <div><b>quelle</b> — eigene angaben</div>
-                <div><b>stand</b> — twentytwentysix</div>
+                <div><b>stand</b> — 2026</div>
                 <div><b>fragen</b> — <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></div>
               </aside>
             </div>
@@ -75,7 +75,7 @@ export default function Impressum() {
       <footer>
         <div className="ftr">
           <div><b>Décadre</b> — Einzelunternehmen</div>
-          <div className="center"><LocalClock place="Deutschland" clockId="clock" separator=" " /></div>
+          <div className="center"><LocalClock clockId="clock" /></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
             <Link href="/impressum">[ impressum ]</Link>
@@ -83,7 +83,7 @@ export default function Impressum() {
           </div>
         </div>
         <div className="ftr__base container">
-          © twentytwentysix · décadre. alle rechte vorbehalten.
+          © 2026 décadre. alle rechte vorbehalten.
         </div>
       </footer>
 

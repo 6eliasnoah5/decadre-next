@@ -2,18 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { useTranslations } from "next-intl";
 import { useAppStore, type CursorMode } from "@/store/useAppStore";
 import { useMotionCapability } from "@/hooks/useMotionCapability";
 
-// Agentur-Cursor: leerer 24px-Kreis mit 1px weissem Rand, mix-blend-mode
-// difference (invertiert ueber Papier, Rot, Blau und Schwarz und ist damit
-// ueberall sichtbar). Folgt dem Zeiger verzoegert per gsap.quickTo.
-//
-// Zustaende kommen aus dem Store (cursorMode). Eine zentrale Delegation liest
-// data-cursor am Element unter dem Zeiger: "fill" (Kreis waechst und fuellt
-// sich), "write" (zusaetzlich Text). Links und Buttons ohne Attribut gelten
-// als "fill".
+// Cursor: leerer 24px-Kreis mit 1px Rand in --color-fg, ohne Blend-Modus
+// (die Seite hat nur einen Hintergrund). Folgt dem Zeiger verzoegert per
+// gsap.quickTo. Ueber Links, Buttons und Elementen mit data-cursor="fill"
+// waechst er auf 56px und fuellt sich. Zustand ueber cursorMode im Store,
+// gesetzt von einer zentralen Delegation (keine Listener pro Komponente).
 //
 // Nicht gerendert bei Touch oder reduced motion; dann bleibt der native Cursor.
 
@@ -23,18 +19,12 @@ export default function Cursor() {
   return <CursorCircle />;
 }
 
-const MODE_SELECTOR = "[data-cursor], a, button";
-
 function modeFor(target: EventTarget | null): CursorMode {
   if (!(target instanceof Element)) return "default";
-  const hit = target.closest(MODE_SELECTOR);
-  if (!hit) return "default";
-  const attr = hit.getAttribute("data-cursor");
-  return attr === "write" ? "write" : "fill";
+  return target.closest('[data-cursor="fill"], a, button') ? "fill" : "default";
 }
 
 function CursorCircle() {
-  const t = useTranslations("cursor");
   const ref = useRef<HTMLDivElement>(null);
   const cursorMode = useAppStore((s) => s.cursorMode);
   const setCursorMode = useAppStore((s) => s.setCursorMode);
@@ -54,7 +44,7 @@ function CursorCircle() {
     let placed = false;
 
     const onMove = (e: PointerEvent) => {
-      // Erste Bewegung: ohne Verzoegerung an den Zeiger setzen, dann einblenden.
+      // Erste Bewegung: direkt an den Zeiger setzen, dann einblenden.
       if (!placed) {
         gsap.set(el, { x: e.clientX, y: e.clientY });
         placed = true;
@@ -71,7 +61,7 @@ function CursorCircle() {
         setCursorMode("default");
       }
     };
-    const onDown = () => gsap.to(el, { scale: 0.8, duration: 0.12, ease: "power2.out" });
+    const onDown = () => gsap.to(el, { scale: 0.85, duration: 0.12, ease: "power2.out" });
     const onUp = () => gsap.to(el, { scale: 1, duration: 0.3, ease: "power3.out" });
 
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -98,8 +88,6 @@ function CursorCircle() {
       aria-hidden="true"
       data-visible={visible ? "true" : "false"}
       data-mode={cursorMode}
-    >
-      <span className="cursor__label">{t("write")}</span>
-    </div>
+    />
   );
 }

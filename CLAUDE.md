@@ -25,17 +25,19 @@ Design und Inhalt werden NACH der Architektur ueberarbeitet.
   (Datenschutz: keine Cookies). Alle Texte in `messages/de.json` und
   `messages/en.json`, beide mit denselben Schluesseln.
 - Impressum und Datenschutz nur auf Deutsch; /en/... leitet um.
-- Farben: Papier, Tinte, Rot, Blau. Farbfelder ueber `.section--field`
-  (+ `--red`/`--blue`), die Tinten-Tokens werden darin umgestellt.
-  Rot nur fuer die Mono-Abschnittsnummern auf Papier, nie fuer Text.
+- Farben: nur Papier (`--color-bg`) und Tinte (`--color-fg`) samt deren
+  Alpha-Stufen. Kein Farbsystem, keine Farbfelder, alle Schrift schwarz.
+- Startseite: genau drei Abschnitte ([ 01 ] décadre, [ 02 ] arbeit,
+  [ 03 ] kontakt). Keine Listen, keine Laufschrift.
+- Keine ausgeschriebenen Jahreszahlen ("twentytwentysix" o. ae.),
+  Jahreszahlen in Ziffern.
 - Scroll: Lenis in `src/providers/SmoothScroll.tsx`. Kein Code liest
   `window.scrollY` direkt, sondern `useScrollListener` / `subscribeScroll`.
 - Bewegung und WebGL nur hinter `useMotionCapability`
   (reducedMotion, isTouch, canWebGL, tier).
 - Globaler UI-Zustand in `src/store/useAppStore.ts`; nichts, was sich pro
-  Frame aendert. Cursor-Zustand per `data-cursor` ("fill", "write").
-- Notizen: MDX in `src/content/notes/`, geladen nur ueber
-  `src/lib/content.ts`. Frontmatter title, date, excerpt, lang, draft.
+  Frame aendert. Cursor-Zustand per `data-cursor="fill"` (Links und
+  Buttons gelten automatisch als "fill").
 - Die Seite muss ohne JS vollstaendig sichtbar sein.
 
 @AGENTS.md

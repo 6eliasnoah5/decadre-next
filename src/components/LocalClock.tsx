@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-// Live-Uhr des Studios: feste Zeitzone Europe/Berlin, Ortsangabe als Prop.
+// Live-Uhr: feste Zeitzone Europe/Berlin, nur die Uhrzeit (kein Ortslabel).
 // Server und erster Client-Render zeigen "--:--"; die echte Zeit kommt erst
 // im useEffect, damit es keinen Hydration-Mismatch gibt.
 // Aktualisiert genau zum Minutenwechsel statt in festen Intervallen.
@@ -14,19 +14,7 @@ const fmt = new Intl.DateTimeFormat("de-DE", {
   timeZone: "Europe/Berlin",
 });
 
-export default function LocalClock({
-  place,
-  cityId,
-  clockId,
-  separator,
-}: {
-  /** Ortsangabe vor der Uhrzeit (aus den Sprachdateien) */
-  place: string;
-  cityId?: string;
-  clockId: string;
-  /** Text zwischen Ort und Uhrzeit, z. B. " " oder " · " */
-  separator: string;
-}) {
+export default function LocalClock({ clockId }: { clockId: string }) {
   const [time, setTime] = useState("--:--");
 
   useEffect(() => {
@@ -42,8 +30,6 @@ export default function LocalClock({
   }, []);
 
   return (
-    <>
-      <b id={cityId}>{place}</b>{separator}<span id={clockId} aria-live="off">{time}</span>
-    </>
+    <span id={clockId} aria-live="off">{time}</span>
   );
 }
