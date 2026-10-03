@@ -4,6 +4,7 @@ import type { Locale } from "@/i18n/routing";
 import { CONTACT_EMAIL, INSTAGRAM_URL } from "@/lib/site";
 import { HOME_PATHS, localeAlternates } from "@/lib/i18n-meta";
 import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
+import { getNotes, notePath, formatNoteDate } from "@/lib/content";
 
 // Startseite. Alle Texte aus messages/<locale>.json, Sektions-IDs je Sprache.
 // Reihenfolge: Hero, Marquee, [01] haltung (Feld rot), [02] arbeit,
@@ -27,6 +28,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     hint: t(`sections.${key}.hint`),
   });
   const nums = t.raw("itemNums") as string[];
+  // Neueste drei veroeffentlichte Notizen dieser Sprache
+  const notes = (await getNotes(locale)).slice(0, 3);
 
   const sectionHead = (k: string) => (
     <div className="section-head">
@@ -148,7 +151,21 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             {sectionHead("notizen")}
             <h2 className="section-title">{t("notizen.title")}</h2>
             <p className="work__note">{t("notizen.intro")}</p>
-            <p className="work__note">{t("notizen.empty")}</p>
+            {notes.length ? (
+              <div className="svc__list" role="list">
+                {notes.map((note) => (
+                  <div role="listitem" key={note.slug}>
+                    <a className="svc svc--note" href={notePath(note)}>
+                      <time className="svc__num" dateTime={note.date}>{formatNoteDate(note.date, locale)}</time>
+                      <span className="svc__title">{note.title}</span>
+                      <span className="svc__desc">{note.excerpt}</span>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="work__note">{t("notizen.empty")}</p>
+            )}
           </div>
         </section>
 

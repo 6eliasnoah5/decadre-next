@@ -410,6 +410,14 @@ body::after {
 .svc:hover .svc__desc,
 .svc:focus-within .svc__desc { opacity: 1; transform: none; }
 
+/* Notizen-Liste im svc-Muster: ganze Zeile verlinkt, Datum statt Nummer
+   (braucht mehr Breite), Titel darf umbrechen, Excerpt immer sichtbar. */
+.svc--note { grid-template-columns: 120px 1fr 1fr; }
+.svc--note .svc__title { white-space: normal; }
+.svc--note .svc__desc { opacity: 1; transform: none; }
+/* Notiz-Detailseite: Abstand unter dem fixen Header */
+.section--note { padding-top: 160px; }
+
 @media (hover: none), (max-width: 900px) {
   .svc__desc { opacity: 1; transform: none; }
   .svc { grid-template-columns: 48px 1fr; }
@@ -714,4 +722,11 @@ canvas, img, video, svg { max-width: 100%; }
 /* very small phones (--pad-x: 16px steht in tokens.css) */
 @media (max-width: 374px) {
   .hero__title { font-size: clamp(48px, 17vw, 80px); }
+}
+
+/* Notizen-Liste schmal: Datum, Titel, Excerpt untereinander
+   (steht am Dateiende, nach den svc-Regeln fuer 900/480px) */
+@media (max-width: 900px) {
+  .svc--note { grid-template-columns: 1fr; gap: 8px; }
+  .svc--note .svc__desc { grid-column: auto; padding-top: 0; }
 }
