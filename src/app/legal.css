@@ -1,53 +1,6 @@
 /* Style-Block aus legacy/impressum.html (identisch in legacy/datenschutz.html), unveraendert. */
 
 /* ============================================================
-   FONTS — self-hosted, loaded locally from /fonts/.
-   No request to Google. See README for which .woff2 to drop in.
-   ============================================================ */
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/InterTight-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/InterTight-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/InterTight-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter';
-  src: url('/fonts/Inter-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter';
-  src: url('/fonts/Inter-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-
-/* ============================================================
    TOKENS — identical to index.html
    ============================================================ */
 :root {
@@ -57,9 +10,10 @@
   --color-fg-40: rgba(17, 17, 17, 0.40);
   --color-fg-15: rgba(17, 17, 17, 0.15);
 
-  --font-display: "Inter Tight", system-ui, sans-serif;
-  --font-body:    "Inter", system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* *-src setzt next/font, siehe src/app/fonts.ts */
+  --font-display: var(--font-display-src), system-ui, sans-serif;
+  --font-body:    var(--font-body-src), system-ui, sans-serif;
+  --font-mono:    var(--font-mono-src), ui-monospace, "SF Mono", Menlo, monospace;
 
   --max-width:             1440px;
   --gutter:                24px;
