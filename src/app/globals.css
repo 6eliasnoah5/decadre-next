@@ -481,6 +481,42 @@ body::after {
 .menu__bottom b { color: var(--color-fg); font-weight: 400; white-space: nowrap; }
 
 /* ============================================================
+   CURSOR — leerer Kreis in Tinte, gefuellt ueber Links/Buttons
+   Position setzt GSAP (transform), Groesse/Fuellung per data-mode.
+   ============================================================ */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--color-fg);
+  border-radius: 50%;
+  background-color: transparent;
+  opacity: 0;
+  transition:
+    width 300ms var(--ease),
+    height 300ms var(--ease),
+    background-color 300ms var(--ease),
+    border-color 300ms var(--ease),
+    opacity 200ms var(--ease);
+}
+.cursor[data-visible="true"] { opacity: 1; }
+.cursor[data-mode="fill"] {
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-fg);
+  border-color: transparent;
+}
+/* nativen Cursor nur ausblenden, wenn der eigene laeuft */
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor * { cursor: none !important; }
+}
+
+/* ============================================================
    RESPONSIVE HARDENING
    breakpoints: 1024 (tablet) / 768 (mobile) / 480 (small) / 374 (xs)
    goal: zero horizontal overflow, no wrapping labels, safe areas
