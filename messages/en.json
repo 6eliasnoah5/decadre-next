@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Décadre — Production and Image",
-    "description": "Décadre is the studio of Elias Noah Nies. Production management, camera and visual systems for projects worth giving time to. Across Germany."
+    "title": "Décadre — Elias Noah Nies, Producer",
+    "description": "Décadre is the studio of Elias Noah Nies. Production for projects worth giving time to. Film, photography, space. Worldwide."
   },
   "lang": {
     "label": "language",
@@ -17,7 +17,7 @@
     "close": "[ close ]",
     "closeLabel": "close menu",
     "menuLabel": "navigation",
-    "menuBottom": "project-based, also at short notice"
+    "menuBottom": "on request"
   },
   "hero": {
     "label": "intro",
@@ -58,21 +58,34 @@
       "that",
       "answers."
     ],
-    "body": [],
+    "body": [
+      "I'm Elias Noah Nies. Producer. Décadre is the studio I work through, currently on my own. If you get in touch, you talk to the person who will also be on set.",
+      "What interests me is when something actually reaches someone.",
+      "Most things don't. Not because they're badly made, but because there is too much, too fast. Production is set up to deliver volume: more material, more channels, shorter cycles. The smoother that runs, the less stays with anyone.",
+      "What does stay has one thing in common: you can't order it. The moment someone opens up isn't in any shooting schedule. You can only make it more likely. With time. With access that has grown. With the willingness to lose a shooting day.",
+      "That is where I see my job. Creating conditions in which something nobody planned is allowed to happen. It is unspectacular work: budgets, scheduling, rights, trust. And it decides whether the end result is an image that reaches someone, or one that is merely correct.",
+      "The subject doesn't matter to me. A short film about a single person, a report from a war zone, an investigation into deforestation. The question is whether it is worth giving time to.",
+      "I come at this from the image side. I take photographs, I work behind the camera myself, and I don't see form as decoration. How close someone gets is a design decision before it becomes a moral one."
+    ],
     "portraitAlt": "Elias Noah Nies"
   },
   "arbeit": {
     "title": "Producer.",
-    "body": [],
-    "keywords": ""
+    "body": [
+      "I make sure a project happens.",
+      "That means budget and schedule. Putting a crew together and planning its days. Filming permits, contracts, personality rights, music licences. Being on location on the shooting day as the contact for everyone involved, above all for the people being filmed. Then through the edit, rights checks and approvals to the finished cut.",
+      "The work stays the same, whatever comes out at the end. A film, a photo series, a text, an exhibition, an evening with an audience. The medium follows from the subject, not the other way round, and I would rather decide it late than early.",
+      "Depending on the project, I take on the whole production or part of it. Where it makes the work better, I shoot film and photographs myself. Small teams, long access, little equipment."
+    ],
+    "keywords": "production management · budgeting · crewing · scheduling · filming permits · personality rights · licensing · set · camera · photography · edit supervision · delivery"
   },
   "contact": {
     "big": "[ → write me ]",
     "email": "email",
     "available": "availability",
-    "availableValue": "project-based, also at short notice",
+    "availableValue": "on request",
     "area": "based",
-    "areaValue": "germany — nationwide, willing to travel",
+    "areaValue": "worldwide",
     "social": "social",
     "instagram": "[ ↗ instagram ]"
   },
