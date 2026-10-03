@@ -4,7 +4,8 @@ import EmailLink from "@/components/EmailLink";
 import LocalClock from "@/components/LocalClock";
 
 export const metadata: Metadata = {
-  title: "Datenschutz — Décadre Studio",
+  title: "Datenschutz",
+  alternates: { canonical: "/datenschutz" },
 };
 
 export default function Datenschutz() {

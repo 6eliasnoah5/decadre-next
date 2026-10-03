@@ -4,7 +4,8 @@ import EmailLink from "@/components/EmailLink";
 import LocalClock from "@/components/LocalClock";
 
 export const metadata: Metadata = {
-  title: "Impressum — Décadre Studio",
+  title: "Impressum",
+  alternates: { canonical: "/impressum" },
 };
 
 export default function Impressum() {

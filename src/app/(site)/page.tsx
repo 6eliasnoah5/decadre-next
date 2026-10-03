@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { baseOpenGraph } from "@/lib/site";
 import SiteHeader from "@/components/SiteHeader";
 import ScrollSpy from "@/components/ScrollSpy";
 import MobileMenu, { MenuButton } from "@/components/MobileMenu";
@@ -6,6 +8,11 @@ import WorkGrid from "@/components/WorkGrid";
 import EmailLink from "@/components/EmailLink";
 import LocalClock from "@/components/LocalClock";
 import StudioVideo from "@/components/media/StudioVideo";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: { ...baseOpenGraph, url: "/" },
+};
 
 export default function Home() {
   return (
