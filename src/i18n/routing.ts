@@ -13,11 +13,12 @@ export const routing = defineRouting({
   // hreflang setzen die Seiten selbst per Metadaten (Rechtsseiten gibt es nur
   // auf Deutsch, die automatischen Link-Header wuerden /en/impressum melden).
   alternateLinks: false,
-  // Pfade (fuer beide Sprachen gleich).
+  // Pfade je Sprache. Projektseiten: /projekte/[slug] bzw. /en/projects/[slug].
   pathnames: {
     "/": "/",
     "/impressum": "/impressum",
     "/datenschutz": "/datenschutz",
+    "/projekte/[slug]": { de: "/projekte/[slug]", en: "/projects/[slug]" },
   },
 });
 

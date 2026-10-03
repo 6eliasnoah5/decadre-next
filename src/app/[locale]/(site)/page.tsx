@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { CONTACT_EMAIL, INSTAGRAM_URL } from "@/lib/site";
-import { HOME_PATHS, localeAlternates } from "@/lib/i18n-meta";
+import { HOME_PATHS, localeAlternates, projectPaths } from "@/lib/i18n-meta";
+import { PROJECTS, projectMeta } from "@/lib/content";
+import Gallery from "@/components/Gallery";
 import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
 
 // Startseite. Alle Texte aus messages/<locale>.json, Sektions-IDs je Sprache.
@@ -95,11 +97,28 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
         {/* ============ [ 03 ] PROJEKTE — Galerie ============ */}
         <section className="section" id={s("projekte").id} aria-label={s("projekte").label}>
-          <div className="container">
-            {sectionHead("projekte")}
-            <h2 className="section-title">{t("projekte.title")}</h2>
-            <p className="work__note">{t("projekte.intro")}</p>
-          </div>
+          {/* Galerie bringt eigene Container mit, die Spur laeuft ueber die volle Breite */}
+          <Gallery
+            items={PROJECTS.map((p) => ({
+              slug: p.slug,
+              href: projectPaths(p.slug)[locale],
+              title: p.title[locale],
+              meta: projectMeta(p, locale, false),
+              poster: p.poster,
+            }))}
+            texts={{
+              num: s("projekte").num,
+              label: s("projekte").label,
+              title: t("projekte.title"),
+              intro: t("projekte.intro"),
+              prev: t("projekte.prev"),
+              next: t("projekte.next"),
+              prevLabel: t("projekte.prevLabel"),
+              nextLabel: t("projekte.nextLabel"),
+              regionLabel: t("projekte.regionLabel"),
+              imageFollows: t("projekte.imageFollows"),
+            }}
+          />
         </section>
 
         {/* ============ [ 04 ] KONTAKT ============ */}

@@ -89,7 +89,22 @@
   },
   "projekte": {
     "title": "Projekte.",
-    "intro": ""
+    "intro": "eine auswahl. weitere auf anfrage.",
+    "prev": "[ ← ]",
+    "next": "[ → ]",
+    "prevLabel": "Vorheriges Projekt",
+    "nextLabel": "Nächstes Projekt",
+    "regionLabel": "Projekte, mit Pfeiltasten blättern",
+    "imageFollows": "[ bild folgt ]"
+  },
+  "project": {
+    "back": "[ ← alle projekte ]",
+    "videoFollows": "[ video folgt ]",
+    "videoLoad": "[ ▶ video laden ]",
+    "videoNote": "beim laden werden daten an {host} übertragen.",
+    "roleLabel": "meine rolle",
+    "credits": "Credits",
+    "next": "nächstes projekt"
   },
   "contact": {
     "big": "[ → schreib mir ]",
