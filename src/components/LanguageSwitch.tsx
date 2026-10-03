@@ -1,8 +1,8 @@
 import type { Locale } from "@/i18n/routing";
 import type { LocalePaths } from "@/lib/i18n-meta";
 
-// Sprachumschalter "[ DE | EN ]" im Mono-Stil der Navigation; die aktive
-// Sprache ist fett (aria-current wie bei .hdr__link). Normale Links mit vollem
+// Sprachumschalter "DE / EN" in Mono 13px; die aktive Sprache hat volle
+// Deckkraft, die inaktive 0.4, kein Fettdruck. Normale Links mit vollem
 // Seitenaufruf, damit <html lang> und Metadaten sicher wechseln.
 // Gibt es die Seite in der anderen Sprache nicht, fuehrt der Link zu deren
 // Startseite (fallback).
@@ -31,7 +31,7 @@ export default function LanguageSwitch({
   );
   return (
     <span className={className} role="group" aria-label={label}>
-      [ {link("de", "DE")} | {link("en", "EN")} ]
+      {link("de", "DE")} / {link("en", "EN")}
     </span>
   );
 }

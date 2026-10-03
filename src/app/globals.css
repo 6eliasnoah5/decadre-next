@@ -203,22 +203,22 @@ body::after {
   font-weight: 700;
 }
 
-/* Sprachumschalter "[ DE | EN ]" — Mono wie die Navigation, aktive Sprache
-   fett wie .hdr__link[aria-current]. */
+/* Sprachumschalter "DE / EN" — Mono 13px, aktive Sprache volle Deckkraft,
+   inaktive 0.4, kein Fettdruck. */
 .lang-switch {
   font-family: var(--font-mono);
   font-size: 13px;
   white-space: nowrap;
-  color: var(--color-fg-60);
+  color: var(--color-fg-40);
 }
 .lang-switch a {
   padding: 4px 2px;
-  opacity: 0.6;
+  opacity: 0.4;
   transition: opacity var(--dur) var(--ease);
 }
 .lang-switch a:hover,
-.lang-switch a:focus-visible { opacity: 1; }
-.lang-switch a[aria-current="true"] { opacity: 1; font-weight: 700; }
+.lang-switch a:focus-visible,
+.lang-switch a[aria-current="true"] { opacity: 1; }
 
 /* menu button matches — same bracket-in-text + opacity-lift pattern */
 .hdr__menu {
