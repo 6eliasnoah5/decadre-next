@@ -1,83 +1,6 @@
-/* Style-Block aus legacy/impressum.html (identisch in legacy/datenschutz.html), unveraendert. */
+/* Style-Block aus legacy/impressum.html (identisch in legacy/datenschutz.html). Tokens liegen in tokens.css. */
 
-/* ============================================================
-   FONTS — self-hosted, loaded locally from /fonts/.
-   No request to Google. See README for which .woff2 to drop in.
-   ============================================================ */
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/InterTight-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/InterTight-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/InterTight-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter';
-  src: url('/fonts/Inter-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter';
-  src: url('/fonts/Inter-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-
-/* ============================================================
-   TOKENS — identical to index.html
-   ============================================================ */
-:root {
-  --color-bg:    #F4F2EE;
-  --color-fg:    #111111;
-  --color-fg-60: rgba(17, 17, 17, 0.60);
-  --color-fg-40: rgba(17, 17, 17, 0.40);
-  --color-fg-15: rgba(17, 17, 17, 0.15);
-
-  --font-display: "Inter Tight", system-ui, sans-serif;
-  --font-body:    "Inter", system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-
-  --max-width:             1440px;
-  --gutter:                24px;
-  --side-padding-desktop:  32px;
-  --side-padding-mobile:   20px;
-  --section-spacing:       160px;
-  --pad-x: var(--side-padding-desktop);
-
-  --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
-  --dur:       200ms;
-  --dur-slow:  400ms;
-}
-@media (max-width: 768px) {
-  :root {
-    --pad-x: var(--side-padding-mobile);
-    --section-spacing: 96px;
-  }
-}
+@import "./tokens.css";
 
 /* GLOBAL COLOR RESET ----------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -92,7 +15,7 @@ button { background: none; border: 0; padding: 0; font: inherit; cursor: pointer
 ::-moz-selection { background: var(--color-fg); color: var(--color-bg); }
 :focus-visible   { outline: 2px solid var(--color-fg); outline-offset: 4px; }
 
-html { scroll-behavior: smooth; }
+/* scroll-behavior: smooth entfernt: kollidiert mit Lenis, Anker-Links scrollt Lenis */
 body {
   font-family: var(--font-body);
   font-size: 17px;
@@ -101,9 +24,11 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  opacity: 0;
   transition: opacity 400ms var(--ease);
 }
+/* page-load fade: Startwert nur, wenn JS laeuft (html.js setzt FadeInScript
+   im <head> vor dem ersten Paint). Ohne JS bleibt die Seite sichtbar. */
+html.js body:not(.is-loaded) { opacity: 0; }
 body.is-loaded { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -267,10 +192,6 @@ img, svg { max-width: 100%; }
 }
 .ftr__base { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  :root { --pad-x: 24px; }
-}
-
 @media (max-width: 480px) {
   /* "Impressum." / "Datenschutz." are single words — must scale to fit */
   .section-title { font-size: clamp(34px, 12vw, 56px); }
@@ -279,6 +200,4 @@ img, svg { max-width: 100%; }
   .hdr__back { display: inline-flex; align-items: center; min-height: 44px; }
 }
 
-@media (max-width: 374px) {
-  :root { --pad-x: 16px; }
-}
+/* tablet- und 374px-Padding: siehe tokens.css */

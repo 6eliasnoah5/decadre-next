@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "../globals.css";
+import { fontVariables } from "../fonts";
+import Providers from "../Providers";
+import FadeInScript from "@/components/FadeInScript";
 
 // Werte 1:1 aus dem <head> von legacy/index.html, inklusive Platzhaltern.
 export const metadata: Metadata = {
@@ -37,8 +40,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de">
-      <body>{children}</body>
+    // suppressHydrationWarning: FadeInScript setzt vor der Hydration die Klasse "js".
+    <html lang="de" className={fontVariables} suppressHydrationWarning>
+      <head>
+        <FadeInScript />
+      </head>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

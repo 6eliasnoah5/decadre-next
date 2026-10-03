@@ -1,40 +1,27 @@
-import LegacyScripts from "@/components/LegacyScripts";
+import SiteHeader from "@/components/SiteHeader";
+import ScrollSpy from "@/components/ScrollSpy";
+import MobileMenu, { MenuButton } from "@/components/MobileMenu";
+import Cursor from "@/components/Cursor";
+import WorkGrid from "@/components/WorkGrid";
+import EmailLink from "@/components/EmailLink";
+import LocalClock from "@/components/LocalClock";
+import StudioVideo from "@/components/media/StudioVideo";
 
 export default function Home() {
   return (
     <>
       {/* ============ HEADER ============ */}
-      <header className="hdr" id="header">
+      <SiteHeader>
         <a className="hdr__brand" href="#top" aria-label="Décadre Studio — home">Décadre Studio</a>
-        <nav className="hdr__nav" aria-label="primary">
-          <a className="hdr__link" href="#work"     data-section="work">[ work ]</a>
-          <a className="hdr__link" href="#services" data-section="services">[ services ]</a>
-          <a className="hdr__link" href="#about"    data-section="about">[ about ]</a>
-          <a className="hdr__link" href="#contact"  data-section="contact">[ contact ]</a>
-        </nav>
-        <button className="hdr__menu" type="button" aria-controls="menu" aria-expanded="false" id="menu-open">[ menu ]</button>
-      </header>
+        <ScrollSpy />
+        <MenuButton />
+      </SiteHeader>
 
       {/* ============ MOBILE MENU OVERLAY ============ */}
-      <div className="menu" id="menu" role="dialog" aria-modal="true" aria-label="primary navigation" data-open="false">
-        <div className="menu__top">
-          <span className="menu__brand">Décadre Studio</span>
-          <button className="menu__close" type="button" id="menu-close" aria-label="close menu">[ close ]</button>
-        </div>
-        <nav className="menu__items" aria-label="primary mobile">
-          <a className="menu__item" href="#work"     data-menu-link=""><span className="num">[ 01 ]</span>work</a>
-          <a className="menu__item" href="#services" data-menu-link=""><span className="num">[ 02 ]</span>services</a>
-          <a className="menu__item" href="#about"    data-menu-link=""><span className="num">[ 03 ]</span>about</a>
-          <a className="menu__item" href="#contact"  data-menu-link=""><span className="num">[ 04 ]</span>contact</a>
-        </nav>
-        <div className="menu__bottom">
-          <div><b id="clock-city-menu">Stuttgart</b> · <span id="clock-menu" aria-live="off">--:--</span></div>
-          <div className="right">currently booking — autumn twentytwentysix</div>
-        </div>
-      </div>
+      <MobileMenu />
 
       {/* custom cursor (desktop only) */}
-      <div className="cursor" id="cursor" aria-hidden="true">[ play ]</div>
+      <Cursor />
 
       <main id="top">
 
@@ -43,11 +30,14 @@ export default function Home() {
 
           {/* HERO VIDEO: src="videos/hero.mp4", poster="videos/hero.jpg" */}
           {/* HERO VIDEO AKTIVIEREN: dieses video display:none entfernen (hero__media--hidden weg), src + poster setzen */}
-          <video className="hero__media hero__media--hidden" autoPlay muted loop playsInline
-                 poster="videos/hero.jpg"
-                 aria-label="[ platzhalter ]">
-            <source src="videos/hero.mp4" type="video/mp4" />
-          </video>
+          <StudioVideo
+            className="hero__media hero__media--hidden"
+            src="videos/hero.mp4"
+            poster="videos/hero.jpg"
+            priority
+            autoPlay
+            aria-label="[ platzhalter ]"
+          />
 
           <div className="hero__overlay">
             {/* TEXT HIER: hero headline, three lines */}
@@ -85,69 +75,7 @@ export default function Home() {
             <h2 className="section-title" style={{ whiteSpace: "nowrap" }}>Selected Work.</h2>
             <p className="work__note">selected concept work available on request.</p>
 
-            <div className="work__grid">
-
-              {/* VIDEO HIER: src="videos/work-01.mp4", poster="videos/work-01.jpg" */}
-              <a className="slot slot--01" href="#" aria-label="project 01">
-                <video className="slot__media" muted loop playsInline preload="metadata"
-                       poster="videos/work-01.jpg"
-                       data-hover-play=""
-                       aria-label="[ platzhalter ]">
-                  <source src="videos/work-01.mp4" type="video/mp4" />
-                </video>
-                <div className="slot__placeholder" aria-hidden="true">[ 01 ]  first case — in production</div>
-                <div className="slot__overlay">
-                  <span className="slot__title">[ platzhalter ]</span>
-                  <span className="slot__meta">brand film</span>
-                </div>
-              </a>
-
-              {/* VIDEO HIER: src="videos/work-02.mp4", poster="videos/work-02.jpg" */}
-              <a className="slot slot--02" href="#" aria-label="project 02">
-                <video className="slot__media" muted loop playsInline preload="metadata"
-                       poster="videos/work-02.jpg"
-                       data-hover-play=""
-                       aria-label="[ platzhalter ]">
-                  <source src="videos/work-02.mp4" type="video/mp4" />
-                </video>
-                <div className="slot__placeholder" aria-hidden="true">[ 02 ]  concept film — twentytwentysix</div>
-                <div className="slot__overlay">
-                  <span className="slot__title">[ platzhalter ]</span>
-                  <span className="slot__meta">campaign</span>
-                </div>
-              </a>
-
-              {/* VIDEO HIER: src="videos/work-03.mp4", poster="videos/work-03.jpg" */}
-              <a className="slot slot--03" href="#" aria-label="project 03">
-                <video className="slot__media" muted loop playsInline preload="metadata"
-                       poster="videos/work-03.jpg"
-                       data-hover-play=""
-                       aria-label="[ platzhalter ]">
-                  <source src="videos/work-03.mp4" type="video/mp4" />
-                </video>
-                <div className="slot__placeholder" aria-hidden="true">[ 03 ]  ―</div>
-                <div className="slot__overlay">
-                  <span className="slot__title">[ platzhalter ]</span>
-                  <span className="slot__meta">identity</span>
-                </div>
-              </a>
-
-              {/* VIDEO HIER: src="videos/work-04.mp4", poster="videos/work-04.jpg" */}
-              <a className="slot slot--04" href="#" aria-label="project 04">
-                <video className="slot__media" muted loop playsInline preload="metadata"
-                       poster="videos/work-04.jpg"
-                       data-hover-play=""
-                       aria-label="[ platzhalter ]">
-                  <source src="videos/work-04.mp4" type="video/mp4" />
-                </video>
-                <div className="slot__placeholder" aria-hidden="true">[ 04 ]  ―</div>
-                <div className="slot__overlay">
-                  <span className="slot__title">[ platzhalter ]</span>
-                  <span className="slot__meta">editorial motion</span>
-                </div>
-              </a>
-
-            </div>
+            <WorkGrid />
           </div>
         </section>
 
@@ -239,13 +167,13 @@ export default function Home() {
             </div>
 
             <h2 className="contact__big">
-              <a href="#" className="email-link" data-user="hello" data-domain="decadre.studio" data-keep-label="">[ → write us ]</a>
+              <EmailLink user="hello" domain="decadre.studio" keepLabel>[ → write us ]</EmailLink>
             </h2>
 
             <div className="contact__meta">
               <div className="col">
                 <span className="lbl">email</span>
-                <a href="#" className="email-link" data-user="hello" data-domain="decadre.studio">hello [at] decadre.studio</a>
+                <EmailLink user="hello" domain="decadre.studio">hello [at] decadre.studio</EmailLink>
               </div>
               <div className="col">
                 <span className="lbl">studio</span>
@@ -269,7 +197,7 @@ export default function Home() {
       <footer>
         <div className="ftr">
           <div><b>Décadre Studio</b> — Stuttgart</div>
-          <div className="center"><b id="clock-city">Stuttgart</b> <span id="clock" aria-live="off">--:--</span></div>
+          <div className="center"><LocalClock cityId="clock-city" clockId="clock" separator=" " /></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
             <a href="/impressum">[ impressum ]</a>
@@ -281,8 +209,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* TEMPORAER — wird beim Fundament in einzelne Komponenten aufgeteilt. */}
-      <LegacyScripts />
     </>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import LegalScripts from "@/components/LegalScripts";
+import SiteHeader from "@/components/SiteHeader";
+import EmailLink from "@/components/EmailLink";
+import LocalClock from "@/components/LocalClock";
 
 export const metadata: Metadata = {
   title: "Impressum — Décadre Studio",
@@ -9,10 +11,10 @@ export default function Impressum() {
   return (
     <>
       {/* ============ HEADER ============ */}
-      <header className="hdr" id="header">
+      <SiteHeader>
         <a className="hdr__brand" href="index.html" aria-label="Décadre Studio — home">Décadre Studio</a>
         <a className="hdr__back" href="index.html">[ ← back ]</a>
-      </header>
+      </SiteHeader>
 
       <main>
 
@@ -38,7 +40,7 @@ export default function Impressum() {
 
                 <h3>kontakt</h3>
                 <p>Telefon: 0172 6916961<br />
-                   E-Mail: <a className="email-link" href="#" data-user="hello" data-domain="decadre.studio"></a></p>
+                   E-Mail: <EmailLink user="hello" domain="decadre.studio" /></p>
 
                 <h3>verantwortlich für den inhalt nach § 18 abs. 2 mstv</h3>
                 <p>Elias Noah Nies<br />
@@ -59,7 +61,7 @@ export default function Impressum() {
               <aside className="legal__meta">
                 <div><b>quelle</b> — eigene angaben</div>
                 <div><b>stand</b> — twentytwentysix</div>
-                <div><b>fragen</b> — <a className="email-link" href="#" data-user="hello" data-domain="decadre.studio"></a></div>
+                <div><b>fragen</b> — <EmailLink user="hello" domain="decadre.studio" /></div>
               </aside>
             </div>
           </div>
@@ -71,7 +73,7 @@ export default function Impressum() {
       <footer>
         <div className="ftr">
           <div><b>Décadre Studio</b> — Stuttgart</div>
-          <div className="center"><b>Stuttgart</b> <span id="clock" aria-live="off">--:--</span></div>
+          <div className="center"><LocalClock variant="berlin" clockId="clock" separator=" " /></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
             <a href="impressum.html">[ impressum ]</a>
@@ -83,8 +85,6 @@ export default function Impressum() {
         </div>
       </footer>
 
-      {/* TEMPORAER — wird beim Fundament in einzelne Komponenten aufgeteilt. */}
-      <LegalScripts />
     </>
   );
 }
