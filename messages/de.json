@@ -21,10 +21,51 @@
   },
   "hero": {
     "label": "einstieg",
-    "caption": "[ décadre — bild, recherche, produktion — twentytwentysix ]",
+    "caption": "[ elias noah nies — producer — weltweit ]",
     "scroll": "[ scroll ↓ ]"
   },
-  "marquee": "recherche — produktion — kamera — fotografie — identität — raum — live —",
+  "sections": {
+    "order": [
+      "decadre",
+      "arbeit",
+      "kontakt"
+    ],
+    "decadre": {
+      "id": "decadre",
+      "num": "[ 01 ]",
+      "label": "décadre",
+      "hint": "[ wer und warum ]",
+      "inHeader": true
+    },
+    "arbeit": {
+      "id": "arbeit",
+      "num": "[ 02 ]",
+      "label": "arbeit",
+      "hint": "[ was ich mache ]",
+      "inHeader": true
+    },
+    "kontakt": {
+      "id": "kontakt",
+      "num": "[ 03 ]",
+      "label": "kontakt",
+      "hint": "",
+      "inHeader": true
+    }
+  },
+  "decadre": {
+    "title": [
+      "Etwas,",
+      "das",
+      "antwortet."
+    ],
+    "body": [],
+    "portraitAlt": "Elias Noah Nies"
+  },
+  "arbeit": {
+    "title": "Producer.",
+    "body": [],
+    "keywords": ""
+  },
   "contact": {
     "big": "[ → schreib mir ]",
     "email": "email",
@@ -41,165 +82,9 @@
     "instagram": "[ instagram ]",
     "imprint": "[ impressum ]",
     "privacy": "[ datenschutz ]",
-    "base": "© twentytwentysix · décadre. alle rechte vorbehalten."
+    "base": "© 2026 décadre. alle rechte vorbehalten."
   },
   "clock": {
     "place": "Deutschland"
-  },
-  "sections": {
-    "order": [
-      "haltung",
-      "arbeit",
-      "formate",
-      "hintergrund",
-      "notizen",
-      "kontakt"
-    ],
-    "haltung": {
-      "id": "haltung",
-      "num": "[ 01 ]",
-      "label": "haltung",
-      "hint": "[ warum ]",
-      "inHeader": true
-    },
-    "arbeit": {
-      "id": "arbeit",
-      "num": "[ 02 ]",
-      "label": "arbeit",
-      "hint": "[ was ich übernehme ]",
-      "inHeader": true
-    },
-    "formate": {
-      "id": "formate",
-      "num": "[ 03 ]",
-      "label": "formate",
-      "hint": "[ was daraus wird ]",
-      "inHeader": true
-    },
-    "hintergrund": {
-      "id": "hintergrund",
-      "num": "[ 04 ]",
-      "label": "hintergrund",
-      "hint": "[ wer ]",
-      "inHeader": false
-    },
-    "notizen": {
-      "id": "notizen",
-      "num": "[ 05 ]",
-      "label": "notizen",
-      "hint": "[ laufende gedanken ]",
-      "inHeader": false
-    },
-    "kontakt": {
-      "id": "kontakt",
-      "num": "[ 06 ]",
-      "label": "kontakt",
-      "hint": "",
-      "inHeader": true
-    }
-  },
-  "haltung": {
-    "title": [
-      "Zeit ist",
-      "die ganze",
-      "Entscheidung."
-    ],
-    "body": [
-      "Mich interessiert, was passiert, wenn man einer Sache genug Zeit gibt.",
-      "Ob das ein Kurzfilm ist, der eine einzige Geschichte zu Ende erzählt, eine Reportage aus einem Kriegsgebiet oder eine Recherche über Abholzung im Amazonas, ist mir gleich. Die Gattung entscheidet nichts. Die Frage ist, ob eine Sache es wert ist, gezeigt zu werden, und ob sie danach anders dasteht als vorher.",
-      "Was gezeigt wird, lebt davon, dass jemand etwas von sich preisgibt, oft in einem Moment, den er sich nicht ausgesucht hat. Die Kamera macht daraus Material. Der Schnitt macht daraus eine Haltung. Und irgendwo auf dem Weg entscheidet jemand, ob Leid gut aussehen soll. Das ist keine Geschmacksfrage, sondern der Kern des Handwerks.",
-      "Krieg, Armut, Zerstörung sind längst eine eigene Ästhetik geworden. Sauber ausgeleuchtet, ruhig gradiert, mit Score. Je besser diese Bilder aussehen, desto leichter lassen sie sich konsumieren, und desto schneller sind sie wieder weg. Die Aufklärung hat versprochen, dass mehr Information zu mehr Einsicht führt. Dieses Versprechen hält gerade nicht ein.",
-      "Der Grund dafür ist selten Gleichgültigkeit, sondern Tempo. Was ununterbrochen nachgeliefert wird, kann nicht wirken. Etwas erreicht einen nur, wenn man ihm Zeit lässt und wenn man es nicht vollständig in der Hand hat. Produktion heißt für mich deshalb vor allem, Bedingungen zu schaffen, unter denen das möglich bleibt: weniger Drehtage mit mehr Zeit darin, Zugang, der gewachsen ist statt eingekauft, und die Bereitschaft, ein Projekt abzubrechen, wenn es den Menschen darin schadet.",
-      "Dazu kommt eine Verschiebung, die ich beruflich täglich sehe. Material ist erzeugbar geworden. Ich arbeite mit diesen Werkzeugen und weiß, was sie können. Genau deshalb glaube ich, dass sich dokumentarische Arbeit neu begründen muss: nicht über das Bild, sondern darüber, wie nachvollziehbar seine Entstehung ist.",
-      "Dass ich das aus einer gestalterischen Ecke betreibe, ist kein Widerspruch. Ich fotografiere, ich stehe selbst hinter der Kamera, und ich komme aus einem Umfeld, in dem Bildsprache und Mode ernst genommen werden. Form ist kein Firnis, den man über einen Inhalt legt. Form ist die Entscheidung darüber, wie nah jemand rankommt.",
-      "Ich erzähle nicht die Geschichten anderer Leute an ihrer Stelle. Ich sorge dafür, dass sie erzählt werden können: als Producer, der die Bedingungen herstellt, und wo es passt mit der Kamera in der Hand."
-    ]
-  },
-  "arbeit": {
-    "title": "Rollen.",
-    "intro": "je nach projekt die ganze produktion oder ein teil davon.",
-    "items": [
-      {
-        "title": "produktionsleitung",
-        "desc": "Kalkulation, Zeitplanung, Crewing, Disposition. Von der ersten Machbarkeitsfrage bis zur Schlussabrechnung."
-      },
-      {
-        "title": "recht und absicherung",
-        "desc": "Drehgenehmigungen, Persönlichkeitsrechte, Einwilligungen, Musiklizenzen, Verträge mit Gewerken und Agenturen. Bei Arbeiten über reale Menschen ist das kein Formalakt, sondern der Teil, der darüber entscheidet, ob veröffentlicht werden kann."
-      },
-      {
-        "title": "set",
-        "desc": "Vor Ort, nicht aus dem Büro. Koordination am Drehtag, Ansprechpartner für die Protagonisten, Umgang mit allem, was nicht im Plan steht."
-      },
-      {
-        "title": "kamera und bild",
-        "desc": "Wo es die Sache besser macht, drehe und fotografiere ich selbst. Kleine Teams, langer Zugang, wenig Apparat. Manchmal ist die kleinere Crew die Bedingung dafür, dass überhaupt etwas entsteht."
-      },
-      {
-        "title": "post und ausspielung",
-        "desc": "Schnittbegleitung, Rechteprüfung im Material, Fassungen für unterschiedliche Kanäle und Längen."
-      },
-      {
-        "title": "werkzeuge",
-        "desc": "Produktion mit generativen Werkzeugen, inklusive der Frage, wo sie in dokumentarischer Arbeit nichts verloren haben."
-      }
-    ]
-  },
-  "formate": {
-    "title": "Kein Medium ist gesetzt.",
-    "intro": "die sache entscheidet, in welcher form sie ankommt. nicht umgekehrt.",
-    "items": [
-      {
-        "title": "film",
-        "desc": "Kurzfilm, Reportage, Portrait, Langstrecke. Der Normalfall, aber nicht der einzige."
-      },
-      {
-        "title": "fotografie",
-        "desc": "Serien, Portrait, Editorial, Mode. Ein einzelnes Bild hält manchmal länger als neunzig Minuten, und es lässt sich schwerer wegwischen."
-      },
-      {
-        "title": "text",
-        "desc": "Recherche, die als Text besser aufgehoben ist als im Bild. Manchmal ist der Artikel die ehrlichere Form."
-      },
-      {
-        "title": "identität",
-        "desc": "Visuelle Systeme für Initiativen, Redaktionen, Labels und Projekte, die ernst genommen werden wollen. Typografie, Marke, Regeln. Haltung sieht nach etwas aus, oder sie wird überblättert."
-      },
-      {
-        "title": "raum",
-        "desc": "Ausstellung, Installation, Projektion. Wenn etwas körperlich erfahrbar sein muss, um nicht weggewischt zu werden."
-      },
-      {
-        "title": "live",
-        "desc": "Veranstaltungen, Screenings, Gespräche. Ein Publikum im selben Raum ist die älteste Form von Öffentlichkeit und immer noch die wirksamste."
-      }
-    ]
-  },
-  "hintergrund": {
-    "title": "Décadre.",
-    "portraitAlt": "Elias Noah Nies",
-    "body": [
-      "Décadre ist aktuell eine Person. Das sage ich nicht als Einschränkung, sondern weil es den Unterschied ausmacht: Wer hier anfragt, spricht mit dem, der dann auch am Set steht. Wächst ein Projekt, wächst die Crew — aus Leuten, mit denen ich gearbeitet habe, nicht aus einer Datenbank.",
-      "Ich bin Elias Noah Nies. Seit 2026 arbeite ich als Creative Producer bei Schwarz Corporate Affairs: bei allen Produktionen vor Ort, zuständig für die Steuerung von Agenturen und Gewerken, für Rechte und Freigaben. Davor Wirtschaftsingenieurwesen an der Hochschule Heilbronn, mit Projekten an der Schnittstelle von KI und Software im Handelsumfeld. Außerdem Mitgründer von eduswift, einer Online-Nachhilfeplattform.",
-      "Diese Mischung ist der Punkt. Jemand, der Kalkulation, Rechteklärung und Werkzeuge versteht und gleichzeitig weiß, wie ein Bild gebaut wird, nimmt einer Redaktion genau die Arbeit ab, für die dort selten Kapazität da ist.",
-      "Décadre ist das Einzelunternehmen, über das ich freiberuflich arbeite, als Nebentätigkeit mit Genehmigung meines Arbeitgebers. Der Name kommt von décadrer: den Rahmen verlassen."
-    ]
-  },
-  "notizen": {
-    "title": "Notizen.",
-    "intro": "offene fragen zur eigenen arbeit. kein blog, kein marketing.",
-    "empty": "[ in arbeit ]",
-    "back": "[ ← zurück ]"
-  },
-  "itemNums": [
-    "[ eins ]",
-    "[ zwei ]",
-    "[ drei ]",
-    "[ vier ]",
-    "[ fünf ]",
-    "[ sechs ]"
-  ],
-  "cursor": {
-    "write": "[ schreib ]"
   }
 }

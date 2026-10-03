@@ -4,9 +4,8 @@ import { create } from "zustand";
 // Scroll-Position und andere Werte, die sich pro Frame aendern, gehoeren
 // NICHT hierher (siehe Scroll-Abstraktion in providers/SmoothScroll.tsx).
 
-/** default: leerer Kreis; fill: gefuellt (Links, Buttons, Listenzeilen);
- *  write: gefuellt mit Text (grosser Kontakt-Link) */
-export type CursorMode = "default" | "fill" | "write";
+/** default: leerer Kreis; fill: gefuellt (Links, Buttons, data-cursor="fill") */
+export type CursorMode = "default" | "fill";
 
 type AppState = {
   /** Seite geladen und eingeblendet */

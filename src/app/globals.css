@@ -78,8 +78,6 @@ img, video { display: block; max-width: 100%; }
   opacity: 0.6;
   margin: 16px 0 0;
 }
-/* Liste direkt unter Titel + Einleitung (arbeit, formate, notizen) */
-.work__note + .svc__list { margin-top: 64px; }
 .section-head {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -92,8 +90,6 @@ img, video { display: block; max-width: 100%; }
 }
 .section-head__num,
 .section-head__lbl { white-space: nowrap; letter-spacing: 0.02em; }
-/* Signalfarbe: Abschnittsnummern auf Papier rot (dekorativ, 13px Mono) */
-.section-head__num { color: var(--color-red); }
 .section-head__hint { color: var(--color-fg-60); font-size: 11px; letter-spacing: 0.02em; text-align: right; white-space: nowrap; }
 .section-title {
   font-family: var(--font-display);
@@ -114,26 +110,6 @@ img, video { display: block; max-width: 100%; }
   text-wrap: nowrap;
 }
 .section-title--stack span { display: block; white-space: nowrap; }
-
-/* ============================================================
-   FARBFELDER — [ 01 ] rot, [ 03 ] blau, volle Viewportbreite
-   Innerhalb eines Felds werden die Tinten-Tokens auf die Feld-Werte
-   umgestellt; Text, Hairlines und Opacity-Stufen folgen automatisch.
-   ============================================================ */
-.section--field {
-  padding-block: var(--section-spacing);
-  --color-fg:    var(--color-on-field);
-  --color-fg-60: var(--color-on-field-60);
-  --color-fg-40: var(--color-on-field-40);
-  --color-fg-15: var(--color-on-field-15);
-  color: var(--color-fg);
-}
-.section--red  { background: var(--color-red); }
-.section--blue { background: var(--color-blue); }
-.section--field .section-head__num { color: var(--color-on-field); }
-/* Markierung im Feld: Papier-Flaeche mit Feldfarbe als Schrift */
-.section--red ::selection  { background: var(--color-on-field); color: var(--color-red); }
-.section--blue ::selection { background: var(--color-on-field); color: var(--color-blue); }
 
 /* ============================================================
    KOERNUNG — feines Rauschen ueber der ganzen Seite
@@ -171,7 +147,7 @@ body::after {
 
 .hdr__brand {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: 17px;
   letter-spacing: -0.03em;
   white-space: nowrap;
@@ -187,7 +163,7 @@ body::after {
   padding: 4px 2px;
   white-space: nowrap;
   text-decoration: none;
-  opacity: 0.6;
+  opacity: 0.4;
   transition: opacity var(--dur) var(--ease);
 }
 .hdr__link:link,
@@ -197,11 +173,8 @@ body::after {
 .hdr__link:active { text-decoration: none; }
 .hdr__link:hover,
 .hdr__link:focus-visible { opacity: 1; }
-/* active section — brackets bold (font-weight: 700), no underline */
-.hdr__link[aria-current="true"] {
-  opacity: 1;
-  font-weight: 700;
-}
+/* aktive Sektion: nur volle Deckkraft (inaktiv 0.4), kein Fettdruck */
+.hdr__link[aria-current="true"] { opacity: 1; }
 
 /* Sprachumschalter "DE / EN" — Mono 13px, aktive Sprache volle Deckkraft,
    inaktive 0.4, kein Fettdruck. */
@@ -315,117 +288,6 @@ body::after {
 }
 
 /* ============================================================
-   MARQUEE — continuous auto-loop (seamless, no scroll dependency)
-   ============================================================ */
-.marquee-pin {
-  position: relative;
-}
-.marquee {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding-block: 40px;
-  /* schwarzes Band zwischen Hero und dem roten Feld, ohne Hairlines */
-  background: var(--color-fg);
-  color: var(--color-bg);
-}
-.marquee__track {
-  display: flex;
-  flex-shrink: 0;
-  white-space: nowrap;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(40px, 6vw, 80px);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  will-change: transform;
-  animation: marquee-loop 32s linear infinite;
-}
-/* each copy ends with "— " and gets equal right padding so the
-   seam between the two copies matches the internal separators. */
-.marquee__track > span { padding-right: 32px; flex-shrink: 0; }
-
-@keyframes marquee-loop {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@media (max-width: 768px) {
-  .marquee { padding-block: 32px; }
-  .marquee__track { font-size: clamp(28px, 9vw, 48px); }
-  .marquee__track > span { padding-right: 24px; }
-}
-
-/* reduced motion — hold the marquee static */
-@media (prefers-reduced-motion: reduce) {
-  .marquee__track { animation: none; }
-}
-
-/* ============================================================
-   [ 02 ] SERVICES — typo blocks + slide-in description
-   ============================================================ */
-.svc__list { border-top: 1px solid var(--color-fg-15); }
-/* compact section transitions — used to tighten specific gaps */
-.section--tight-bottom { padding-bottom: 48px; }
-.section--tight-top    { padding-top: 56px; }
-.section--mb-120       { padding-bottom: 120px; }
-.svc {
-  display: grid;
-  grid-template-columns: 56px 1fr 1fr;
-  gap: 24px;
-  align-items: baseline;
-  padding: 36px 0 32px;
-  border-bottom: 1px solid var(--color-fg-15);
-  transition: padding-left var(--dur) var(--ease);
-}
-.svc:hover { padding-left: 8px; }
-
-.svc__num {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-/* title MUST stay on one line — clamp shrinks the type as the
-   row narrows so "creative consultancy" never wraps. */
-.svc__title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(24px, 5vw, 64px);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-}
-.svc__desc {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.5;
-  letter-spacing: -0.011em;
-  max-width: 36ch;
-  align-self: center;
-  opacity: 0;
-  transform: translateX(24px);
-  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
-}
-.svc:hover .svc__desc,
-.svc:focus-within .svc__desc { opacity: 1; transform: none; }
-
-/* Notizen-Liste im svc-Muster: ganze Zeile verlinkt, Datum statt Nummer
-   (braucht mehr Breite), Titel darf umbrechen, Excerpt immer sichtbar. */
-.svc--note { grid-template-columns: 120px 1fr 1fr; }
-.svc--note .svc__title { white-space: normal; }
-.svc--note .svc__desc { opacity: 1; transform: none; }
-/* Notiz-Detailseite: Abstand unter dem fixen Header */
-.section--note { padding-top: 160px; }
-
-@media (hover: none), (max-width: 900px) {
-  .svc__desc { opacity: 1; transform: none; }
-  .svc { grid-template-columns: 48px 1fr; }
-  .svc__desc { grid-column: 2 / -1; max-width: none; padding-top: 16px; }
-  .svc__title { font-size: clamp(26px, 6vw, 44px); }
-}
-
-/* ============================================================
    [ 03 ] ABOUT
    ============================================================ */
 .about__body {
@@ -456,6 +318,8 @@ body::after {
 }
 @media (max-width: 900px) {
   .about__body { grid-template-columns: 1fr; gap: 48px; }
+  /* gestapelt: Portrait zuerst, dann der Text */
+  .about__slot { order: -1; }
 }
 
 /* ============================================================
@@ -553,7 +417,7 @@ body::after {
 }
 .menu__brand {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: 17px;
   letter-spacing: -0.03em;
   white-space: nowrap;
@@ -617,58 +481,6 @@ body::after {
 .menu__bottom b { color: var(--color-fg); font-weight: 400; white-space: nowrap; }
 
 /* ============================================================
-   CURSOR — Kreis mit mix-blend-mode difference, ueberall sichtbar
-   Position setzt GSAP (transform), Groesse/Fuellung per data-mode.
-   ============================================================ */
-.cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  pointer-events: none;
-  width: 24px;
-  height: 24px;
-  border: 1px solid #FFFFFF;
-  border-radius: 50%;
-  background-color: transparent;
-  mix-blend-mode: difference;
-  display: grid;
-  place-items: center;
-  opacity: 0;
-  transition:
-    width 300ms var(--ease),
-    height 300ms var(--ease),
-    background-color 300ms var(--ease),
-    border-color 300ms var(--ease),
-    opacity 200ms var(--ease);
-}
-.cursor[data-visible="true"] { opacity: 1; }
-.cursor[data-mode="fill"],
-.cursor[data-mode="write"] {
-  width: 64px;
-  height: 64px;
-  background-color: #FFFFFF;
-  border-color: transparent;
-}
-/* "[ schreib ]" ist in 11px Mono ~73px breit und passt nicht in 64px */
-.cursor[data-mode="write"] { width: 88px; height: 88px; }
-.cursor__label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0;
-  white-space: nowrap;
-  color: #000000;
-  opacity: 0;
-  transition: opacity 200ms var(--ease);
-}
-.cursor[data-mode="write"] .cursor__label { opacity: 1; }
-/* nativen Cursor nur ausblenden, wenn der eigene laeuft */
-@media (hover: hover) and (pointer: fine) {
-  html.has-cursor,
-  html.has-cursor * { cursor: none !important; }
-}
-
-/* ============================================================
    RESPONSIVE HARDENING
    breakpoints: 1024 (tablet) / 768 (mobile) / 480 (small) / 374 (xs)
    goal: zero horizontal overflow, no wrapping labels, safe areas
@@ -706,9 +518,6 @@ canvas, img, video, svg { max-width: 100%; }
   .section-title { font-size: clamp(44px, 14vw, 72px); }
   .section-title--stack { font-size: clamp(48px, 15vw, 120px); }
   .contact__big { font-size: clamp(30px, 11vw, 72px); }
-  .svc__title { font-size: clamp(20px, 5.5vw, 32px); }
-  .svc { grid-template-columns: 40px 1fr; }
-  .svc__num { font-size: 11px; }
   .contact__meta { grid-template-columns: 1fr 1fr; gap: 24px 18px; }
 
   /* footer links may wrap between items (each item stays nowrap) */
@@ -722,11 +531,4 @@ canvas, img, video, svg { max-width: 100%; }
 /* very small phones (--pad-x: 16px steht in tokens.css) */
 @media (max-width: 374px) {
   .hero__title { font-size: clamp(48px, 17vw, 80px); }
-}
-
-/* Notizen-Liste schmal: Datum, Titel, Excerpt untereinander
-   (steht am Dateiende, nach den svc-Regeln fuer 900/480px) */
-@media (max-width: 900px) {
-  .svc--note { grid-template-columns: 1fr; gap: 8px; }
-  .svc--note .svc__desc { grid-column: auto; padding-top: 0; }
 }

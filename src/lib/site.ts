@@ -17,6 +17,6 @@ export const OG_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "Décadre — Produktion und Bild",
+  alt: "Décadre — Elias Noah Nies, Producer",
   type: "image/png",
 };

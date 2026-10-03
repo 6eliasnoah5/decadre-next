@@ -13,10 +13,9 @@ export const routing = defineRouting({
   // hreflang setzen die Seiten selbst per Metadaten (Rechtsseiten gibt es nur
   // auf Deutsch, die automatischen Link-Header wuerden /en/impressum melden).
   alternateLinks: false,
-  // Lokalisierte Pfade. Interner Ordnername ist jeweils der deutsche.
+  // Pfade (fuer beide Sprachen gleich).
   pathnames: {
     "/": "/",
-    "/notizen/[slug]": { de: "/notizen/[slug]", en: "/notes/[slug]" },
     "/impressum": "/impressum",
     "/datenschutz": "/datenschutz",
   },

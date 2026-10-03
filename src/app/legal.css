@@ -61,7 +61,7 @@ body.is-loaded { opacity: 1; }
 
 .hdr__brand {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: 17px;
   letter-spacing: -0.03em;
   white-space: nowrap;
@@ -201,55 +201,3 @@ img, svg { max-width: 100%; }
 }
 
 /* tablet- und 374px-Padding: siehe tokens.css */
-
-/* ============================================================
-   CURSOR — Kreis mit mix-blend-mode difference, ueberall sichtbar
-   Position setzt GSAP (transform), Groesse/Fuellung per data-mode.
-   ============================================================ */
-.cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  pointer-events: none;
-  width: 24px;
-  height: 24px;
-  border: 1px solid #FFFFFF;
-  border-radius: 50%;
-  background-color: transparent;
-  mix-blend-mode: difference;
-  display: grid;
-  place-items: center;
-  opacity: 0;
-  transition:
-    width 300ms var(--ease),
-    height 300ms var(--ease),
-    background-color 300ms var(--ease),
-    border-color 300ms var(--ease),
-    opacity 200ms var(--ease);
-}
-.cursor[data-visible="true"] { opacity: 1; }
-.cursor[data-mode="fill"],
-.cursor[data-mode="write"] {
-  width: 64px;
-  height: 64px;
-  background-color: #FFFFFF;
-  border-color: transparent;
-}
-/* "[ schreib ]" ist in 11px Mono ~73px breit und passt nicht in 64px */
-.cursor[data-mode="write"] { width: 88px; height: 88px; }
-.cursor__label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0;
-  white-space: nowrap;
-  color: #000000;
-  opacity: 0;
-  transition: opacity 200ms var(--ease);
-}
-.cursor[data-mode="write"] .cursor__label { opacity: 1; }
-/* nativen Cursor nur ausblenden, wenn der eigene laeuft */
-@media (hover: hover) and (pointer: fine) {
-  html.has-cursor,
-  html.has-cursor * { cursor: none !important; }
-}
