@@ -1,47 +1,7 @@
 /* Tailwind-Import bewusst deaktiviert: Preflight wuerde das Legacy-CSS zerschiessen. */
 /* @import "tailwindcss"; */
 
-/* ============================================================
-   TOKENS — change these to retune the system
-   ============================================================ */
-:root {
-  /* colors -------------------------------------------------- */
-  --color-bg:    #F4F2EE;   /* warm offwhite — every surface  */
-  --color-fg:    #111111;   /* deep black — text + marks      */
-
-  /* alpha derivatives of --color-fg (NOT separate colors) -- */
-  --color-fg-60: rgba(17, 17, 17, 0.60);   /* meta / captions */
-  --color-fg-40: rgba(17, 17, 17, 0.40);   /* inactive        */
-  --color-fg-15: rgba(17, 17, 17, 0.15);   /* hairline        */
-
-  /* fonts -------------------------------------------------- */
-  /* *-src setzt next/font, siehe src/app/fonts.ts */
-  --font-display: var(--font-display-src), system-ui, sans-serif;
-  --font-body:    var(--font-body-src), system-ui, sans-serif;
-  --font-mono:    var(--font-mono-src), ui-monospace, "SF Mono", Menlo, monospace;
-
-  /* layout ------------------------------------------------- */
-  --max-width:             1440px;
-  --gutter:                24px;
-  --side-padding-desktop:  32px;
-  --side-padding-mobile:   20px;
-  --section-spacing:       160px;
-  --header-height:         64px;   /* sticky-header height — marquee pins below it */
-
-  /* derived (do not change) */
-  --pad-x: var(--side-padding-desktop);
-
-  /* motion ------------------------------------------------- */
-  --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
-  --dur:       200ms;
-  --dur-slow:  400ms;
-}
-@media (max-width: 768px) {
-  :root {
-    --pad-x: var(--side-padding-mobile);
-    --section-spacing: 96px;
-  }
-}
+@import "./tokens.css";
 
 /* ============================================================
    GLOBAL COLOR RESET
@@ -774,11 +734,7 @@ canvas, img, video, svg { max-width: 100%; }
 }
 .ftr__base { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 
-/* tablet — narrower side padding (min-width guard so it never
-   clobbers the mobile --pad-x set in the earlier 768 query) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  :root { --pad-x: 24px; }
-}
+/* tablet-Padding: siehe tokens.css */
 
 /* small phones — scale every nowrap display headline so it fits 320px */
 @media (max-width: 480px) {
@@ -801,9 +757,7 @@ canvas, img, video, svg { max-width: 100%; }
   .contact__meta a { display: inline-flex; align-items: center; min-height: 44px; }
 }
 
-/* very small phones — tightest side padding (later than the 768
-   query, so this 16px wins at ≤374px) */
+/* very small phones (--pad-x: 16px steht in tokens.css) */
 @media (max-width: 374px) {
-  :root { --pad-x: 16px; }
   .hero__title { font-size: clamp(48px, 17vw, 80px); }
 }
