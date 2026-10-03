@@ -1,3 +1,5 @@
+import LegacyScripts from "@/components/LegacyScripts";
+
 export default function Home() {
   return (
     <>
@@ -278,6 +280,9 @@ export default function Home() {
           © twentytwentysix · décadre studio. all rights reserved.
         </div>
       </footer>
+
+      {/* TEMPORAER — wird beim Fundament in einzelne Komponenten aufgeteilt. */}
+      <LegacyScripts />
     </>
   );
 }
