@@ -1,9 +1,10 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import SmoothScroll from "@/providers/SmoothScroll";
 import { useMotionCapability } from "@/hooks/useMotionCapability";
+import { useAppStore } from "@/store/useAppStore";
 
 // R3F/three nur im Browser laden; nicht im Server-Render und nicht im
 // initialen Bundle.
@@ -14,6 +15,18 @@ const Scene = dynamic(() => import("@/components/canvas/Scene"), { ssr: false })
 // hier und nicht doppelt in den Layouts.
 export default function Providers({ children }: { children: ReactNode }) {
   const { reducedMotion, canWebGL, tier } = useMotionCapability();
+  const setReady = useAppStore((s) => s.setReady);
+
+  // Seite nach dem load-Event einblenden (body.is-loaded) und isReady setzen.
+  useEffect(() => {
+    const reveal = () => {
+      document.body.classList.add("is-loaded");
+      setReady(true);
+    };
+    if (document.readyState === "complete") reveal();
+    else window.addEventListener("load", reveal);
+    return () => window.removeEventListener("load", reveal);
+  }, [setReady]);
 
   return (
     <>

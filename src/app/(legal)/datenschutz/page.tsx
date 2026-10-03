@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
-import LegalScripts from "@/components/LegalScripts";
+import EmailLink from "@/components/EmailLink";
+import LocalClock from "@/components/LocalClock";
 
 export const metadata: Metadata = {
   title: "Datenschutz — Décadre Studio",
@@ -37,7 +38,7 @@ export default function Datenschutz() {
                    Im Schönblick 7<br />
                    74255 Roigheim<br />
                    Deutschland<br />
-                   E-Mail: <a className="email-link" href="#" data-user="hello" data-domain="decadre.studio"></a><br />
+                   E-Mail: <EmailLink user="hello" domain="decadre.studio" /><br />
                    Telefon: 0172 6916961</p>
 
                 <h3>allgemeines</h3>
@@ -67,7 +68,7 @@ export default function Datenschutz() {
                 <div><b>verantwortlich</b> — elias noah nies</div>
                 <div><b>cookies</b> — keine</div>
                 <div><b>tracking</b> — keines</div>
-                <div><b>fragen</b> — <a className="email-link" href="#" data-user="hello" data-domain="decadre.studio"></a></div>
+                <div><b>fragen</b> — <EmailLink user="hello" domain="decadre.studio" /></div>
               </aside>
             </div>
           </div>
@@ -79,7 +80,7 @@ export default function Datenschutz() {
       <footer>
         <div className="ftr">
           <div><b>Décadre Studio</b> — Stuttgart</div>
-          <div className="center"><b>Stuttgart</b> <span id="clock" aria-live="off">--:--</span></div>
+          <div className="center"><LocalClock variant="berlin" clockId="clock" separator=" " /></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
             <a href="impressum.html">[ impressum ]</a>
@@ -91,8 +92,6 @@ export default function Datenschutz() {
         </div>
       </footer>
 
-      {/* TEMPORAER — wird beim Fundament in einzelne Komponenten aufgeteilt. */}
-      <LegalScripts />
     </>
   );
 }
