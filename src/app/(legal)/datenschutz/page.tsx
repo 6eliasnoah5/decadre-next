@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
-import EmailLink from "@/components/EmailLink";
+import { CONTACT_EMAIL } from "@/lib/site";
 import LocalClock from "@/components/LocalClock";
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function Datenschutz() {
                    Im Schönblick 7<br />
                    74255 Roigheim<br />
                    Deutschland<br />
-                   E-Mail: <EmailLink user="hello" domain="decadre.studio" /><br />
+                   E-Mail: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a><br />
                    Telefon: 0172 6916961</p>
 
                 <h3>allgemeines</h3>
@@ -69,7 +69,7 @@ export default function Datenschutz() {
                 <div><b>verantwortlich</b> — elias noah nies</div>
                 <div><b>cookies</b> — keine</div>
                 <div><b>tracking</b> — keines</div>
-                <div><b>fragen</b> — <EmailLink user="hello" domain="decadre.studio" /></div>
+                <div><b>fragen</b> — <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></div>
               </aside>
             </div>
           </div>
