@@ -1,6 +1,7 @@
 // Projekte fuer [ 03 ] projekte und die Detailseiten /projekte/[slug]
 // (englisch /en/projects/[slug]). Reihenfolge der Galerie = Reihenfolge hier.
-// placeholder: true kennzeichnet Dummy-Eintraege; sie erscheinen in der
+// placeholder: true kennzeichnet Dummy-Eintraege ("Platzhalter" steht
+// sichtbar im Titel); sie erscheinen in der
 // Galerie, aber nicht in der Sitemap, und ihre Detailseiten sind noindex.
 
 // Credit-Rollen sind ein einziger String fuer beide Sprachen, deshalb in den
@@ -29,9 +30,9 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
-    slug: "projekt-eins",
+    slug: "platzhalter-eins",
     index: 1,
-    title: { de: "Projekt Eins", en: "Project One" },
+    title: { de: "Platzhalter Eins", en: "Placeholder One" },
     client: "Auftraggeber A",
     year: 2026,
     format: { de: "kurzfilm", en: "short film" },
@@ -55,9 +56,9 @@ export const PROJECTS: Project[] = [
     placeholder: true,
   },
   {
-    slug: "projekt-zwei",
+    slug: "platzhalter-zwei",
     index: 2,
-    title: { de: "Projekt Zwei", en: "Project Two" },
+    title: { de: "Platzhalter Zwei", en: "Placeholder Two" },
     client: "Label B",
     year: 2025,
     format: { de: "musikvideo", en: "music video" },
@@ -79,9 +80,9 @@ export const PROJECTS: Project[] = [
     placeholder: true,
   },
   {
-    slug: "projekt-drei",
+    slug: "platzhalter-drei",
     index: 3,
-    title: { de: "Projekt Drei", en: "Project Three" },
+    title: { de: "Platzhalter Drei", en: "Placeholder Three" },
     client: "Marke C",
     year: 2025,
     format: { de: "kampagne", en: "campaign" },
@@ -107,9 +108,9 @@ export const PROJECTS: Project[] = [
     placeholder: true,
   },
   {
-    slug: "projekt-vier",
+    slug: "platzhalter-vier",
     index: 4,
-    title: { de: "Projekt Vier", en: "Project Four" },
+    title: { de: "Platzhalter Vier", en: "Placeholder Four" },
     client: null,
     year: 2024,
     format: { de: "dokumentarfilm", en: "documentary" },
