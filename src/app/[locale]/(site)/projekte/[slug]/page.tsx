@@ -8,6 +8,8 @@ import { getNextProject, getProject, PROJECTS, projectMeta } from "@/lib/content
 import { OG_IMAGE, SITE_NAME } from "@/lib/site";
 import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
 import VideoEmbed from "@/components/VideoEmbed";
+import BackLink from "@/components/BackLink";
+import TextReveal from "@/components/motion/TextReveal";
 
 // Projektseite, statisch aus src/lib/content.ts erzeugt.
 // Deutsch: /projekte/[slug], Englisch: /en/projects/[slug].
@@ -65,11 +67,15 @@ export default async function ProjectPage({ params }: PageProps<"/[locale]/proje
 
       <main id="top" className="project">
         <div className="container">
-          <Link className="project__back" href={`${HOME_PATHS[locale]}#${sectionId}`}>
+          <BackLink
+            className="project__back"
+            href={`${HOME_PATHS[locale]}#${sectionId}`}
+            flipId={`project-${project.slug}`}
+          >
             {t("project.back")}
-          </Link>
+          </BackLink>
 
-          <h1 className="section-title project__title">{project.title[locale]}</h1>
+          <h1 className="section-title project__title" data-split="">{project.title[locale]}</h1>
           <p className="project__meta">{projectMeta(project, locale, true)}</p>
 
           <div className="project__video" data-flip-id={`project-${project.slug}`}>
@@ -87,7 +93,7 @@ export default async function ProjectPage({ params }: PageProps<"/[locale]/proje
 
           <div className="project__body">
             <div className="about__copy">
-              <p>{project.synopsis[locale]}</p>
+              <p data-split="">{project.synopsis[locale]}</p>
             </div>
 
             <p className="project__role">
@@ -117,6 +123,7 @@ export default async function ProjectPage({ params }: PageProps<"/[locale]/proje
         </div>
       </main>
 
+      <TextReveal />
       <SiteFooter locale={locale} />
     </>
   );

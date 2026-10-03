@@ -5,6 +5,10 @@ import { CONTACT_EMAIL, INSTAGRAM_URL } from "@/lib/site";
 import { HOME_PATHS, localeAlternates, projectPaths } from "@/lib/i18n-meta";
 import { PROJECTS, projectMeta } from "@/lib/content";
 import Gallery from "@/components/Gallery";
+import MagneticLink from "@/components/motion/MagneticLink";
+import HeroReveal from "@/components/motion/HeroReveal";
+import TextReveal from "@/components/motion/TextReveal";
+import StickyNumbers from "@/components/motion/StickyNumbers";
 import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
 
 // Startseite. Alle Texte aus messages/<locale>.json, Sektions-IDs je Sprache.
@@ -35,8 +39,18 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     </div>
   );
 
+  // Klebende Abschnittsnummer, direktes Kind der <section> (siehe
+  // StickyNumbers); ohne JS / bei reduced motion ausgeblendet.
+  const sectionPin = (k: string) => (
+    <div className="section-pin" aria-hidden="true">
+      <div className="container">
+        <span className="section-pin__num">{s(k).num}</span>
+      </div>
+    </div>
+  );
+
   const paragraphs = (items: string[]) =>
-    items.map((p) => <p key={p.slice(0, 40)}>{p}</p>);
+    items.map((p) => <p key={p.slice(0, 40)} data-split="">{p}</p>);
 
   return (
     <>
@@ -61,11 +75,12 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
         {/* ============ [ 01 ] DÉCADRE — Text und Portrait ============ */}
         <section className="section section--close-bottom" id={s("decadre").id} aria-label={s("decadre").label}>
+          {sectionPin("decadre")}
           <div className="container">
             {sectionHead("decadre")}
             <h2 className="section-title section-title--stack">
               {(t.raw("decadre.title") as string[]).map((line) => (
-                <span key={line}>{line}</span>
+                <span key={line} data-split="">{line}</span>
               ))}
             </h2>
             <div className="about__body">
@@ -83,9 +98,10 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
         {/* ============ [ 02 ] ARBEIT — Fliesstext ============ */}
         <section className="section section--close-top" id={s("arbeit").id} aria-label={s("arbeit").label}>
+          {sectionPin("arbeit")}
           <div className="container">
             {sectionHead("arbeit")}
-            <h2 className="section-title">{t("arbeit.title")}</h2>
+            <h2 className="section-title" data-split="">{t("arbeit.title")}</h2>
             <div className="about__body">
               <div className="about__copy">
                 {paragraphs(t.raw("arbeit.body") as string[])}
@@ -97,6 +113,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
         {/* ============ [ 03 ] PROJEKTE — Galerie ============ */}
         <section className="section" id={s("projekte").id} aria-label={s("projekte").label}>
+          {sectionPin("projekte")}
           {/* Galerie bringt eigene Container mit, die Spur laeuft ueber die volle Breite */}
           <Gallery
             items={PROJECTS.map((p) => ({
@@ -123,11 +140,12 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
         {/* ============ [ 04 ] KONTAKT ============ */}
         <section className="section" id={s("kontakt").id} aria-label={s("kontakt").label}>
+          {sectionPin("kontakt")}
           <div className="container">
             {sectionHead("kontakt")}
 
             <h2 className="contact__big">
-              <a href={`mailto:${CONTACT_EMAIL}`}>{t("contact.big")}</a>
+              <MagneticLink href={`mailto:${CONTACT_EMAIL}`} split>{t("contact.big")}</MagneticLink>
             </h2>
 
             <div className="contact__meta">
@@ -153,6 +171,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
       </main>
 
+      <HeroReveal />
+      <TextReveal />
+      <StickyNumbers />
       <SiteFooter locale={locale} />
     </>
   );

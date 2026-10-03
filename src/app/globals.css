@@ -35,7 +35,9 @@ body {
   letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* clip statt hidden: macht body nicht zum Scroll-Container, sonst
+     klebt position: sticky (Abschnittsnummern) nicht am Viewport */
+  overflow-x: clip;
   transition: opacity 400ms var(--ease);
 }
 /* page-load fade: Startwert nur, wenn JS laeuft (html.js setzt FadeInScript
@@ -72,6 +74,27 @@ img, video { display: block; max-width: 100%; }
 /* engerer Uebergang zwischen [ 01 ] und [ 02 ] */
 .section--close-bottom { padding-bottom: 56px; }
 .section--close-top    { padding-top: 56px; }
+/* klebende Abschnittsnummer (StickyNumbers): nur mit html[data-pins],
+   dann ersetzt sie die Nummer im Abschnittskopf, die genau darunter liegt */
+.section-pin { display: none; }
+html[data-pins] .section-pin {
+  display: block;
+  position: sticky;
+  top: calc(var(--header-height) + 8px);
+  z-index: 5;
+  height: 0;
+  pointer-events: none;
+}
+html[data-pins] .section-head__num { visibility: hidden; }
+.section-pin__num {
+  display: inline-block;
+  padding-right: 8px;
+  background: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
 /* small mono note under the work heading */
 .work__note {
   font-family: var(--font-mono);
@@ -556,6 +579,7 @@ html:not(.js) .gallery__controls { visibility: hidden; }
   margin: 0;
 }
 .contact__big a {
+  display: inline-block; /* fuer den magnetischen Versatz (transform) */
   border-bottom: 4px solid transparent;
   transition: border-color var(--dur) var(--ease);
   padding-bottom: 4px;
@@ -745,7 +769,7 @@ html:not(.js) .gallery__controls { visibility: hidden; }
    ============================================================ */
 
 /* overflow guard — nothing may exceed the viewport width */
-html { overflow-x: hidden; width: 100%; max-width: 100%; }
+html { overflow-x: clip; width: 100%; max-width: 100%; }
 body { max-width: 100%; }
 canvas, img, video, svg { max-width: 100%; }
 

@@ -107,7 +107,7 @@ export default function SmoothScroll({ enabled = true }: { enabled?: boolean }) 
   // Mit Lenis: stop()/start() (lenis.css setzt dabei overflow: clip auf <html>,
   // das sperrt auch Touch und Tastatur). Ohne Lenis (reduced motion): overflow
   // direkt auf <html>, denn dort scrollt die Seite; body { overflow: hidden }
-  // greift nicht, weil <html> selbst overflow-x: hidden hat.
+  // greift nicht, weil <html> selbst overflow-x setzt.
   // Laeuft nach dem Lenis-Effekt oben, lenisInstance ist also aktuell.
   useEffect(() => {
     const root = document.documentElement;
