@@ -28,6 +28,7 @@
     "order": [
       "decadre",
       "arbeit",
+      "projekte",
       "kontakt"
     ],
     "decadre": {
@@ -44,9 +45,16 @@
       "hint": "[ was ich mache ]",
       "inHeader": true
     },
+    "projekte": {
+      "id": "projekte",
+      "num": "[ 03 ]",
+      "label": "projekte",
+      "hint": "",
+      "inHeader": true
+    },
     "kontakt": {
       "id": "kontakt",
-      "num": "[ 03 ]",
+      "num": "[ 04 ]",
       "label": "kontakt",
       "hint": "",
       "inHeader": true
@@ -78,6 +86,10 @@
       "Je nach Projekt übernehme ich die ganze Produktion oder einen Teil davon. Wo es die Sache besser macht, drehe und fotografiere ich selbst. Kleine Teams, langer Zugang, wenig Apparat."
     ],
     "keywords": "produktionsleitung · kalkulation · crewing · disposition · drehgenehmigungen · persönlichkeitsrechte · lizenzen · set · kamera · fotografie · schnittbegleitung · ausspielung"
+  },
+  "projekte": {
+    "title": "Projekte.",
+    "intro": ""
   },
   "contact": {
     "big": "[ → schreib mir ]",

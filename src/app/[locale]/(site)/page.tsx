@@ -7,7 +7,7 @@ import { SiteHeaderBar, SiteFooter } from "@/components/site/SiteChrome";
 
 // Startseite. Alle Texte aus messages/<locale>.json, Sektions-IDs je Sprache.
 // Reihenfolge: Hero, [ 01 ] décadre (Text + Portrait), [ 02 ] arbeit
-// (Fliesstext + Stichwortzeile), [ 03 ] kontakt.
+// (Fliesstext + Stichwortzeile), [ 03 ] projekte (Galerie), [ 04 ] kontakt.
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = (await params) as { locale: Locale };
@@ -93,7 +93,16 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           </div>
         </section>
 
-        {/* ============ [ 03 ] KONTAKT ============ */}
+        {/* ============ [ 03 ] PROJEKTE — Galerie ============ */}
+        <section className="section" id={s("projekte").id} aria-label={s("projekte").label}>
+          <div className="container">
+            {sectionHead("projekte")}
+            <h2 className="section-title">{t("projekte.title")}</h2>
+            <p className="work__note">{t("projekte.intro")}</p>
+          </div>
+        </section>
+
+        {/* ============ [ 04 ] KONTAKT ============ */}
         <section className="section" id={s("kontakt").id} aria-label={s("kontakt").label}>
           <div className="container">
             {sectionHead("kontakt")}

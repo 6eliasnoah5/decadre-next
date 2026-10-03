@@ -221,6 +221,11 @@ body::after {
 }
 .hdr__menu:hover, .hdr__menu:focus-visible { opacity: 1; }
 
+/* vier Links plus Umschalter: zwischen 701 und 900px enger setzen */
+@media (min-width: 701px) and (max-width: 900px) {
+  .hdr__nav { gap: 16px; }
+}
+
 @media (max-width: 700px) {
   .hdr__nav { display: none; }
   .hdr__menu { display: inline-block; }
