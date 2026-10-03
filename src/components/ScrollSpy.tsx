@@ -3,21 +3,26 @@
 import { useEffect, useState } from "react";
 
 // Header-Navigation mit aria-current fuer die sichtbare Sektion.
-// IntersectionObserver mit denselben Werten wie im Legacy-Script.
-const LINKS = [
-  { id: "work", label: "[ work ]" },
-  { id: "services", label: "[ services ]" },
-  { id: "about", label: "[ about ]" },
-  { id: "contact", label: "[ contact ]" },
-];
+// Links und Labels kommen aus den Sprachdateien. base ist "" auf der
+// Startseite (reine #anker) und der Pfad der Startseite auf Unterseiten.
+export type NavLink = { id: string; label: string };
 
-export default function ScrollSpy() {
+export default function ScrollSpy({
+  links,
+  label,
+  base = "",
+}: {
+  links: NavLink[];
+  label: string;
+  base?: string;
+}) {
   const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
-    const targets = LINKS.map((l) => document.getElementById(l.id)).filter(
-      (el): el is HTMLElement => el !== null,
-    );
+    const targets = links
+      .map((l) => document.getElementById(l.id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (!targets.length) return;
     const io = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -29,19 +34,19 @@ export default function ScrollSpy() {
     );
     targets.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [links]);
 
   return (
-    <nav className="hdr__nav" aria-label="primary">
-      {LINKS.map((l) => (
+    <nav className="hdr__nav" aria-label={label}>
+      {links.map((l) => (
         <a
           key={l.id}
           className="hdr__link"
-          href={"#" + l.id}
+          href={`${base}#${l.id}`}
           data-section={l.id}
           aria-current={active === l.id ? "true" : undefined}
         >
-          {l.label}
+          {`[ ${l.label} ]`}
         </a>
       ))}
     </nav>

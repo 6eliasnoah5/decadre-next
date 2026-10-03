@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import { CONTACT_EMAIL } from "@/lib/site";
 import LocalClock from "@/components/LocalClock";
@@ -13,8 +14,8 @@ export default function Datenschutz() {
     <>
       {/* ============ HEADER ============ */}
       <SiteHeader>
-        <a className="hdr__brand" href="index.html" aria-label="Décadre Studio — home">Décadre Studio</a>
-        <a className="hdr__back" href="index.html">[ ← back ]</a>
+        <Link className="hdr__brand" href="/" aria-label="Décadre — Startseite">Décadre</Link>
+        <Link className="hdr__back" href="/">[ ← zurück ]</Link>
       </SiteHeader>
 
       <main>
@@ -80,16 +81,16 @@ export default function Datenschutz() {
       {/* ============ FOOTER ============ */}
       <footer>
         <div className="ftr">
-          <div><b>Décadre Studio</b> — Stuttgart</div>
-          <div className="center"><LocalClock clockId="clock" separator=" " /></div>
+          <div><b>Décadre</b> — Einzelunternehmen</div>
+          <div className="center"><LocalClock place="Deutschland" clockId="clock" separator=" " /></div>
           <div className="right">
             <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
-            <a href="impressum.html">[ impressum ]</a>
-            <a href="datenschutz.html">[ datenschutz ]</a>
+            <Link href="/impressum">[ impressum ]</Link>
+            <Link href="/datenschutz">[ datenschutz ]</Link>
           </div>
         </div>
         <div className="ftr__base container">
-          © twentytwentysix · décadre studio. all rights reserved.
+          © twentytwentysix · décadre. alle rechte vorbehalten.
         </div>
       </footer>
 

@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 // Content-Security-Policy, erzwungen. Vorher im Report-Only-Modus geprueft:
 // lokal und in der Vercel-Preview keine Verstoesse (ausser vercel.live, das
@@ -46,14 +49,16 @@ const nextConfig: NextConfig = {
   },
 
   // Alte URLs der statischen Site auf die neuen Routen umleiten.
-  // /index.html wird noch von den Header-Links der Unterseiten benutzt.
   async redirects() {
     return [
       { source: "/impressum.html", destination: "/impressum", permanent: true },
       { source: "/datenschutz.html", destination: "/datenschutz", permanent: true },
       { source: "/index.html", destination: "/", permanent: true },
+      // Rechtsseiten gibt es nur auf Deutsch; die englische Site verlinkt sie direkt.
+      { source: "/en/impressum", destination: "/impressum", permanent: true },
+      { source: "/en/datenschutz", destination: "/datenschutz", permanent: true },
     ];
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
