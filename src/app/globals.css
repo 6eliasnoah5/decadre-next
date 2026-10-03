@@ -69,6 +69,9 @@ img, video { display: block; max-width: 100%; }
 
 /* section opener: [ NN ] + label, with display title beneath */
 .section { padding: var(--section-spacing) 0; }
+/* engerer Uebergang zwischen [ 01 ] und [ 02 ] */
+.section--close-bottom { padding-bottom: 56px; }
+.section--close-top    { padding-top: 56px; }
 /* small mono note under the work heading */
 .work__note {
   font-family: var(--font-mono);
@@ -144,6 +147,18 @@ body::after {
   transition: border-color var(--dur) var(--ease);
 }
 .hdr[data-scrolled="true"] { border-bottom-color: var(--color-fg-15); }
+/* Scrollfortschritt: 2px-Linie direkt unter dem Header */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 2px;
+  background: var(--color-fg);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
 
 .hdr__brand {
   font-family: var(--font-display);

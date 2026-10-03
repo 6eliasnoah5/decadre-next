@@ -58,7 +58,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </section>
 
         {/* ============ [ 01 ] DÉCADRE — Text und Portrait ============ */}
-        <section className="section section--tight-bottom" id={s("decadre").id} aria-label={s("decadre").label}>
+        <section className="section section--close-bottom" id={s("decadre").id} aria-label={s("decadre").label}>
           <div className="container">
             {sectionHead("decadre")}
             <h2 className="section-title section-title--stack">
@@ -80,7 +80,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </section>
 
         {/* ============ [ 02 ] ARBEIT — Fliesstext ============ */}
-        <section className="section section--tight-top section--tight-bottom" id={s("arbeit").id} aria-label={s("arbeit").label}>
+        <section className="section section--close-top" id={s("arbeit").id} aria-label={s("arbeit").label}>
           <div className="container">
             {sectionHead("arbeit")}
             <h2 className="section-title">{t("arbeit.title")}</h2>
@@ -94,7 +94,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </section>
 
         {/* ============ [ 03 ] KONTAKT ============ */}
-        <section className="section section--tight-top section--mb-120" id={s("kontakt").id} aria-label={s("kontakt").label}>
+        <section className="section" id={s("kontakt").id} aria-label={s("kontakt").label}>
           <div className="container">
             {sectionHead("kontakt")}
 
