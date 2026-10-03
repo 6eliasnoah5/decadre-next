@@ -24,9 +24,11 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  opacity: 0;
   transition: opacity 400ms var(--ease);
 }
+/* page-load fade: Startwert nur, wenn JS laeuft (html.js setzt FadeInScript
+   im <head> vor dem ersten Paint). Ohne JS bleibt die Seite sichtbar. */
+html.js body:not(.is-loaded) { opacity: 0; }
 body.is-loaded { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {

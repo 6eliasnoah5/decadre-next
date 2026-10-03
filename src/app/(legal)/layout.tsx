@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "../legal.css";
 import { fontVariables } from "../fonts";
 import Providers from "../Providers";
+import FadeInScript from "@/components/FadeInScript";
 
 // Eigenes Root-Layout fuer die Rechtsseiten: Sie hatten in der Legacy-Site
 // ein eigenes <style> mit abweichenden Regeln fuer dieselben Klassen.
@@ -27,7 +28,11 @@ export const viewport: Viewport = {
 
 export default function LegalLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={fontVariables}>
+    // suppressHydrationWarning: FadeInScript setzt vor der Hydration die Klasse "js".
+    <html lang="de" className={fontVariables} suppressHydrationWarning>
+      <head>
+        <FadeInScript />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>
