@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Impressum — Décadre Studio</title>
+  <meta name="description" content="[ platzhalter ]">
+  <meta name="theme-color" content="#F4F2EE">
+  <meta name="robots" content="noindex">
+
+  <!-- favicons ------------------------------------------------- -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4F2EE'/%3E%3Ctext x='4' y='24' font-family='monospace' font-size='20' font-weight='700' fill='%23111111'%3ED.%3C/text%3E%3C/svg%3E">
+
+  <!-- fonts — self-hosted, DSGVO-konform (no Google request) -->
+  <!-- FONTS HIER: lege die .woff2-Dateien in /fonts/ (siehe README) -->
+
+<style>
+/* ============================================================
+   FONTS — self-hosted, loaded locally from /fonts/.
+   No request to Google. See README for which .woff2 to drop in.
+   ============================================================ */
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/InterTight-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/InterTight-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/InterTight-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* ============================================================
+   TOKENS — identical to index.html
+   ============================================================ */
+:root {
+  --color-bg:    #F4F2EE;
+  --color-fg:    #111111;
+  --color-fg-60: rgba(17, 17, 17, 0.60);
+  --color-fg-40: rgba(17, 17, 17, 0.40);
+  --color-fg-15: rgba(17, 17, 17, 0.15);
+
+  --font-display: "Inter Tight", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --max-width:             1440px;
+  --gutter:                24px;
+  --side-padding-desktop:  32px;
+  --side-padding-mobile:   20px;
+  --section-spacing:       160px;
+  --pad-x: var(--side-padding-desktop);
+
+  --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur:       200ms;
+  --dur-slow:  400ms;
+}
+@media (max-width: 768px) {
+  :root {
+    --pad-x: var(--side-padding-mobile);
+    --section-spacing: 96px;
+  }
+}
+
+/* GLOBAL COLOR RESET ----------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--color-bg); color: var(--color-fg); }
+
+a, a:link, a:visited, a:hover, a:active, a:focus,
+button, input, select, textarea { color: var(--color-fg); }
+a { text-decoration: none; }
+button { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+
+::selection      { background: var(--color-fg); color: var(--color-bg); }
+::-moz-selection { background: var(--color-fg); color: var(--color-bg); }
+:focus-visible   { outline: 2px solid var(--color-fg); outline-offset: 4px; }
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.45;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 400ms var(--ease);
+}
+body.is-loaded { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body { opacity: 1 !important; transition: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* primitives ------------------------------------------------- */
+.container { max-width: var(--max-width); margin-inline: auto; padding-inline: var(--pad-x); }
+
+/* ============ HEADER ============ */
+.hdr {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding: 20px var(--pad-x);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px;
+  background: var(--color-bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur) var(--ease);
+}
+.hdr[data-scrolled="true"] { border-bottom-color: var(--color-fg-15); }
+
+.hdr__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.hdr__back {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 4px 2px;
+  white-space: nowrap;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity var(--dur) var(--ease);
+}
+.hdr__back:hover, .hdr__back:focus-visible { opacity: 1; }
+@media (max-width: 700px) {
+  .hdr__brand { font-size: 15px; }
+}
+
+/* ============ MAIN ============ */
+main { padding-top: 96px; }
+
+.section { padding: 56px 0 64px; }
+.section-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  margin-bottom: 48px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.section-head__num,
+.section-head__lbl { white-space: nowrap; letter-spacing: 0.02em; }
+.section-head__hint { color: var(--color-fg-60); font-size: 11px; letter-spacing: 0.02em; text-align: right; white-space: nowrap; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 140px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.legal {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.legal__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 60ch;
+  font-size: 16px;
+  line-height: 1.55;
+}
+.legal__copy p { margin: 0; text-wrap: pretty; }
+.legal__copy h3 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  color: var(--color-fg-60);
+  margin: 24px 0 4px;
+}
+.legal__copy h3:first-child { margin-top: 0; }
+
+.legal__meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg-60);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.legal__meta b { color: var(--color-fg); font-weight: 400; }
+
+@media (max-width: 900px) {
+  .legal { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* ============ FOOTER ============ */
+.ftr {
+  margin-top: 120px;
+  padding: 32px var(--pad-x) 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: end;
+  border-top: 1px solid var(--color-fg-15);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg-60);
+}
+.ftr b { color: var(--color-fg); font-weight: 400; white-space: nowrap; }
+.ftr .center { text-align: center; white-space: nowrap; }
+.ftr .right { text-align: right; display: flex; gap: 16px; justify-content: flex-end; white-space: nowrap; }
+.ftr .right a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.ftr__base {
+  padding: 0 var(--pad-x) 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-fg-40);
+}
+@media (max-width: 700px) {
+  .ftr { grid-template-columns: 1fr; text-align: left; }
+  .ftr .center, .ftr .right { text-align: left; justify-content: flex-start; }
+}
+
+/* ============================================================
+   RESPONSIVE HARDENING (legal pages)
+   ============================================================ */
+html { overflow-x: hidden; width: 100%; max-width: 100%; }
+body { max-width: 100%; }
+img, svg { max-width: 100%; }
+
+/* safe-area insets */
+.hdr {
+  padding-left: max(var(--pad-x), env(safe-area-inset-left));
+  padding-right: max(var(--pad-x), env(safe-area-inset-right));
+  padding-top: max(20px, env(safe-area-inset-top));
+}
+.ftr__base { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root { --pad-x: 24px; }
+}
+
+@media (max-width: 480px) {
+  /* "Impressum." / "Datenschutz." are single words — must scale to fit */
+  .section-title { font-size: clamp(34px, 12vw, 56px); }
+  .ftr .right { white-space: normal; flex-wrap: wrap; gap: 12px 20px; }
+  .ftr a { display: inline-flex; align-items: center; min-height: 44px; }
+  .hdr__back { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+@media (max-width: 374px) {
+  :root { --pad-x: 16px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="header">
+  <a class="hdr__brand" href="index.html" aria-label="Décadre Studio — home">Décadre Studio</a>
+  <a class="hdr__back" href="index.html">[ ← back ]</a>
+</header>
+
+<main>
+
+  <!-- ============ [ ↳ ] IMPRESSUM ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-head__num">[ ↳ ]</span>
+        <span class="section-head__lbl">impressum</span>
+        <span class="section-head__hint">stand · twentytwentysix</span>
+      </div>
+      <h1 class="section-title">Impressum.</h1>
+
+      <div class="legal">
+        <div class="legal__copy">
+
+          <h3>angaben gemäß § 5 ddg</h3>
+          <p>Elias Noah Nies<br>
+             Décadre Studio<br>
+             Im Schönblick 7<br>
+             74255 Roigheim<br>
+             Deutschland</p>
+
+          <h3>kontakt</h3>
+          <p>Telefon: 0172 6916961<br>
+             E-Mail: <a class="email-link" href="#" data-user="hello" data-domain="decadre.studio"></a></p>
+
+          <h3>verantwortlich für den inhalt nach § 18 abs. 2 mstv</h3>
+          <p>Elias Noah Nies<br>
+             Im Schönblick 7<br>
+             74255 Roigheim</p>
+
+          <h3>haftung für inhalte</h3>
+          <p>Die Inhalte dieser Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Diensteanbieter bin ich gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
+
+          <h3>haftung für links</h3>
+          <p>Diese Website enthält gegebenenfalls Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+
+          <h3>urheberrecht</h3>
+          <p>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+
+        </div>
+
+        <aside class="legal__meta">
+          <div><b>quelle</b> — eigene angaben</div>
+          <div><b>stand</b> — twentytwentysix</div>
+          <div><b>fragen</b> — <a class="email-link" href="#" data-user="hello" data-domain="decadre.studio"></a></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="ftr">
+    <div><b>Décadre Studio</b> — Stuttgart</div>
+    <div class="center"><b>Stuttgart</b> <span id="clock" aria-live="off">--:--</span></div>
+    <div class="right">
+      <a href="https://www.instagram.com/decadrestudio/" target="_blank" rel="noopener noreferrer">[ instagram ]</a>
+      <a href="impressum.html">[ impressum ]</a>
+      <a href="datenschutz.html">[ datenschutz ]</a>
+    </div>
+  </div>
+  <div class="ftr__base container">
+    © twentytwentysix · décadre studio. all rights reserved.
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+
+  // page-load fade --------------------------------------------
+  const reveal = () => document.body.classList.add('is-loaded');
+  if (document.readyState === 'complete') reveal();
+  else window.addEventListener('load', reveal);
+
+  // live clock — Europe/Berlin --------------------------------
+  const clockEl = document.getElementById('clock');
+  if (clockEl) {
+    const fmt = new Intl.DateTimeFormat('de-DE', {
+      hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Berlin'
+    });
+    const tick = () => { clockEl.textContent = fmt.format(new Date()); };
+    tick();
+    setInterval(tick, 1000 * 15);
+  }
+
+  // header hairline on scroll ---------------------------------
+  const hdr = document.getElementById('header');
+  const onScroll = () => {
+    hdr.dataset.scrolled = (window.scrollY > 8) ? 'true' : 'false';
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+
+<script>
+  // email — assembled at runtime so the plaintext address never
+  // appears in the HTML source (avoids Cloudflare obfuscation).
+  document.querySelectorAll('.email-link').forEach(function (el) {
+    var addr = el.getAttribute('data-user') + '@' + el.getAttribute('data-domain');
+    el.href = 'mailto:' + addr;
+    if (!el.textContent.trim()) { el.textContent = addr; }
+  });
+</script>
+
+</body>
+</html>
