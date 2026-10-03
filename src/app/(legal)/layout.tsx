@@ -26,6 +26,7 @@ export const viewport: Viewport = {
   themeColor: "#F4F2EE",
 };
 
+// lang="de": Impressum und Datenschutz sind deutsch.
 export default function LegalLayout({ children }: { children: React.ReactNode }) {
   return (
     // suppressHydrationWarning: FadeInScript setzt vor der Hydration die Klasse "js".

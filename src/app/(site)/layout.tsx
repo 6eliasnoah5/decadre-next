@@ -38,10 +38,11 @@ export const viewport: Viewport = {
   themeColor: "#F4F2EE",
 };
 
+// lang="en": Die Inhalte der Startseite sind englisch.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: FadeInScript setzt vor der Hydration die Klasse "js".
-    <html lang="de" className={fontVariables} suppressHydrationWarning>
+    <html lang="en" className={fontVariables} suppressHydrationWarning>
       <head>
         <FadeInScript />
       </head>
