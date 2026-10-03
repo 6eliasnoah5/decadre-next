@@ -2,9 +2,13 @@ import type { ComponentPropsWithRef } from "react";
 
 // Kapselt alle <video>-Tags der Site. Immer muted + playsInline, damit
 // Autoplay/Hover-Play auf Mobilgeraeten erlaubt ist.
-// priority: Video ist sofort relevant (z. B. Hero) -> preload="auto";
-// sonst preload="metadata", damit nur Dauer/Masse geladen werden.
 // Weitere Attribute (autoPlay, aria-label, data-*) und ref werden durchgereicht.
+
+// preload je nach priority. Bewusst beide "metadata": Auch ein prioritaeres
+// Video (Hero) laedt vorab nur Dauer und Masse, nie die ganze Datei; das
+// Hero-Video ist zudem per CSS versteckt und wuerde sonst komplett geladen,
+// sobald es existiert. Hier zentral anpassen, falls sich das aendert.
+const PRELOAD = { priority: "metadata", default: "metadata" } as const;
 
 type StudioVideoProps = {
   src: string;
@@ -28,7 +32,7 @@ export default function StudioVideo({
       muted
       loop={loop}
       playsInline
-      preload={priority ? "auto" : "metadata"}
+      preload={priority ? PRELOAD.priority : PRELOAD.default}
       poster={poster}
       {...rest}
     >
