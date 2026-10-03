@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import SmoothScroll from "@/providers/SmoothScroll";
 import { useMotionCapability } from "@/hooks/useMotionCapability";
 import { useAppStore } from "@/store/useAppStore";
+import Cursor from "@/components/Cursor";
 
 // R3F/three nur im Browser laden; nicht im Server-Render und nicht im
 // initialen Bundle.
@@ -35,6 +36,8 @@ export default function Providers({ children }: { children: ReactNode }) {
       {/* Ohne WebGL kein Canvas */}
       {canWebGL && <Scene tier={tier} />}
       {children}
+      {/* Custom-Cursor, nur feiner Zeiger ohne reduced motion */}
+      <Cursor />
     </>
   );
 }

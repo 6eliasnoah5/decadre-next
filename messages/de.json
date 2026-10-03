@@ -134,5 +134,8 @@
     "[ vier ]",
     "[ fünf ]",
     "[ sechs ]"
-  ]
+  ],
+  "cursor": {
+    "write": "[ schreib ]"
+  }
 }
