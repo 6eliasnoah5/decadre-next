@@ -87,7 +87,10 @@ html[data-pins] .section-pin {
 }
 html[data-pins] .section-head__num { visibility: hidden; }
 .section-pin__num {
-  display: inline-block;
+  /* block statt inline-block: keine Zeilenbox, deren Strut die Nummer
+     gegenueber der im Kopf verschieben wuerde */
+  display: block;
+  width: fit-content;
   padding-right: 8px;
   background: var(--color-bg);
   font-family: var(--font-mono);
@@ -104,18 +107,20 @@ html[data-pins] .section-head__num { visibility: hidden; }
   opacity: 0.6;
   margin: 16px 0 0;
 }
+/* Abschnittskopf: Nummer, Ueberschrift, hint nebeneinander. Die Grundlinie
+   der Mono-Nummer (und des hints) liegt per align-items: baseline auf der
+   ersten Zeile der Ueberschrift; bei --stack ist das die erste Zeile, weil
+   ein Flex-Container seine Grundlinie vom ersten Kind nimmt. */
 .section-head {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  gap: 16px;
+  column-gap: 24px;
   align-items: baseline;
-  margin-bottom: 48px;
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--color-fg);
 }
-.section-head__num,
-.section-head__lbl { white-space: nowrap; letter-spacing: 0.02em; }
+.section-head__num { white-space: nowrap; letter-spacing: 0.02em; }
 .section-head__hint { color: var(--color-fg-60); font-size: 11px; letter-spacing: 0.02em; text-align: right; white-space: nowrap; }
 .section-title {
   font-family: var(--font-display);
@@ -315,8 +320,8 @@ body::after {
   .hero__title span:nth-child(3) { padding-left: 48px; }
 
   /* hide the small mono section hints on mobile (kept on desktop) */
-  .section-head { grid-template-columns: auto 1fr; }
-  .section-head--controls { grid-template-columns: auto 1fr auto; }
+  /* Nummer in eigener Zeile ueber der Ueberschrift */
+  .section-head { grid-template-columns: 1fr; row-gap: 8px; }
   .section-head__hint { display: none; }
 
   /* stack the hero bar so [ scroll ↓ ] never gets pushed off-screen
@@ -371,8 +376,16 @@ body::after {
    Grundzustand ohne JS / bei reduced motion: natives horizontales
    Scrollen. data-mode="drag": die Spur wird per GSAP gezogen.
    ============================================================ */
-.section-head--controls { grid-template-columns: auto 1fr auto; }
-.gallery__controls { display: flex; gap: 16px; white-space: nowrap; }
+/* Einleitung links, Steuerung rechts */
+.gallery__bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  margin-top: 16px;
+}
+.gallery__bar .work__note { margin: 0; }
+.gallery__controls { display: flex; gap: 16px; white-space: nowrap; font-family: var(--font-mono); font-size: 13px; }
 .gallery__controls button {
   font: inherit;
   padding: 4px 2px;
@@ -576,7 +589,7 @@ html:not(.js) .gallery__controls { visibility: hidden; }
   font-size: clamp(72px, 14vw, 232px);
   line-height: 0.88;
   letter-spacing: -0.05em;
-  margin: 0;
+  margin: 80px 0 0;
 }
 .contact__big a {
   display: inline-block; /* fuer den magnetischen Versatz (transform) */
@@ -590,7 +603,8 @@ html:not(.js) .gallery__controls { visibility: hidden; }
 .contact__meta {
   margin-top: 56px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* sechs Eintraege: zwei Reihen zu drei, mobil zwei Spalten */
+  grid-template-columns: repeat(3, 1fr);
   gap: 32px 24px;
   margin-bottom: 0;
   font-family: var(--font-mono);

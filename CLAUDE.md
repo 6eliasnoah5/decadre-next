@@ -27,10 +27,12 @@ Design und Inhalt werden NACH der Architektur ueberarbeitet.
 - Impressum und Datenschutz nur auf Deutsch; /en/... leitet um.
 - Farben: nur Papier (`--color-bg`) und Tinte (`--color-fg`) samt deren
   Alpha-Stufen. Kein Farbsystem, keine Farbfelder, alle Schrift schwarz.
-- Startseite: genau vier Abschnitte ([ 01 ] décadre, [ 02 ] arbeit,
-  [ 03 ] projekte, [ 04 ] kontakt). Keine Laufschrift.
+- Startseite: genau drei Abschnitte ([ 01 ] décadre, [ 02 ] projekte,
+  [ 03 ] kontakt). Keine Laufschrift. Abschnittskopf: Nummer, Ueberschrift
+  und hint auf einer Grundlinie (Grid-Baseline, keine Pixelwerte).
 - Projekte: Daten nur in `src/lib/content.ts` (Typ `Project`). Galerie in
-  `src/components/Gallery.tsx`, Detailseiten unter
+  `src/components/Gallery.tsx` (Endlosschleife, Klone nach Viewportbreite,
+  kein Selbstlauf; bei reduced motion nativ), Detailseiten unter
   `src/app/[locale]/(site)/projekte/[slug]` (en: /en/projects/[slug]).
   `placeholder: true` = noindex und nicht in der Sitemap. Videos erst
   nach Klick (`VideoEmbed`), Hosts in der CSP unter frame-src; vor dem

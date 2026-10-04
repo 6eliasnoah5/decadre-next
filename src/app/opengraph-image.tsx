@@ -10,7 +10,7 @@ import { ImageResponse } from "next/og";
 // Einbindung wuerde sonst auf localhost zeigen.
 // Die Schriften liegen als TTF in assets/fonts (Satori liest kein woff2).
 
-export const alt = "Décadre — Elias Noah Nies, Producer";
+export const alt = "Décadre Studio — Elias Noah Nies, Producer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

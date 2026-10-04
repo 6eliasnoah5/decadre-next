@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Décadre — Elias Noah Nies, Producer",
-    "description": "Décadre is the studio of Elias Noah Nies. Production for projects worth giving time to. Film, photography, space. Worldwide."
+    "title": "Décadre Studio — Elias Noah Nies, Producer",
+    "description": "Décadre Studio is the studio of Elias Noah Nies. Production for projects worth giving time to. Film, photography, space. Worldwide."
   },
   "lang": {
     "label": "language",
@@ -27,7 +27,6 @@
   "sections": {
     "order": [
       "decadre",
-      "arbeit",
       "projekte",
       "kontakt"
     ],
@@ -38,23 +37,16 @@
       "hint": "[ who and why ]",
       "inHeader": true
     },
-    "arbeit": {
-      "id": "work",
-      "num": "[ 02 ]",
-      "label": "work",
-      "hint": "[ what i do ]",
-      "inHeader": true
-    },
     "projekte": {
       "id": "projects",
-      "num": "[ 03 ]",
+      "num": "[ 02 ]",
       "label": "projects",
-      "hint": "",
+      "hint": "[ selection ]",
       "inHeader": true
     },
     "kontakt": {
       "id": "contact",
-      "num": "[ 04 ]",
+      "num": "[ 03 ]",
       "label": "contact",
       "hint": "",
       "inHeader": true
@@ -62,31 +54,25 @@
   },
   "decadre": {
     "title": [
-      "Something",
-      "that",
-      "answers."
+      "Taken",
+      "out of",
+      "frame."
     ],
     "body": [
-      "I'm Elias Noah Nies. Producer. Décadre is the studio I work through, currently on my own. If you get in touch, you talk to the person who will also be on set.",
-      "The name comes from French. Cadre is the frame; décadrer means leaving it on purpose. In camera work it describes a shot deliberately set off-centre, because what matters would not fit otherwise.",
-      "What interests me is when something actually reaches someone.",
-      "Most things don't. Not because they're badly made, but because there is too much, too fast. Production is set up to deliver volume: more material, more channels, shorter cycles. The smoother that runs, the less stays with anyone.",
-      "What does stay has one thing in common: you can't order it. The moment someone opens up isn't in any shooting schedule. You can only make it more likely. With time. With access that has grown. With the willingness to lose a shooting day.",
-      "That is where I see my job. Creating conditions in which something nobody planned is allowed to happen. It is unspectacular work: budgets, scheduling, rights, trust. And it decides whether the end result is an image that reaches someone, or one that is merely correct.",
-      "The subject doesn't matter to me. A short film about a single person, a report from a war zone, an investigation into deforestation. The question is whether it is worth giving time to.",
-      "I come at this from the image side. I take photographs, I work behind the camera myself, and I don't see form as decoration. How close someone gets is a design decision before it becomes a moral one."
+      "Décadre comes from décadrer: shifting the frame, taking something deliberately out of it. A shot that sits off-centre, because what matters would not fit otherwise.",
+      "I'm Elias Noah Nies. Producer.",
+      "I'm interested in what lies beneath the surface, and in who is missing from it. People nobody asks. Animals and places without a lobby. Conditions everyone knows and nobody writes down.",
+      "Sport is part of that. Few things are watched so closely and understood so little. On the pitch, everyone sees everything; around it, money, power and favours change hands where no camera points. I'm interested in both: the game, and what gets negotiated around it.",
+      "I want to get to the bottom of these things, record them and make them accessible enough to reach someone. Not because attention fixes anything, but because nothing changes that nobody has seen.",
+      "I don't speak for anyone. I build the conditions in which people can speak for themselves, and I make sure they stay in control.",
+      "What matters can't be ordered. The moment someone opens up isn't on any shooting schedule. You can only make it more likely: with time, with access that has grown, with the willingness to lose a shoot day. That is my work.",
+      "In practice: budget, schedule, crew, call sheets. Filming permits, contracts, personality rights, licences. On set, available to everyone, above all to the people being filmed. Afterwards through the edit, rights clearance and sign-off.",
+      "And because small teams work differently, it rarely ends there. I develop concepts, co-write, help shape the visual language and styling, work behind the camera, take photographs. Where it makes the work better, I do it myself.",
+      "The medium follows from the subject. A film, a photo series, a text, an exhibition, an evening with an audience. I'd rather decide late than early.",
+      "The topic doesn't matter to me; the question does: is this worth giving time to. That explicitly includes brands and institutions when they have something to say. It rules out anything that is only about volume."
     ],
+    "keywords": "production management · budgeting · crewing · scheduling · filming permits · personality rights · licensing · set · concept · visual language · styling · camera · photography · edit supervision · delivery",
     "portraitAlt": "Elias Noah Nies"
-  },
-  "arbeit": {
-    "title": "Producer.",
-    "body": [
-      "I make sure a project happens.",
-      "That means budget and schedule. Putting a crew together and planning its days. Filming permits, contracts, personality rights, music licences. Being on location on the shooting day as the contact for everyone involved, above all for the people being filmed. Then through the edit, rights checks and approvals to the finished cut.",
-      "The work stays the same, whatever comes out at the end. A film, a photo series, a text, an exhibition, an evening with an audience. The medium follows from the subject, not the other way round, and I would rather decide it late than early.",
-      "Depending on the project, I take on the whole production or part of it. Where it makes the work better, I shoot film and photographs myself. Small teams, long access, little equipment."
-    ],
-    "keywords": "production management · budgeting · crewing · scheduling · filming permits · personality rights · licensing · set · camera · photography · edit supervision · delivery"
   },
   "projekte": {
     "title": "Projects.",
@@ -108,6 +94,7 @@
     "next": "next project"
   },
   "contact": {
+    "title": "Contact.",
     "big": "[ → write me ]",
     "meta": [
       {
@@ -116,28 +103,20 @@
         "link": "email"
       },
       {
-        "label": "response",
-        "value": "within 24 hours"
-      },
-      {
         "label": "availability",
         "value": "on request"
       },
       {
         "label": "based",
-        "value": "worldwide, ready to travel"
+        "value": "worldwide, willing to travel"
       },
       {
         "label": "languages",
         "value": "german, english"
       },
       {
-        "label": "driving licence",
-        "value": "class b"
-      },
-      {
         "label": "legal form",
-        "value": "sole proprietorship, vat registered"
+        "value": "sole proprietorship, VAT registered"
       },
       {
         "label": "social",
